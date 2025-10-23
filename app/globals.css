@@ -1,0 +1,473 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-primary bg-primary text-white leading-loose;
+  }
+  .h1 {
+    @apply text-[48px] xl:text-[74px] leading-[1.1] font-semibold;
+  }
+  .h2 {
+    @apply text-[28px] xl:text-[36px] leading-[1.1] font-semibold;
+  }
+  .h3 {
+    @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;
+  }
+  .text-outline {
+    -webkit-text-stroke: 1px #ffffff;
+  }
+  .text-outline-hover {
+    -webkit-text-stroke: 1px #00ff99;
+  }
+}
+
+@layer components {
+  .animate-count-up {
+    animation: countUp 2s ease-out 0.5s both;
+    contain: layout style;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.1s ease-in 0s both;
+    contain: layout style;
+  }
+
+  .animate-fade-in-delayed {
+    animation: fadeIn 0.1s ease-in-out 0s both;
+    contain: layout style;
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+    contain: layout style;
+  }
+
+  .animate-dash-rotate {
+    animation: dashRotate 20s ease-in-out infinite reverse;
+    contain: layout style;
+  }
+
+  .animate-ease-in-out {
+    animation: easeInOut 0.5s ease-in-out 1.6s both;
+    contain: layout style;
+  }
+
+  .animate-ease-out {
+    animation: easeOut 0.5s ease-out 0.3s both;
+    contain: layout style;
+  }
+
+  .animate-ease-in {
+    animation: easeIn 0.15s ease-in 0s both;
+    contain: layout style;
+  }
+
+  .animate-accordion-down {
+    animation: accordionDown 0.2s ease-out both;
+    contain: layout style;
+  }
+
+  .animate-accordion-up {
+    animation: accordionUp 0.2s ease-out both;
+    contain: layout style;
+  }
+
+  /* Custom Scrollbar Styles */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #00ff99;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #00cc7a;
+  }
+
+  /* Firefox scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #00ff99 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Typewriter Cursor Blink Animation */
+  .typewriter-cursor {
+    display: inline-block;
+    background-color: #00ff99;
+    margin-left: 4px;
+    animation: cursorBlink 1s step-end infinite;
+    vertical-align: baseline;
+  }
+
+  .typewriter-cursor::after {
+    content: "█";
+    color: #00ff99;
+    font-size: 0.75em;
+    font-weight: 100;
+  }
+}
+
+@layer utilities {
+  @keyframes countUp {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes dashRotate {
+    0% {
+      stroke-dasharray: 15 120 25 25;
+    }
+    25% {
+      stroke-dasharray: 16 25 92 72;
+    }
+    50% {
+      stroke-dasharray: 4 250 22 22;
+    }
+    75% {
+      stroke-dasharray: 16 25 92 72;
+    }
+    100% {
+      stroke-dasharray: 15 120 25 25;
+    }
+  }
+
+  @keyframes easeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes easeOut {
+    0% {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes easeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes accordionDown {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordionUp {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  /* Counter animations for each number */
+  @keyframes countTo5 {
+    0% {
+      content: "0";
+    }
+    20% {
+      content: "1";
+    }
+    40% {
+      content: "2";
+    }
+    60% {
+      content: "3";
+    }
+    80% {
+      content: "4";
+    }
+    100% {
+      content: "5";
+    }
+  }
+
+  @keyframes countTo93 {
+    0% {
+      content: "0";
+    }
+    1% {
+      content: "1";
+    }
+    2% {
+      content: "2";
+    }
+    3% {
+      content: "3";
+    }
+    4% {
+      content: "4";
+    }
+    5% {
+      content: "5";
+    }
+    6% {
+      content: "6";
+    }
+    7% {
+      content: "7";
+    }
+    8% {
+      content: "8";
+    }
+    9% {
+      content: "9";
+    }
+    10% {
+      content: "10";
+    }
+    15% {
+      content: "15";
+    }
+    20% {
+      content: "20";
+    }
+    25% {
+      content: "25";
+    }
+    30% {
+      content: "30";
+    }
+    35% {
+      content: "35";
+    }
+    40% {
+      content: "40";
+    }
+    45% {
+      content: "45";
+    }
+    50% {
+      content: "50";
+    }
+    55% {
+      content: "55";
+    }
+    60% {
+      content: "60";
+    }
+    65% {
+      content: "65";
+    }
+    70% {
+      content: "70";
+    }
+    75% {
+      content: "75";
+    }
+    80% {
+      content: "80";
+    }
+    85% {
+      content: "85";
+    }
+    90% {
+      content: "90";
+    }
+    95% {
+      content: "93";
+    }
+    100% {
+      content: "93";
+    }
+  }
+
+  @keyframes countTo14 {
+    0% {
+      content: "0";
+    }
+    7% {
+      content: "1";
+    }
+    14% {
+      content: "2";
+    }
+    21% {
+      content: "3";
+    }
+    28% {
+      content: "4";
+    }
+    35% {
+      content: "5";
+    }
+    42% {
+      content: "6";
+    }
+    49% {
+      content: "7";
+    }
+    56% {
+      content: "8";
+    }
+    63% {
+      content: "9";
+    }
+    70% {
+      content: "10";
+    }
+    77% {
+      content: "11";
+    }
+    84% {
+      content: "12";
+    }
+    91% {
+      content: "13";
+    }
+    100% {
+      content: "14";
+    }
+  }
+
+  @keyframes countTo849 {
+    0% {
+      content: "0";
+    }
+    1% {
+      content: "1";
+    }
+    2% {
+      content: "2";
+    }
+    3% {
+      content: "3";
+    }
+    4% {
+      content: "4";
+    }
+    5% {
+      content: "5";
+    }
+    6% {
+      content: "6";
+    }
+    7% {
+      content: "7";
+    }
+    8% {
+      content: "8";
+    }
+    9% {
+      content: "9";
+    }
+    10% {
+      content: "10";
+    }
+    15% {
+      content: "20";
+    }
+    20% {
+      content: "30";
+    }
+    25% {
+      content: "40";
+    }
+    30% {
+      content: "50";
+    }
+    35% {
+      content: "60";
+    }
+    40% {
+      content: "70";
+    }
+    45% {
+      content: "80";
+    }
+    50% {
+      content: "90";
+    }
+    55% {
+      content: "100";
+    }
+    60% {
+      content: "150";
+    }
+    65% {
+      content: "200";
+    }
+    70% {
+      content: "300";
+    }
+    75% {
+      content: "400";
+    }
+    80% {
+      content: "500";
+    }
+    85% {
+      content: "600";
+    }
+    90% {
+      content: "700";
+    }
+    95% {
+      content: "800";
+    }
+    100% {
+      content: "849";
+    }
+  }
+
+  @keyframes cursorBlink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
