@@ -1,6 +1,14 @@
 # Modern Portfolio Website - Next.js FullStack Project (My Personal Portfolio)
 
-<img width="1285" height="903" alt="Screenshot 2025-10-23 at 13 47 13" src="https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7" /> <img width="1295" height="905" alt="Screenshot 2025-10-23 at 13 47 33" src="https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8" /> <img width="1318" height="889" alt="Screenshot 2025-10-23 at 13 48 00" src="https://github.com/user-attachments/assets/f310f0ec-e9cb-421f-affa-8de39d180a8a" /> <img width="1282" height="872" alt="Screenshot 2025-10-23 at 13 49 36" src="https://github.com/user-attachments/assets/ae0fa79a-59b3-4377-afbd-75671d8382f8" /> <img width="1294" height="908" alt="Screenshot 2025-10-23 at 13 49 49" src="https://github.com/user-attachments/assets/b59d6039-72ef-4da9-92a3-9de1286446bc" />
+![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
+
+![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
+
+![Screenshot 2025-10-23 at 13 48 00](https://github.com/user-attachments/assets/f310f0ec-e9cb-421f-affa-8de39d180a8a)
+
+![Screenshot 2025-10-23 at 13 49 36](https://github.com/user-attachments/assets/ae0fa79a-59b3-4377-afbd-75671d8382f8)
+
+![Screenshot 2025-10-23 at 13 49 49](https://github.com/user-attachments/assets/b59d6039-72ef-4da9-92a3-9de1286446bc)
 
 A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.
 
