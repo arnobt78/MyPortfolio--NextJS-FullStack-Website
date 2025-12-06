@@ -1,6 +1,6 @@
 {
-  "name": "portfolio-arnob-new",
-  "version": "0.1.0",
+  "name": "portfolio-arnob-mahmud",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
@@ -23,7 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.546.0",
-    "next": "^15.0.0",
+    "next": "15.0.5",
     "nodemailer": "^7.0.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
