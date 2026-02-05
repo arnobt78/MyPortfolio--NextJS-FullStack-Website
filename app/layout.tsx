@@ -104,7 +104,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://www.arnobmahmud.com",
+    canonical: "https://www.arnobmahmud.com/",
   },
 
   // Search Console: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in .env.local and Vercel to the meta-tag "content" value from Google.

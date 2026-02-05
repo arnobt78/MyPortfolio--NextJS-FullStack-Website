@@ -4,6 +4,15 @@ import type { NextRequest } from "next/server";
 const supportedLanguages = ["en", "de"];
 
 export function middleware(request: NextRequest) {
+  // Redirect non-www to www for canonical SEO (fixes "Duplicate without user-selected canonical")
+  const host = request.headers.get("host") ?? "";
+  if (host === "arnobmahmud.com") {
+    const url = request.nextUrl.clone();
+    url.host = "www.arnobmahmud.com";
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 301);
+  }
+
   const cookieLang = request.cookies.get("selectedLanguage")?.value;
   let lang = "en";
   if (cookieLang && supportedLanguages.includes(cookieLang)) {

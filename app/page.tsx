@@ -39,7 +39,7 @@ export const metadata: Metadata = {
       "Full-Stack Software Engineer delivering enterprise web & API solutions with modern tech stack.",
   },
   alternates: {
-    canonical: "https://www.arnobmahmud.com",
+    canonical: "https://www.arnobmahmud.com/",
   },
 };
 
