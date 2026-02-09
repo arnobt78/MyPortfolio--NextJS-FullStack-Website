@@ -4,13 +4,13 @@ import type { NextRequest } from "next/server";
 const supportedLanguages = ["en", "de"];
 
 export function middleware(request: NextRequest) {
-  // Redirect non-www to www for canonical SEO (fixes "Duplicate without user-selected canonical")
+  // Redirect non-www and vercel.app to www (308 = permanent, tells Google canonical URL)
   const host = request.headers.get("host") ?? "";
-  if (host === "arnobmahmud.com") {
+  if (host === "arnobmahmud.com" || host === "arnob-mahmud.vercel.app") {
     const url = request.nextUrl.clone();
     url.host = "www.arnobmahmud.com";
     url.protocol = "https:";
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, 308);
   }
 
   const cookieLang = request.cookies.get("selectedLanguage")?.value;

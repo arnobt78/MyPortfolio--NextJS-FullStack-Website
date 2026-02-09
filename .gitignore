@@ -37,8 +37,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Next.js
 .next
 
+# Documentation
 HETZNER_VPS_MIGRATION_GUIDE.md
 UI_STYLING_GUIDE.md
 I18N_LANGUAGE_FEATURE_GUIDE.md
+DUPLICATE-CANONICAL-FIX.md
