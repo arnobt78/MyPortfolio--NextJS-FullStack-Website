@@ -119,17 +119,26 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let initialLanguage = "en";
+  let pathname = "/";
   try {
     const hdrs = await headers();
     const lang = hdrs.get("x-initial-language");
     if (lang && (lang === "en" || lang === "de")) {
       initialLanguage = lang;
     }
+    pathname = hdrs.get("x-pathname") ?? "/";
   } catch {}
+
+  const canonicalUrl =
+    pathname === "/"
+      ? "https://www.arnobmahmud.com/"
+      : `https://www.arnobmahmud.com${pathname}`;
 
   return (
     <html lang={initialLanguage} suppressHydrationWarning>
       <head>
+        {/* Explicit canonical for Google (Search Console "Duplicate without user-selected canonical") */}
+        <link rel="canonical" href={canonicalUrl} />
         {/* Prevent language flicker: set initial lang before React hydration */}
         <script
           dangerouslySetInnerHTML={{

@@ -132,7 +132,7 @@ const projects: Project[] = [
       { name: "Node.js" },
     ],
     image: "/assets/work/project06.png",
-    live: "https://mern-booking-hotel.netlify.app/",
+    live: "https://hotel-mern-booking.vercel.app/",
     github:
       "https://github.com/arnobt78/Hotel-Booking-Management-System--React-MERN-FullStack",
   },
@@ -361,7 +361,7 @@ const projects: Project[] = [
       { name: "Node.js" },
     ],
     image: "/assets/work/project21.png",
-    live: "https://mern-food-ordering.netlify.app/",
+    live: "https://food-mern-ordering.vercel.app/",
     github:
       "https://github.com/arnobt78/Restaurant-Food-Ordering-Management-System--React-MERN-FullStack",
   },
