@@ -32,6 +32,8 @@ export default withSentryConfig(
     silent: true,
     org: process.env.SENTRY_ORG,
     project: process.env.SENTRY_PROJECT,
+    // Tunnel Sentry through our domain so ad blockers don't block it
+    tunnelRoute: "/monitoring",
   },
   {
     widenClientFileUpload: true,
