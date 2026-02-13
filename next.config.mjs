@@ -2,6 +2,12 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "orcid.org", pathname: "/**" },
+      { protocol: "https", hostname: "websitelaunches.com", pathname: "/**" },
+    ],
+  },
   async redirects() {
     return [
       {

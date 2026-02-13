@@ -121,6 +121,7 @@ export const translations = {
     "about.businessIdentity.phone.label": "Phone:",
     "about.businessIdentity.email.label": "Email:",
     "about.businessIdentity.viewOnGoogle": "View on Google Business",
+    "about.businessIdentity.viewOrcid": "Verified ORCID Researcher",
     "about.portfolio.title": "About This Portfolio",
     "about.portfolio.paragraph1":
       "Welcome to my personal portfolio website. I am Arnob Mahmud, a Full-Stack Software Engineer with extensive experience in web and mobile app development, automation, and digital solutions from scratch to production and maintenance.",
@@ -590,6 +591,7 @@ export const translations = {
     "about.businessIdentity.phone.label": "Telefon:",
     "about.businessIdentity.email.label": "E-Mail:",
     "about.businessIdentity.viewOnGoogle": "Auf Google Business ansehen",
+    "about.businessIdentity.viewOrcid": "Verifizierter ORCID-Forscher",
     "about.portfolio.title": "Über dieses Portfolio",
     "about.portfolio.paragraph1":
       "Willkommen auf meiner persönlichen Portfolio-Website. Ich bin Arnob Mahmud, ein Full-Stack Software Engineer mit umfangreicher Erfahrung in Web- und Mobile-App-Entwicklung, Automatisierung und digitalen Lösungen von Grund auf bis zur Produktion und Wartung.",
