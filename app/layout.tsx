@@ -5,7 +5,7 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GoogleAnalytics from "../components/GoogleAnalytics";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import ScrollToTop from "../components/ScrollToTop";
 import StairTransition from "../components/StairTranstion";
 import PageTransition from "../components/PageTransition";
