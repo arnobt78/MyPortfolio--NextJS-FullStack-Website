@@ -1,4 +1,4 @@
-# Modern Portfolio Website - Next.js FullStack Project (My Personal Official Portfolio)
+# Modern Portfolio Website - Next.js, TypeScript, TailwindCSS, Framer Motion, Shadcn UI, i18next, FullStack Project (My Personal Official Portfolio)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
@@ -13,17 +13,11 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 
 - **Live Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
 
-**Author:** [Arnob Mahmud](https://www.arnobmahmud.com/) | **License:** [MIT](./LICENSE)
-
-> 🌟 **Open Source Project** - This is an open-source project. Feel free to use, enhance, and extend this project to the next level! Contributions, improvements, forks, and stars are always welcome. Together, we can make this portfolio template even better!
-
 ![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
 ![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
 ![Screenshot 2025-10-23 at 13 48 00](https://github.com/user-attachments/assets/f310f0ec-e9cb-421f-affa-8de39d180a8a)
 ![Screenshot 2025-10-23 at 13 49 36](https://github.com/user-attachments/assets/ae0fa79a-59b3-4377-afbd-75671d8382f8)
 ![Screenshot 2025-10-23 at 13 49 49](https://github.com/user-attachments/assets/b59d6039-72ef-4da9-92a3-9de1286446bc)
-
----
 
 ## 📋 Table of Contents
 
@@ -37,7 +31,7 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - [Internationalization (i18n)](#-internationalization-i18n)
 - [Components Overview](#-components-overview)
 - [API Endpoints](#-api-endpoints)
-- [Pages & Routes](#-pages--routes)
+- [Pages & Routes](#pages--routes)
 - [Custom Hooks](#-custom-hooks)
 - [Styling & Animations](#-styling--animations)
 - [Email Configuration](#-email-configuration)
@@ -1465,7 +1459,7 @@ console.log("Reference:", autoReply.data.referenceNumber);
 
 ---
 
-## 🗂️ Pages & Routes
+## Pages & Routes
 
 ### App Router Structure
 
