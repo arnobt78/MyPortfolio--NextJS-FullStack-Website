@@ -35,6 +35,8 @@ Sentry.init({
     "top.GLOBALS",
     "ResizeObserver loop limit exceeded",
     "Non-Error promise rejection captured",
+    // Browser extension (e.g. wallet) trying to overwrite window.solana; not from our code (app:///extensionPageScript.js)
+    "Cannot assign to read only property 'solana' of object '#<Window>'",
   ],
 });
 
