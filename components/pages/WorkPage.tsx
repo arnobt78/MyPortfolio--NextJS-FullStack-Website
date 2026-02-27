@@ -334,7 +334,7 @@ const projects: Project[] = [
       { name: "Framer Motion" },
     ],
     image: "/assets/work/project19.png",
-    live: "https://restaurant-js-arnob.vercel.app/",
+    live: "https://restaurant-wfood.vercel.app/",
     github: "https://github.com/arnobt78/Restaurant-Landing-1--NextJS-Frontend",
   },
 
