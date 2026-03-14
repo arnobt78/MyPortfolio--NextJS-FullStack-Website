@@ -25,7 +25,10 @@ const TermsPage = () => {
 
           <div className="bg-[#27272c] rounded-xl p-6 sm:p-10 space-y-6">
             <div>
-              <p className="text-white/60 text-sm sm:text-base mb-6">
+              <p
+                className="text-white/60 text-sm sm:text-base mb-6"
+                suppressHydrationWarning
+              >
                 {t("terms.lastUpdated")} {formatDate(new Date())}
               </p>
             </div>
