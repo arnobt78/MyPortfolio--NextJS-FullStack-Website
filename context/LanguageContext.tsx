@@ -23,7 +23,7 @@ export interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function LanguageProvider({
@@ -36,13 +36,13 @@ export function LanguageProvider({
   const { i18n: i18nInstance } = useTranslation();
   const [isHydrated, setIsHydrated] = useState(false);
   const hasAppliedStorageOnce = useRef(false);
+  const serverInitialLanguage =
+    initialLanguage && (initialLanguage === "en" || initialLanguage === "de")
+      ? initialLanguage
+      : getInitialLanguage();
 
   const [language, setLanguageState] = useState<Language>(() => {
-    const serverValue =
-      initialLanguage && (initialLanguage === "en" || initialLanguage === "de")
-        ? initialLanguage
-        : getInitialLanguage();
-    return getClientPreferredLanguage(serverValue) as Language;
+    return serverInitialLanguage as Language;
   });
 
   const currentLanguage = useMemo(() => language, [language]);
@@ -52,12 +52,20 @@ export function LanguageProvider({
     setIsHydrated(true);
     if (hasAppliedStorageOnce.current) return;
     hasAppliedStorageOnce.current = true;
-    const savedLanguage = localStorage.getItem("selectedLanguage") as Language | null;
+    const preferred = getClientPreferredLanguage(serverInitialLanguage) as Language;
+    if (preferred === "en" || preferred === "de") {
+      setLanguageState(preferred);
+      i18nInstance.changeLanguage(preferred);
+      return;
+    }
+    const savedLanguage = localStorage.getItem(
+      "selectedLanguage",
+    ) as Language | null;
     if (savedLanguage && (savedLanguage === "en" || savedLanguage === "de")) {
       setLanguageState(savedLanguage);
       i18nInstance.changeLanguage(savedLanguage);
     }
-  }, [i18nInstance]);
+  }, [i18nInstance, serverInitialLanguage]);
 
   useEffect(() => {
     if (isHydrated && typeof window !== "undefined") {
@@ -83,7 +91,7 @@ export function LanguageProvider({
     if (params && typeof out === "string") {
       return Object.keys(params).reduce(
         (acc, k) => acc.replace(new RegExp(`{{${k}}}`, "g"), String(params[k])),
-        out
+        out,
       );
     }
     return typeof out === "string" ? out : key;
