@@ -66,6 +66,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
   const [feedbackEmail, setFeedbackEmail] = useState("");
   const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
   const [isSubmittingRating, setIsSubmittingRating] = useState(false);
+  const [menuMaxHeight, setMenuMaxHeight] = useState("540px");
 
   const [chatbotTitle, setChatbotTitle] = useState(t("chatbot.title"));
   const menuRef = useRef<HTMLDivElement>(null);
@@ -85,6 +86,16 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
       localStorage.removeItem("chatbot-rating-submitted");
     }
   }, [t, language]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const syncMaxHeight = () => {
+      setMenuMaxHeight(window.innerWidth < 640 ? "350px" : "540px");
+    };
+    syncMaxHeight();
+    window.addEventListener("resize", syncMaxHeight);
+    return () => window.removeEventListener("resize", syncMaxHeight);
+  }, []);
 
   // Calculate if dark mode is active for UI display
   // Simple: dark = true, light = false
@@ -260,10 +271,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
       onClick={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
       style={{
-        maxHeight:
-          typeof window !== "undefined" && window.innerWidth < 640
-            ? "350px"
-            : "540px",
+        maxHeight: menuMaxHeight,
       }}
     >
       {/* Theme Toggle */}

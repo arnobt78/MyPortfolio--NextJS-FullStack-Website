@@ -31,6 +31,7 @@ export function ChatbotWidget() {
   const tokens = useChatbotTheme();
   const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [hideReactWidget, setHideReactWidget] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -97,10 +98,13 @@ export function ChatbotWidget() {
   // Position classes are handled via inline styles in widget.js
   // const positionClasses = WIDGET_POSITIONS[position];
 
-  // Only render if vanilla widget is not present (to avoid conflicts)
-  if (typeof window !== "undefined" && document.getElementById("cb-btn")) {
-    return null;
-  }
+  // Keep first client render identical to server render, then toggle if vanilla widget exists.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setHideReactWidget(Boolean(document.getElementById("cb-btn")));
+  }, []);
+
+  if (hideReactWidget) return null;
 
   return (
     <>
