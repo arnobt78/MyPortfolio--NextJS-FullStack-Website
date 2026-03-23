@@ -39,16 +39,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { fullname, email, message } = body as ContactFormData;
 
-    // Debug log: show incoming request body
-    console.log("[send-email] Incoming body:", body);
-
     // Input validation with debug logs
     if (!fullname || !email || !message) {
-      console.error("[send-email] Validation failed: missing fields", {
-        fullname,
-        email,
-        message,
-      });
       return new Response(
         JSON.stringify({
           error: "Validation failed",
@@ -59,7 +51,6 @@ export async function POST(req: Request) {
     }
 
     if (!isValidEmail(email)) {
-      console.error("[send-email] Validation failed: invalid email", email);
       return new Response(
         JSON.stringify({
           error: "Validation failed",
@@ -70,10 +61,6 @@ export async function POST(req: Request) {
     }
 
     if (fullname.length < 1 || fullname.length > 100) {
-      console.error(
-        "[send-email] Validation failed: name length",
-        fullname.length
-      );
       return new Response(
         JSON.stringify({
           error: "Validation failed",
@@ -84,10 +71,6 @@ export async function POST(req: Request) {
     }
 
     if (message.length < 1 || message.length > 5000) {
-      console.error(
-        "[send-email] Validation failed: message length",
-        message.length
-      );
       return new Response(
         JSON.stringify({
           error: "Validation failed",

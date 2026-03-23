@@ -16,6 +16,10 @@ interface MessageContent {
   message?: string;
 }
 
+const AI_DEBUG = process.env.NODE_ENV !== 'production';
+const debugLog = (...args: unknown[]) => { if (AI_DEBUG) debugLog(...args); };
+const debugWarn = (...args: unknown[]) => { if (AI_DEBUG) debugWarn(...args); };
+
 export async function getAIResponse(
   messages: Array<{ role: string; content: string | unknown[] | MessageContent }>,
   context?: string,
@@ -93,7 +97,7 @@ export async function getAIResponse(
   for (let i = 0; i < fullMessages.length; i++) {
     const msg = fullMessages[i];
     if (typeof msg.content !== 'string') {
-      console.warn(`Message ${i} has non-string content, normalizing:`, typeof msg.content, Array.isArray(msg.content), JSON.stringify(msg.content).substring(0, 100));
+      debugWarn(`Message ${i} has non-string content, normalizing:`, typeof msg.content, Array.isArray(msg.content), JSON.stringify(msg.content).substring(0, 100));
       fullMessages[i] = {
         ...msg,
         content: normalizeContentToString(msg.content),
@@ -117,8 +121,8 @@ export async function getAIResponse(
   }
   
   // Debug: Log fullMessages to see what we're working with
-  console.log('fullMessages count:', fullMessages.length);
-  console.log('fullMessages content types:', fullMessages.map((msg, i) => ({ index: i, role: msg.role, contentType: typeof msg.content, isArray: Array.isArray(msg.content) })));
+  debugLog('fullMessages count:', fullMessages.length);
+  debugLog('fullMessages content types:', fullMessages.map((msg, i) => ({ index: i, role: msg.role, contentType: typeof msg.content, isArray: Array.isArray(msg.content) })));
 
   // Helper function to prepare AI SDK messages (for OpenAI-compatible APIs)
   // This ensures all content is normalized to strings, handling array formats from chat history
@@ -184,19 +188,19 @@ export async function getAIResponse(
       // Check if it's a rate limit error (429) - skip remaining Gemini models
       const errorMessage = error instanceof Error ? error.message : String(error);
       if (errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('Too Many Requests')) {
-        console.log(`Gemini model ${modelName} rate limited, skipping remaining Gemini models...`);
+        debugLog(`Gemini model ${modelName} rate limited, skipping remaining Gemini models...`);
         geminiRateLimited = true;
         break; // Exit Gemini loop immediately
       }
-      console.log(`Gemini model ${modelName} failed, trying next...`, error);
+      debugLog(`Gemini model ${modelName} failed, trying next...`, error);
     }
   }
   
   // If all Gemini models failed (or rate limited), try fallbacks
   if (geminiRateLimited) {
-    console.log('Gemini rate limited, trying OpenRouter...');
+    debugLog('Gemini rate limited, trying OpenRouter...');
   } else {
-    console.log('All Gemini models failed, trying OpenRouter...');
+    debugLog('All Gemini models failed, trying OpenRouter...');
   }
 
   // Fallback 1: OpenRouter GPT
@@ -204,7 +208,7 @@ export async function getAIResponse(
   const openRouterApiKey = process.env.OPENROUTER_API_KEY || process.env.OpenRouter_API_KEY;
   if (openRouterApiKey) {
     try {
-      console.log('Trying OpenRouter GPT...');
+      debugLog('Trying OpenRouter GPT...');
       const openaiClient = createOpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
         apiKey: openRouterApiKey,
@@ -257,7 +261,7 @@ export async function getAIResponse(
         messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
         temperature: 0.7,
       });
-      console.log('✅ OpenRouter GPT responding successfully');
+      debugLog('✅ OpenRouter GPT responding successfully');
       return result;
     } else {
       const result = await generateText({
@@ -265,7 +269,7 @@ export async function getAIResponse(
         messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
         temperature: 0.7,
       });
-      console.log('✅ OpenRouter GPT responding successfully');
+      debugLog('✅ OpenRouter GPT responding successfully');
       return result;
     }
     } catch (error) {
@@ -278,7 +282,7 @@ export async function getAIResponse(
   const groqApiKey = process.env.GROQ_API_KEY || process.env.Groq_Llama_API_KEY;
   if (groqApiKey) {
     try {
-      console.log('Trying Groq...');
+      debugLog('Trying Groq...');
       const groq = createGroq({
         apiKey: groqApiKey,
       });
@@ -340,7 +344,7 @@ export async function getAIResponse(
 
     for (const model of models) {
       try {
-        console.log(`Trying Hugging Face model: ${model}...`);
+        debugLog(`Trying Hugging Face model: ${model}...`);
         
         // Use OpenAI-compatible router endpoint (like multi-ai-chatbot)
         const response = await fetch(
@@ -375,7 +379,7 @@ export async function getAIResponse(
           }
 
           if (generatedText) {
-            console.log(`✅ Success with Hugging Face model: ${model}`);
+            debugLog(`✅ Success with Hugging Face model: ${model}`);
             
             if (stream) {
               return {
@@ -397,11 +401,11 @@ export async function getAIResponse(
 
         // If this model failed, try next one
         failedModels.push(`${model} (${response.status})`);
-        console.warn(`${model} failed (${response.status}), trying next model...`);
+        debugWarn(`${model} failed (${response.status}), trying next model...`);
         
       } catch (error: unknown) {
         failedModels.push(model);
-        console.warn(`${model} error:`, error);
+        debugWarn(`${model} error:`, error);
         continue;
       }
     }
@@ -414,7 +418,7 @@ export async function getAIResponse(
   // Fallback 4: OpenAI Direct (if API key is available)
   if (process.env.OPENAI_API_KEY) {
     try {
-      console.log('Trying OpenAI direct...');
+      debugLog('Trying OpenAI direct...');
       const openaiClient = createOpenAI({
         apiKey: process.env.OPENAI_API_KEY!,
       });

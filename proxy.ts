@@ -3,16 +3,7 @@ import type { NextRequest } from "next/server";
 
 const supportedLanguages = ["en", "de"];
 
-export function middleware(request: NextRequest) {
-  // Redirect non-www and vercel.app to www (308 = permanent, tells Google canonical URL)
-  const host = request.headers.get("host") ?? "";
-  if (host === "arnobmahmud.com" || host === "arnob-mahmud.vercel.app") {
-    const url = request.nextUrl.clone();
-    url.host = "www.arnobmahmud.com";
-    url.protocol = "https:";
-    return NextResponse.redirect(url, 308);
-  }
-
+export function proxy(request: NextRequest) {
   const cookieLang = request.cookies.get("selectedLanguage")?.value;
   let lang = "en";
   if (cookieLang && supportedLanguages.includes(cookieLang)) {
@@ -28,5 +19,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|assets|monitoring).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|assets|monitoring|robots.txt|sitemap.xml).*)"],
 };

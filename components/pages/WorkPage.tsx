@@ -13,7 +13,7 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import Link from "next/link";
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import type { Swiper as SwiperType } from "swiper";
 
 import { useTypewriter } from "../../hooks/useTypewriter";
@@ -775,7 +775,7 @@ const WorkPage = () => {
 
                           {/* image */}
                           <div className="relative w-full h-full">
-                            <Image
+                            <SafeImage
                               src={project.image}
                               alt={t(project.title)}
                               fill
@@ -919,7 +919,7 @@ const WorkPage = () => {
                       <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
                       {/* image */}
                       <div className="relative w-full h-full">
-                        <Image
+                        <SafeImage
                           src={proj.image}
                           alt={t(proj.title)}
                           fill

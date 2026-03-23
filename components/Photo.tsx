@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import { SafeImage } from "@/components/ui/SafeImage";
 
 const Photo = () => {
   const { t } = useLanguage();
@@ -10,7 +10,7 @@ const Photo = () => {
       <div className="animate-fade-in">
         {/* image */}
         <div className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute animate-fade-in-delayed">
-          <Image
+          <SafeImage
             src="/photo.png"
             alt={t("home.photoAlt")}
             width={498}

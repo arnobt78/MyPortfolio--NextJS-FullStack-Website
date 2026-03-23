@@ -8,7 +8,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 
 const AboutPage = () => {
   const { t } = useLanguage();
@@ -34,7 +34,7 @@ const AboutPage = () => {
                   title="This site is publicly listed and monitored by Website Launches."
                   className="flex-shrink-0"
                 >
-                  <Image
+                  <SafeImage
                     src="https://websitelaunches.com/api/trust_badge.php?domain=arnobmahmud.com&theme=dark&style=default"
                     alt="Listed on Website Launches"
                     width={220}
@@ -149,7 +149,7 @@ const AboutPage = () => {
                     rel="me noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-white/80 hover:text-accent underline transition-colors text-sm sm:text-base w-fit"
                   >
-                    <Image
+                    <SafeImage
                       src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
                       alt=""
                       width={16}

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 // Ensure Node.js runtime (not Edge) for Nodemailer/SMTP
 export const runtime = "nodejs";
@@ -338,6 +339,16 @@ async function sendAutoReply(
  */
 export async function POST(req: NextRequest) {
   try {
+    const rate = checkRateLimit(req, "feedback", 10, 60_000);
+    if (!rate.ok) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "Retry-After": String(rate.retryAfterSeconds),
+        },
+      });
+    }
     const body = (await req.json()) as FeedbackData;
     const { type, rating, comment, email } = body;
 
