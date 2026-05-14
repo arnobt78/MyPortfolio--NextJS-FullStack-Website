@@ -86,7 +86,8 @@ export const metadata: Metadata = {
     siteName: "Arnob Mahmud Portfolio",
     images: [
       {
-        url: "/assets/photo.png",
+        url: "/img-8-1200.png",
+        // url: "/assets/photo.png",
         width: 800,
         height: 800,
         alt: "Arnob Mahmud – Full-Stack Software Engineer",
@@ -100,7 +101,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: mainTitle,
     description: mainDescription,
-    images: ["/assets/photo.png"],
+    images: ["/img-8-1200.png"],
+    // images: ["/assets/photo.png"],
   },
 
   alternates: {

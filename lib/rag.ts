@@ -1,5 +1,6 @@
 import { generateEmbedding } from './embeddings';
 import { searchVectors } from './redis';
+import { captureApiError } from '@/lib/logger';
 
 const FAQ_CACHE_TTL_MS = 60_000;
 const faqCache = globalThis as unknown as { __faq_cache__?: Map<string, { value: string; expiresAt: number }> };
@@ -34,7 +35,7 @@ export async function searchFAQ(query: string, topK: number = 3): Promise<string
     faqCache.__faq_cache__?.set(normalized, { value, expiresAt: now + FAQ_CACHE_TTL_MS });
     return value;
   } catch (error) {
-    console.error('RAG search failed:', error);
+    captureApiError('RAG search failed', error);
     return '';
   }
 }

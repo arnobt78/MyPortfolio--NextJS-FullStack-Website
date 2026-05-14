@@ -3,6 +3,7 @@ import { getSession, saveSession, type ChatMessage } from '@/lib/redis';
 import { searchFAQ } from '@/lib/rag';
 import { getAIResponse } from '@/lib/ai';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { captureApiError } from '@/lib/logger';
 
 export const runtime = 'edge'; // Use Edge Runtime for faster responses
 
@@ -107,7 +108,7 @@ export async function POST(req: NextRequest) {
           controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
           controller.close();
         } catch (error) {
-          console.error('Streaming error:', error);
+          captureApiError('Streaming error', error);
           // Send error message to client
           controller.enqueue(
             new TextEncoder().encode(`data: ${JSON.stringify({ error: error instanceof Error ? error.message : 'Streaming failed' })}\n\n`)
@@ -142,7 +143,7 @@ export async function POST(req: NextRequest) {
 
     return new Response(stream, { headers });
   } catch (error) {
-    console.error('Chat error:', error);
+    captureApiError('Chat error', error);
     return new Response(
       JSON.stringify({ error: 'Internal server error' }),
       {

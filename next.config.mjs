@@ -1,5 +1,7 @@
 import { withSentryConfig } from "@sentry/nextjs";
 
+/** Root `postcss` in package.json + `"overrides": { "postcss": "$postcss" }` dedupe Next’s nested PostCSS to a patched 8.5.x (npm audit clean). */
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {

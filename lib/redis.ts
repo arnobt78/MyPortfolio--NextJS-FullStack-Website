@@ -1,4 +1,5 @@
 import { Redis } from '@upstash/redis';
+import { captureApiError } from '@/lib/logger';
 
 export const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL!,
@@ -37,7 +38,7 @@ export async function getSession(sessionId: string): Promise<Session | null> {
     try {
       session = JSON.parse(data) as Session;
     } catch (e) {
-      console.error('Failed to parse session data:', e);
+      captureApiError('Failed to parse session data', e);
       return null;
     }
   } else {
@@ -123,7 +124,7 @@ export async function searchVectors(queryVector: number[], topK: number = 3): Pr
           const vectorStr = typeof data.vector === 'string' ? data.vector : JSON.stringify(data.vector);
           vector = JSON.parse(vectorStr) as number[];
         } catch (e) {
-          console.error(`Failed to parse vector for ${key}:`, e);
+          captureApiError(`Failed to parse vector for ${key}`, e, { key });
           continue;
         }
         
@@ -131,7 +132,7 @@ export async function searchVectors(queryVector: number[], topK: number = 3): Pr
           const metadataStr = typeof data.metadata === 'string' ? data.metadata : JSON.stringify(data.metadata);
           metadata = JSON.parse(metadataStr) as FAQMetadata;
         } catch (e) {
-          console.error(`Failed to parse metadata for ${key}:`, e);
+          captureApiError(`Failed to parse metadata for ${key}`, e, { key });
           continue;
         }
         
@@ -142,7 +143,7 @@ export async function searchVectors(queryVector: number[], topK: number = 3): Pr
         });
       }
     } catch (error) {
-      console.error(`Error processing vector ${key}:`, error);
+      captureApiError(`Error processing vector ${key}`, error, { key });
       continue;
     }
   }

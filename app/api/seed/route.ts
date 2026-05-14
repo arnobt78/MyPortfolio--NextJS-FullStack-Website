@@ -2,6 +2,7 @@
 import { faqs } from '@/lib/faqs';
 import { generateEmbeddings } from '@/lib/embeddings';
 import { storeVector } from '@/lib/redis';
+import { captureApiError } from '@/lib/logger';
 
 export const runtime = 'nodejs'; // Use Node.js runtime for longer operations
 
@@ -32,7 +33,11 @@ export async function POST() {
     );
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error('Seed error:', errorMessage);
+    captureApiError(
+      "Seed error",
+      error instanceof Error ? error : new Error(errorMessage),
+      { errorMessage },
+    );
     return new Response(
       JSON.stringify({ error: 'Seed failed', details: errorMessage }),
       {

@@ -1,4 +1,6 @@
-// Generate embeddings - Fallback chain: Gemini Embeddings (primary) → Hugging Face → OpenRouter → OpenAI
+import { devLog } from "@/lib/logger";
+
+/** Fallback chain: Gemini Embeddings (primary) → Hugging Face → OpenRouter → OpenAI */
 export async function generateEmbedding(text: string): Promise<number[]> {
   let lastError: Error | null = null;
 
@@ -35,7 +37,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
       throw new Error(`Gemini embedding failed: ${response.status} ${errorText}`);
     }
   } catch (error) {
-    console.log('Gemini embedding failed, trying Hugging Face...', error);
+    devLog('Gemini embedding failed, trying Hugging Face...', error);
     lastError = error instanceof Error ? error : new Error(String(error));
   }
 
@@ -97,7 +99,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 
   // Fallback 2: OpenRouter (OpenAI embeddings)
   try {
-    console.log('Hugging Face failed, trying OpenRouter embeddings...');
+    devLog('Hugging Face failed, trying OpenRouter embeddings...');
     const response = await fetch('https://openrouter.ai/api/v1/embeddings', {
       method: 'POST',
       headers: {
@@ -117,13 +119,13 @@ export async function generateEmbedding(text: string): Promise<number[]> {
       return data.data[0].embedding;
     }
   } catch (error) {
-    console.log('OpenRouter embedding failed, trying OpenAI...', error);
+    devLog('OpenRouter embedding failed, trying OpenAI...', error);
   }
 
   // Fallback 3: OpenAI (direct - only if API key is available)
   if (process.env.OPENAI_API_KEY) {
     try {
-      console.log('Trying OpenAI embeddings...');
+      devLog('Trying OpenAI embeddings...');
       const response = await fetch('https://api.openai.com/v1/embeddings', {
         method: 'POST',
         headers: {
@@ -141,7 +143,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
         return data.data[0].embedding;
       }
     } catch (error) {
-      console.log('OpenAI embedding failed', error);
+      devLog('OpenAI embedding failed', error);
     }
   }
 

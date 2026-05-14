@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/redis';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { captureApiError } from '@/lib/logger';
 
 export const runtime = 'edge';
 
@@ -52,7 +53,7 @@ export async function GET(req: NextRequest) {
       }
     );
   } catch (error) {
-    console.error('History error:', error);
+    captureApiError('History error', error);
     const origin = req.headers.get('origin');
     return new Response(JSON.stringify({ messages: [] }), {
       status: 200,

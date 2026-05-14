@@ -1,5 +1,6 @@
 // app/api/send-email/route.ts
 import nodemailer from "nodemailer";
+import { captureApiError } from "@/lib/logger";
 
 // Ensure Node.js runtime (not Edge) for Nodemailer/SMTP
 export const runtime = "nodejs";
@@ -124,7 +125,7 @@ export async function POST(req: Request) {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    captureApiError("Error sending email", error);
 
     // Enhanced error handling
     if (error instanceof Error) {

@@ -1,5 +1,6 @@
 // app/api/send-auto-reply/route.ts
 import nodemailer from "nodemailer";
+import { captureApiError } from "@/lib/logger";
 
 // Ensure this route runs on the Node.js runtime (required for SMTP and Nodemailer)
 export const runtime = "nodejs";
@@ -396,7 +397,7 @@ export async function POST(req: Request) {
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Auto-reply error:", error);
+    captureApiError("Auto-reply error", error);
 
     // Enhanced error handling
     if (error instanceof Error) {

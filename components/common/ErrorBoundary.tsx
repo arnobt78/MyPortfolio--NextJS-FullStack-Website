@@ -6,6 +6,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from "react";
 import * as Sentry from "@sentry/nextjs";
+import { devError } from "@/lib/logger";
 
 interface Props {
   children: ReactNode;
@@ -35,7 +36,8 @@ export class ErrorBoundary extends Component<Props, State> {
         },
       },
     });
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
+    /** Mirror to console in development only; production relies on Sentry above. */
+    devError("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {

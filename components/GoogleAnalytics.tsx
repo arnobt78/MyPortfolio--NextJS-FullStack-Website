@@ -2,17 +2,17 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { devLog } from "@/lib/logger";
 
 const GoogleAnalytics = () => {
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   useEffect(() => {
-    // Only log in development
-    if (process.env.NODE_ENV === "development" && measurementId) {
-      console.log("🎯 Google Analytics initialized with ID:", measurementId);
-      console.log(
+    if (measurementId) {
+      devLog("🎯 Google Analytics initialized with ID:", measurementId);
+      devLog(
         "📊 Check if GA is working: window.dataLayer",
-        (window as Window & { dataLayer?: unknown[] }).dataLayer
+        (window as Window & { dataLayer?: unknown[] }).dataLayer,
       );
     }
   }, [measurementId]);
@@ -27,9 +27,7 @@ const GoogleAnalytics = () => {
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
         onLoad={() => {
-          if (process.env.NODE_ENV === "development") {
-            console.log("✅ Google Analytics script loaded successfully!");
-          }
+          devLog("✅ Google Analytics script loaded successfully!");
         }}
         onError={() => {
           // Silent fail - don't log errors even in development

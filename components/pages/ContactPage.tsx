@@ -19,6 +19,7 @@ import {
 import { Copy, Check } from "lucide-react";
 import { useTypewriter } from "../../hooks/useTypewriter";
 import { useLanguage } from "@/context/LanguageContext";
+import { devError } from "@/lib/logger";
 
 // TypeScript interfaces
 interface InfoItem {
@@ -227,7 +228,7 @@ const ContactPage = () => {
         setCopiedIndex(null);
       }, 2000);
     } catch (err) {
-      console.error("Failed to copy text:", err);
+      devError("Failed to copy text:", err);
     }
   };
 

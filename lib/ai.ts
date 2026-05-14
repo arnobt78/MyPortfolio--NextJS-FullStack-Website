@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { generateText, streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { createGroq } from '@ai-sdk/groq';
+import { captureApiError, devWarn } from '@/lib/logger';
 
 // Message type for AI SDK
 interface Message {
@@ -16,9 +17,23 @@ interface MessageContent {
   message?: string;
 }
 
+// When true, AI path logs to the Node console for local debugging only (never in production).
 const AI_DEBUG = process.env.NODE_ENV !== 'production';
-const debugLog = (...args: unknown[]) => { if (AI_DEBUG) debugLog(...args); };
-const debugWarn = (...args: unknown[]) => { if (AI_DEBUG) debugWarn(...args); };
+
+/**
+ * Dev-only logging: must delegate to `console.log`, not self-call (self-call caused infinite
+ * recursion and POST /api/chat 500 in development while production stayed no-op).
+ */
+const debugLog = (...args: unknown[]) => {
+  if (AI_DEBUG) console.log(...args);
+};
+
+/**
+ * Same pattern as `debugLog` — forward to `console.warn` so Turbopack/dev never stack-overflows.
+ */
+const debugWarn = (...args: unknown[]) => {
+  if (AI_DEBUG) console.warn(...args);
+};
 
 export async function getAIResponse(
   messages: Array<{ role: string; content: string | unknown[] | MessageContent }>,
@@ -108,7 +123,11 @@ export async function getAIResponse(
   // Final verification: ensure all messages are strings
   const invalidMessages = fullMessages.filter(msg => typeof msg.content !== 'string');
   if (invalidMessages.length > 0) {
-    console.error('ERROR: Some messages in fullMessages still have non-string content:', invalidMessages);
+    captureApiError(
+      'Some messages in fullMessages still have non-string content',
+      new Error('Message content normalization'),
+      { count: invalidMessages.length },
+    );
     // Force normalize all invalid messages
     for (let i = 0; i < fullMessages.length; i++) {
       if (typeof fullMessages[i].content !== 'string') {
@@ -231,14 +250,22 @@ export async function getAIResponse(
       
       // Ensure content is a string
       if (typeof clonedMsg.content !== 'string') {
-        console.error(`ERROR: Message ${index} has non-string content:`, typeof clonedMsg.content, Array.isArray(clonedMsg.content), clonedMsg);
+        captureApiError(
+          `Message ${index} has non-string content`,
+          new Error('prepareAIMessages validation'),
+          { index, contentType: typeof clonedMsg.content, isArray: Array.isArray(clonedMsg.content) },
+        );
         // Force normalize
         clonedMsg.content = normalizeContentToString(clonedMsg.content);
       }
       
       // Final check - ensure it's a string
       if (typeof clonedMsg.content !== 'string') {
-        console.error(`CRITICAL: Message ${index} still has non-string content after normalization!`, clonedMsg);
+        captureApiError(
+          `Message ${index} still non-string after normalization`,
+          new Error('prepareAIMessages critical'),
+          { index },
+        );
         clonedMsg.content = String(clonedMsg.content || '');
       }
       
@@ -251,7 +278,14 @@ export async function getAIResponse(
     // Verify all messages have string content after validation
     const hasArrayContent = validatedMessages.some(msg => Array.isArray(msg.content) || typeof msg.content !== 'string');
     if (hasArrayContent) {
-      console.error('ERROR: Some messages still have non-string content after validation!', validatedMessages.filter(msg => Array.isArray(msg.content) || typeof msg.content !== 'string'));
+      const bad = validatedMessages.filter(
+        (msg) => Array.isArray(msg.content) || typeof msg.content !== 'string',
+      );
+      captureApiError(
+        'Messages still have non-string content after validation',
+        new Error('Message normalization failed'),
+        { badCount: bad.length },
+      );
       throw new Error('Message normalization failed: some messages still have array content');
     }
 
@@ -273,7 +307,7 @@ export async function getAIResponse(
       return result;
     }
     } catch (error) {
-      console.error('OpenRouter failed, trying Groq...', error);
+      devWarn('OpenRouter failed, trying Groq...', error);
     }
   }
 
@@ -303,7 +337,7 @@ export async function getAIResponse(
         });
       }
     } catch (error) {
-      console.error('Groq failed, trying Hugging Face...', error);
+      devWarn('Groq failed, trying Hugging Face...', error);
     }
   }
 
@@ -410,8 +444,8 @@ export async function getAIResponse(
       }
     }
 
-    // If all models failed
-    console.error(`All Hugging Face models failed: ${failedModels.join(', ')}`);
+    // If all models failed (expected fallback path — dev-only noise)
+    devWarn(`All Hugging Face models failed: ${failedModels.join(', ')}`);
     // Don't throw error here, continue to next fallback (OpenAI)
   }
 
@@ -439,7 +473,7 @@ export async function getAIResponse(
         });
       }
     } catch (error) {
-      console.error('OpenAI direct failed:', error);
+      captureApiError('OpenAI direct failed', error);
     }
   }
 

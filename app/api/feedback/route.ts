@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { captureApiError } from "@/lib/logger";
 
 // Ensure Node.js runtime (not Edge) for Nodemailer/SMTP
 export const runtime = "nodejs";
@@ -328,7 +329,7 @@ async function sendAutoReply(
     await transporter.sendMail(mailOptions);
   } catch (error) {
     // Log error but don't throw - auto-reply failure shouldn't break the main flow
-    console.error("Auto-reply error:", error);
+    captureApiError("Auto-reply error", error);
   }
 }
 
@@ -616,7 +617,7 @@ Submitted: ${currentDate} at ${currentTime}
       }
     );
   } catch (error) {
-    console.error("Feedback error:", error);
+    captureApiError("Feedback error", error);
 
     // Enhanced error handling
     if (error instanceof Error) {
