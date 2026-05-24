@@ -505,7 +505,7 @@ export const translations = {
     "home.tagline":
       "Full-Stack Software Engineer | Automation & digitale Lösungen",
     "home.bio":
-      "Full-Stack Software Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, sicherer und enterprise-tauglicher Web-, API-, SaaS- und Cloud-Lösungen mit Node.js, .NET, Python, React, Next.js, Angular sowie modernen Cloud-Plattformen. Erfahrung in kundenorientierten Startup- und ERP-Umgebungen – sowohl eigenständig als auch in interdisziplinären Teams – mit starkem Fokus auf skalierbare Softwarearchitektur, Codequalität, Testing, Performance-Optimierung, Sicherheit und zuverlässige Produktivbereitstellung.",
+      "Full-Stack Software Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, sicherer und enterprise-tauglicher Web-, API-, SaaS- und Cloud-Lösungen mit React, Next.js, Angular, Node.js, Python, .NET, sowie modernen Cloud-Plattformen. Erfahrung in kundenorientierten Startup- und ERP-Umgebungen – sowohl eigenständig als auch in interdisziplinären Teams – mit starkem Fokus auf skalierbare Softwarearchitektur, Codequalität, Testing, Performance-Optimierung, Sicherheit und zuverlässige Produktivbereitstellung.",
     "home.downloadResume": "Lebenslauf",
     "home.stats.years": "Jahre Erfahrung",
     "home.stats.projects": "Projekte abgeschlossen",
