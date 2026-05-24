@@ -23,10 +23,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 // SEO-optimized main description for metadata (≤160 chars for search results)
 const mainDescription =
-  "Full-Stack Software Engineer (5+ years) delivering enterprise web & API solutions. React, Next.js, Angular, Node.js, .NET, Python, AWS, Docker. Germany.";
+  "Full-Stack Software Engineer with 5+ years of experience delivering scalable, secure, enterprise-grade web, API, SaaS, and cloud solutions using React, Next.js, Angular, Node.js, Python, .NET, and modern cloud platforms. Experienced in client-facing startup and ERP environments, working independently as well as collaboratively within cross-functional teams, with a strong focus on scalable architecture, code quality, testing, performance optimization, security, and reliable production delivery.";
 
 // SEO-optimized title (≤70 chars to avoid truncation)
-const mainTitle = "Arnob Mahmud | Full-Stack Engineer | Web & Cloud Solutions";
+const mainTitle =
+  "Arnob Mahmud | Full-Stack Engineer | Web, API, SaaS, & Cloud Solutions";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.arnobmahmud.com"),

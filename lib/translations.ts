@@ -24,7 +24,7 @@ export const translations = {
     "home.tagline":
       "Full-Stack Software Engineer | Automation & Digital Solutions Engineer",
     "home.bio":
-      "Full-Stack Software Engineer (5+ years) delivering enterprise-grade web and API solutions using Node.js, .NET, Python, React, Next.js, Angular and cloud platforms. Experienced in client-facing projects, SaaS, and ERP environments, with a strong focus on clean architecture, code quality, testing, performance, and reliable production delivery.",
+      "Full-Stack Software Engineer with 5+ years of experience delivering scalable, secure, enterprise-grade web, API, SaaS, and cloud solutions using React, Next.js, Angular, Node.js, Python, .NET, and modern cloud platforms. Experienced in client-facing startup and ERP environments, working independently as well as collaboratively within cross-functional teams, with a strong focus on scalable architecture, code quality, testing, performance optimization, security, and reliable production delivery.",
     "home.downloadResume": "Download Resume",
     "home.stats.years": "Years of Experience",
     "home.stats.projects": "Projects Completed",
@@ -53,7 +53,7 @@ export const translations = {
     "resume.tab.skills": "Skills",
     "resume.about.title": "Professional Summary",
     "resume.about.description":
-      "Full-Stack Software Engineer (5+ years) delivering scalable, production-ready web and mobile applications. Experienced in .NET, Node.js, Python, React, Next.js, Angular, TypeScript, REST APIs, and cloud platforms. Skilled in clean architecture, automation, CI/CD, UI/UX, and security best practices, turning complex requirements into reliable, maintainable solutions that drive business impact.",
+      "Full-Stack Software Engineer with 5+ years of experience delivering scalable, production-ready web and mobile applications. Experienced in React, Next.js, Angular, Node.js, Python, .NET, TypeScript, REST APIs, and cloud platforms. Skilled in clean architecture, automation, CI/CD, UI/UX, and security best practices, turning complex requirements into reliable, maintainable solutions that drive business impact.",
     "resume.about.field.name": "Name",
     "resume.about.field.phone": "Phone",
     "resume.about.field.experience": "Experience",
@@ -243,10 +243,12 @@ export const translations = {
     "faq.01.question": "What kind of services or projects can you develop?",
     "faq.01.answer":
       "I can develop a wide range of applications and solutions to meet your needs. This includes e-learning platforms, educational systems, personal portfolios, blogs, e-commerce stores, SaaS applications, industrial IoT solutions, stock inventory management systems, cryptocurrency platforms, restaurant management systems, hotel booking and management platforms, ticket management systems, AI model-related projects, and any real-world daily life-based projects. I also develop personal/business websites, mobile apps (iOS and Android), desktop applications, and custom software solutions. Whether you need a simple website, a complex enterprise application, or something innovative that solves everyday problems, I'm here to help bring your ideas to life. If you have a specific project in mind, let's discuss it—I'm always open to new challenges and creative solutions.",
-    "faq.02.question": "What is your availability and typical project timeline?",
+    "faq.02.question":
+      "What is your availability and typical project timeline?",
     "faq.02.answer":
       "I'm currently available for freelance, part-time, and full-time opportunities. Project timelines vary based on scope and complexity. For small projects (landing pages, simple web apps), I typically deliver within 1-2 weeks. Medium projects (full-stack applications, e-commerce platforms) usually take 2-6 weeks. Large enterprise projects can range from 1-3 months. I always provide detailed timelines and milestones during our initial consultation, and I'm committed to meeting deadlines while maintaining high code quality.",
-    "faq.03.question": "What are your pricing models (hourly vs. project-based)?",
+    "faq.03.question":
+      "What are your pricing models (hourly vs. project-based)?",
     "faq.03.answer":
       "I believe in building trust through results, not just promises. That's why I start every project with a free demo service—I'll create a working prototype or initial version so you can see exactly what you're getting. If you're happy with the demo and want to proceed, we'll discuss project fees that work for both of us. My focus is on helping people bring their website and mobile app ideas to life, and I'm committed to providing ongoing maintenance and support as your project grows. I don't charge hourly rates; instead, I work with a value-based, customer-happiness approach. My rates are very affordable (minimum wage level), making quality development accessible. The goal is your satisfaction and success—if you're happy with the work, that's what matters most. Let's discuss your project and find a solution that fits your needs and budget.",
     "faq.04.question": "Do you work remotely or on-site?",
@@ -261,7 +263,8 @@ export const translations = {
     "faq.07.question": "How do you prefer to communicate during projects?",
     "faq.07.answer":
       "I'm flexible with communication preferences and adapt to what works best for you. I'm comfortable with personal meeting, email, Slack, Microsoft Teams, Zoom, or phone calls. For ongoing projects, I typically provide weekly progress updates and am available for scheduled check-ins. I respond to urgent matters promptly and maintain clear documentation of decisions and changes. I believe in transparent communication and will keep you informed about progress, challenges, and any adjustments needed. I'm also happy to work with your existing project management tools and workflows.",
-    "faq.08.question": "Can you share examples of your portfolio or previous projects?",
+    "faq.08.question":
+      "Can you share examples of your portfolio or previous projects?",
     "faq.08.answer":
       "Absolutely! You can view my portfolio of 40+ projects on the 'Projects' page of this website, which showcases various full-stack applications, e-commerce platforms, web apps, and automation solutions. For even more examples, I have 90+ open-source production-ready projects on my GitHub repository which are currently all running in servers. These projects demonstrate my expertise across different technologies, industries, and project scales. I'm happy to discuss specific projects that relate to your needs and can provide case studies or references upon request. Each project in my Github repository includes details about the tech stack, challenges solved, and outcomes achieved.",
     "faq.09.question": "What certifications and education do you have?",
@@ -425,11 +428,14 @@ export const translations = {
     "chatbot.menu.feedback": "Feedback / Report",
     "chatbot.menu.rate": "Rate This Chatbot",
     "chatbot.about.title": "About {{title}}",
-    "chatbot.about.description": "A RAG-powered chatbot that provides accurate, context-aware answers.",
+    "chatbot.about.description":
+      "A RAG-powered chatbot that provides accurate, context-aware answers.",
     "chatbot.about.howToUse": "How to use:",
     "chatbot.about.howToUse.1": "Ask questions to get helpful information",
-    "chatbot.about.howToUse.2": "The chatbot uses AI to provide accurate, context-aware answers",
-    "chatbot.about.howToUse.3": "Your conversation history is saved automatically",
+    "chatbot.about.howToUse.2":
+      "The chatbot uses AI to provide accurate, context-aware answers",
+    "chatbot.about.howToUse.3":
+      "Your conversation history is saved automatically",
     "chatbot.about.features": "Features:",
     "chatbot.about.features.1": "Export chat history as TXT or PDF",
     "chatbot.about.features.2": "Copy conversations to clipboard",
@@ -438,10 +444,12 @@ export const translations = {
     "chatbot.about.features.5": "Customizable widget position",
     "chatbot.about.visitPortfolio": "Visit Portfolio →",
     "chatbot.feedback.title": "Feedback / Report Issue",
-    "chatbot.feedback.description": "Help us improve by sharing your feedback or reporting issues.",
+    "chatbot.feedback.description":
+      "Help us improve by sharing your feedback or reporting issues.",
     "chatbot.feedback.email": "Email (optional)",
     "chatbot.feedback.comment": "Comment",
-    "chatbot.feedback.commentPlaceholder": "Your feedback or issue description...",
+    "chatbot.feedback.commentPlaceholder":
+      "Your feedback or issue description...",
     "chatbot.feedback.cancel": "Cancel",
     "chatbot.feedback.submit": "Submit",
     "chatbot.feedback.sending": "Sending...",
@@ -452,10 +460,12 @@ export const translations = {
     "chatbot.rating.submit": "Submit Rating",
     "chatbot.rating.sending": "Sending...",
     "chatbot.confirm.newChat.title": "Start New Chat?",
-    "chatbot.confirm.newChat.description": "This will clear your current conversation. Are you sure?",
+    "chatbot.confirm.newChat.description":
+      "This will clear your current conversation. Are you sure?",
     "chatbot.confirm.newChat.confirm": "Start New Chat",
     "chatbot.confirm.clearChat.title": "Clear Chat?",
-    "chatbot.confirm.clearChat.description": "This will clear your current conversation. Are you sure?",
+    "chatbot.confirm.clearChat.description":
+      "This will clear your current conversation. Are you sure?",
     "chatbot.confirm.clearChat.confirm": "Clear Chat",
     "chatbot.toast.chatCleared": "Chat cleared",
     "chatbot.toast.exportedText": "Chat exported as text",
@@ -495,7 +505,7 @@ export const translations = {
     "home.tagline":
       "Full-Stack Software Engineer | Automation & digitale Lösungen",
     "home.bio":
-      "Full-Stack Software Engineer (5+ Jahre) für unternehmensreife Web- und API-Lösungen mit Node.js, .NET, Python, React, Next.js, Angular und Cloud-Plattformen. Erfahren in kundenorientierten Projekten, SaaS und ERP-Umgebungen, mit Fokus auf saubere Architektur, Codequalität, Tests, Performance und zuverlässiger Produktivauslieferung.",
+      "Full-Stack Software Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, sicherer und enterprise-tauglicher Web-, API-, SaaS- und Cloud-Lösungen mit Node.js, .NET, Python, React, Next.js, Angular sowie modernen Cloud-Plattformen. Erfahrung in kundenorientierten Startup- und ERP-Umgebungen – sowohl eigenständig als auch in interdisziplinären Teams – mit starkem Fokus auf skalierbare Softwarearchitektur, Codequalität, Testing, Performance-Optimierung, Sicherheit und zuverlässige Produktivbereitstellung.",
     "home.downloadResume": "Lebenslauf",
     "home.stats.years": "Jahre Erfahrung",
     "home.stats.projects": "Projekte abgeschlossen",
@@ -524,7 +534,7 @@ export const translations = {
     "resume.tab.skills": "Fähigkeiten",
     "resume.about.title": "Berufliche Zusammenfassung",
     "resume.about.description":
-      "Full-Stack Software Engineer (5+ Jahre) für skalierbare, produktionsreife Web- und Mobile-Anwendungen. Erfahren in .NET, Node.js, Python, React, Next.js, Angular, TypeScript, REST APIs und Cloud-Plattformen. Kompetent in sauberer Architektur, Automatisierung, CI/CD, UI/UX und Sicherheitsbest Practices, wandelt komplexe Anforderungen in zuverlässige, wartbare Lösungen um, die Geschäftswert schaffen.",
+      "Full-Stack Software Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, produktionsreifer Web- und Mobile-Anwendungen. Erfahrung mit React, Next.js, Angular, Node.js, Python, .NET, TypeScript, REST-APIs und Cloud-Plattformen. Fundierte Kenntnisse in Clean Architecture, Automatisierung, CI/CD, UI/UX sowie Security Best Practices zur Umsetzung komplexer Anforderungen in zuverlässige, wartbare Lösungen mit nachhaltigem Business-Mehrwert.",
     "resume.about.field.name": "Name",
     "resume.about.field.phone": "Telefon",
     "resume.about.field.experience": "Erfahrung",
@@ -712,13 +722,16 @@ export const translations = {
 
     /** faq page */
     "faq.title": "Häufig gestellte Fragen",
-    "faq.01.question": "Welche Art von Dienstleistungen oder Projekten können Sie entwickeln?",
+    "faq.01.question":
+      "Welche Art von Dienstleistungen oder Projekten können Sie entwickeln?",
     "faq.01.answer":
       "Ich kann eine Vielzahl von Anwendungen und Lösungen entwickeln, um Ihre Bedürfnisse zu erfüllen. Dazu gehören E-Learning-Plattformen, Bildungssysteme, persönliche Portfolios, Blogs, E-Commerce-Shops, SaaS-Anwendungen, industrielle IoT-Lösungen, Lagerverwaltungssysteme, Kryptowährungsplattformen, Restaurantverwaltungssysteme, Hotelbuchungs- und Verwaltungsplattformen, Ticketverwaltungssysteme, KI-Modell-bezogene Projekte und alle realen, alltagsbasierten Projekte. Ich entwickle auch persönliche/Geschäftswebsites, mobile Apps (iOS und Android), Desktop-Anwendungen und maßgeschneiderte Softwarelösungen. Ob Sie eine einfache Website, eine komplexe Unternehmensanwendung oder etwas Innovatives benötigen, das alltägliche Probleme löst, ich bin hier, um Ihre Ideen zum Leben zu erwecken. Wenn Sie ein bestimmtes Projekt im Kopf haben, lassen Sie uns darüber sprechen—ich bin immer offen für neue Herausforderungen und kreative Lösungen.",
-    "faq.02.question": "Wie ist Ihre Verfügbarkeit und typische Projektzeitleiste?",
+    "faq.02.question":
+      "Wie ist Ihre Verfügbarkeit und typische Projektzeitleiste?",
     "faq.02.answer":
       "Ich bin derzeit für freiberufliche, Teilzeit- und Vollzeitmöglichkeiten verfügbar. Projektzeitleisten variieren je nach Umfang und Komplexität. Für kleine Projekte (Landingpages, einfache Web-Apps) liefere ich normalerweise innerhalb von 1-2 Wochen. Mittlere Projekte (Full-Stack-Anwendungen, E-Commerce-Plattformen) dauern normalerweise 2-6 Wochen. Große Unternehmensprojekte können 1-3 Monate dauern. Ich stelle immer detaillierte Zeitleisten und Meilensteine während unserer ersten Beratung bereit und bin verpflichtet, Termine einzuhalten und gleichzeitig hohe Codequalität zu gewährleisten.",
-    "faq.03.question": "Wie sind Ihre Preismodelle (stündlich vs. projektbasiert)?",
+    "faq.03.question":
+      "Wie sind Ihre Preismodelle (stündlich vs. projektbasiert)?",
     "faq.03.answer":
       "Ich glaube daran, Vertrauen durch Ergebnisse aufzubauen, nicht nur durch Versprechungen. Deshalb beginne ich jedes Projekt mit einem kostenlosen Demo-Service—ich erstelle einen funktionierenden Prototyp oder eine erste Version, damit Sie genau sehen können, was Sie bekommen. Wenn Sie mit der Demo zufrieden sind und fortfahren möchten, besprechen wir Projektgebühren, die für uns beide funktionieren. Mein Fokus liegt darauf, Menschen dabei zu helfen, ihre Website- und Mobile-App-Ideen zum Leben zu erwecken, und ich bin verpflichtet, kontinuierliche Wartung und Support bereitzustellen, während Ihr Projekt wächst. Ich berechne keine Stundensätze; stattdessen arbeite ich mit einem wertbasierten, kundenzufriedenheitsorientierten Ansatz. Meine Preise sind sehr erschwinglich (Mindestlohnniveau), was qualitativ hochwertige Entwicklung zugänglich macht. Das Ziel ist Ihre Zufriedenheit und Ihr Erfolg—wenn Sie mit der Arbeit zufrieden sind, ist das das Wichtigste. Lassen Sie uns Ihr Projekt besprechen und eine Lösung finden, die Ihren Bedürfnissen und Ihrem Budget entspricht.",
     "faq.04.question": "Arbeiten Sie remote oder vor Ort?",
@@ -730,10 +743,12 @@ export const translations = {
     "faq.06.question": "Wie ist Ihr Projektprozess und Workflow?",
     "faq.06.answer":
       "Mein Workflow folgt einem strukturierten, aber flexiblen Ansatz. Er beginnt mit einer ersten Beratung (kostenloser Demo-Service), bei der ich Ihre Anforderungen, Ziele und Einschränkungen verstehe. Dann stelle ich einen detaillierten Vorschlag mit Zeitleiste, Meilensteinen und Liefergegenständen bereit. Während der Entwicklung halte ich regelmäßige Kommunikation über Ihre bevorzugten Kanäle (E-Mail, Slack, Videoanrufe) aufrecht und stelle Fortschrittsupdates bereit. Ich folge agilen Methoden, teile die Arbeit in Sprints mit regelmäßigen Check-ins auf. Ich verwende Versionskontrolle (Git), Code-Reviews, Tests und Dokumentation während des gesamten Prozesses. Vor der Lieferung führe ich gründliche Tests durch und stelle Schulungen/Dokumentation bereit. Nach dem Launch biete ich Support- und Wartungsoptionen kostenlos für die gesamte Lebensdauer an.",
-    "faq.07.question": "Wie bevorzugen Sie die Kommunikation während Projekten?",
+    "faq.07.question":
+      "Wie bevorzugen Sie die Kommunikation während Projekten?",
     "faq.07.answer":
       "Ich bin flexibel mit Kommunikationspräferenzen und passe mich an das an, was für Sie am besten funktioniert. Ich bin vertraut mit persönlichen Meetings, E-Mail, Slack, Microsoft Teams, Zoom oder Telefonanrufen. Für laufende Projekte stelle ich normalerweise wöchentliche Fortschrittsupdates bereit und bin für geplante Check-ins verfügbar. Ich reagiere schnell auf dringende Angelegenheiten und halte klare Dokumentation von Entscheidungen und Änderungen aufrecht. Ich glaube an transparente Kommunikation und werde Sie über Fortschritte, Herausforderungen und alle notwendigen Anpassungen informieren. Ich arbeite auch gerne mit Ihren bestehenden Projektmanagement-Tools und Workflows.",
-    "faq.08.question": "Können Sie Beispiele für Ihr Portfolio oder vorherige Projekte teilen?",
+    "faq.08.question":
+      "Können Sie Beispiele für Ihr Portfolio oder vorherige Projekte teilen?",
     "faq.08.answer":
       "Absolut! Sie können mein Portfolio von 40+ Projekten auf der 'Projekte'-Seite dieser Website ansehen, das verschiedene Full-Stack-Anwendungen, E-Commerce-Plattformen, Web-Apps und Automatisierungslösungen zeigt. Für noch mehr Beispiele habe ich 90+ Open-Source-Produktionsreife Projekte in meinem GitHub-Repository, die derzeit alle auf Servern laufen. Diese Projekte demonstrieren meine Expertise in verschiedenen Technologien, Branchen und Projektgrößen. Ich bespreche gerne spezifische Projekte, die sich auf Ihre Bedürfnisse beziehen, und kann auf Anfrage Fallstudien oder Referenzen bereitstellen. Jedes Projekt in meinem Github-Repository enthält Details über den Tech-Stack, gelöste Herausforderungen und erzielte Ergebnisse.",
     "faq.09.question": "Welche Zertifizierungen und Ausbildung haben Sie?",
@@ -742,7 +757,8 @@ export const translations = {
     "faq.10.question": "Wo befinden Sie sich und welche Zeitzone haben Sie?",
     "faq.10.answer":
       "Ich bin in Frankfurt, Deutschland, ansässig (CET/CEST Zeitzone, UTC+1/UTC+2). Ich arbeite mit Kunden weltweit und bin flexibel bei der Terminplanung, um verschiedene Zeitzonen zu berücksichtigen. Für Kunden in Europa können wir unsere Arbeitszeiten leicht abstimmen. Für Kunden in Amerika oder Asien kann ich meinen Zeitplan für wichtige Meetings anpassen und asynchrone Kommunikation für die tägliche Arbeit aufrechterhalten. Ich bin damit vertraut, über Zeitzonen hinweg zu arbeiten und habe Erfahrung in der Zusammenarbeit mit internationalen Teams. Mein Standort ermöglicht es mir, Kunden in Europa effektiv zu betreuen und gleichzeitig globale Projekte zu unterstützen.",
-    "faq.11.question": "Erzählen Sie mir von Ihrem Hintergrund und Ihrer Arbeitserlaubnis",
+    "faq.11.question":
+      "Erzählen Sie mir von Ihrem Hintergrund und Ihrer Arbeitserlaubnis",
     "faq.11.answer":
       "Ich komme ursprünglich aus Bangladesch und lebe seit über 12 Jahren in Deutschland, was mir ein tiefes Verständnis für beide Kulturen und Geschäftsumgebungen gegeben hat. Ich besitze eine Vollzeit-Arbeitserlaubnis und Aufenthaltsstatus in Deutschland, was es mir ermöglicht, legal für jeden Arbeitgeber, Kunden oder Projekt ohne Einschränkungen zu arbeiten. Das bedeutet, ich kann freiberufliche, Teilzeit- oder Vollzeitmöglichkeiten übernehmen, mit Kunden weltweit arbeiten und langfristige Verpflichtungen eingehen. Mein vielfältiger Hintergrund und internationale Erfahrung ermöglichen es mir, verschiedene Perspektiven zu verstehen und effektiv mit Kunden aus verschiedenen Ländern und Kulturen zu arbeiten. Ich kann alles entwickeln, was Sie benötigen—von einfachen Websites bis hin zu komplexen Unternehmensanwendungen—und ich bin verpflichtet, qualitativ hochwertige Lösungen unabhängig von Projektgröße oder Komplexität zu liefern.",
 
@@ -897,11 +913,15 @@ export const translations = {
     "chatbot.menu.feedback": "Feedback / Melden",
     "chatbot.menu.rate": "Chatbot bewerten",
     "chatbot.about.title": "Über {{title}}",
-    "chatbot.about.description": "Ein RAG-gestützter Chatbot, der präzise, kontextbewusste Antworten liefert.",
+    "chatbot.about.description":
+      "Ein RAG-gestützter Chatbot, der präzise, kontextbewusste Antworten liefert.",
     "chatbot.about.howToUse": "So verwenden Sie es:",
-    "chatbot.about.howToUse.1": "Stellen Sie Fragen, um hilfreiche Informationen zu erhalten",
-    "chatbot.about.howToUse.2": "Der Chatbot nutzt KI, um präzise, kontextbewusste Antworten zu liefern",
-    "chatbot.about.howToUse.3": "Ihr Gesprächsverlauf wird automatisch gespeichert",
+    "chatbot.about.howToUse.1":
+      "Stellen Sie Fragen, um hilfreiche Informationen zu erhalten",
+    "chatbot.about.howToUse.2":
+      "Der Chatbot nutzt KI, um präzise, kontextbewusste Antworten zu liefern",
+    "chatbot.about.howToUse.3":
+      "Ihr Gesprächsverlauf wird automatisch gespeichert",
     "chatbot.about.features": "Funktionen:",
     "chatbot.about.features.1": "Chat-Verlauf als TXT oder PDF exportieren",
     "chatbot.about.features.2": "Gespräche in die Zwischenablage kopieren",
@@ -910,10 +930,12 @@ export const translations = {
     "chatbot.about.features.5": "Anpassbare Widget-Position",
     "chatbot.about.visitPortfolio": "Portfolio besuchen →",
     "chatbot.feedback.title": "Feedback / Problem melden",
-    "chatbot.feedback.description": "Helfen Sie uns, uns zu verbessern, indem Sie Ihr Feedback teilen oder Probleme melden.",
+    "chatbot.feedback.description":
+      "Helfen Sie uns, uns zu verbessern, indem Sie Ihr Feedback teilen oder Probleme melden.",
     "chatbot.feedback.email": "E-Mail (optional)",
     "chatbot.feedback.comment": "Kommentar",
-    "chatbot.feedback.commentPlaceholder": "Ihr Feedback oder Problembeschreibung...",
+    "chatbot.feedback.commentPlaceholder":
+      "Ihr Feedback oder Problembeschreibung...",
     "chatbot.feedback.cancel": "Abbrechen",
     "chatbot.feedback.submit": "Absenden",
     "chatbot.feedback.sending": "Wird gesendet...",
@@ -924,10 +946,12 @@ export const translations = {
     "chatbot.rating.submit": "Bewertung absenden",
     "chatbot.rating.sending": "Wird gesendet...",
     "chatbot.confirm.newChat.title": "Neuen Chat starten?",
-    "chatbot.confirm.newChat.description": "Dies löscht Ihre aktuelle Unterhaltung. Sind Sie sicher?",
+    "chatbot.confirm.newChat.description":
+      "Dies löscht Ihre aktuelle Unterhaltung. Sind Sie sicher?",
     "chatbot.confirm.newChat.confirm": "Neuen Chat starten",
     "chatbot.confirm.clearChat.title": "Chat löschen?",
-    "chatbot.confirm.clearChat.description": "Dies löscht Ihre aktuelle Unterhaltung. Sind Sie sicher?",
+    "chatbot.confirm.clearChat.description":
+      "Dies löscht Ihre aktuelle Unterhaltung. Sind Sie sicher?",
     "chatbot.confirm.clearChat.confirm": "Chat löschen",
     "chatbot.toast.chatCleared": "Chat gelöscht",
     "chatbot.toast.exportedText": "Chat als Text exportiert",

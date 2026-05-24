@@ -1955,7 +1955,8 @@ The project includes comprehensive SEO metadata:
 ```typescript
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.arnobmahmud.com"),
-  title: "Arnob Mahmud | Full-Stack Engineer | Web & Cloud Solutions",
+  title:
+    "Arnob Mahmud | Full-Stack Engineer | Web, API, SaaS, & Cloud Solutions",
   description: "Full-Stack Software Engineer (5+ years)...",
   keywords: [
     "Full-Stack Software Engineer",
