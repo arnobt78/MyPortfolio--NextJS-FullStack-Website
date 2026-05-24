@@ -146,13 +146,13 @@ const getExperienceData = (t: (key: string) => string): ExperienceData => ({
   description: t("resume.experience.description"),
   items: [
     {
-      company: "Freelance / Remote",
-      position: "Full-Stack Web Developer",
-      duration: "Jun 2025 – Present",
+      company: "Code & Cloud Lösungen (Freelance)",
+      position: "Full-Stack Software Engineer",
+      duration: "Jul 2023 – Present",
     },
     {
       company: "Sernitas GmbH, Bochum, Germany",
-      position: "Full-Stack Web Developer",
+      position: "Full-Stack Software Engineer",
       duration: "Mar 2025 – Jul 2025",
     },
     {
@@ -167,7 +167,7 @@ const getExperienceData = (t: (key: string) => string): ExperienceData => ({
     },
     {
       company: "LEADS Corporation Ltd, Dhaka, Bangladesh",
-      position: "Software Test Engineer",
+      position: "Software QA/Test Engineer",
       duration: "Feb 2013 – Nov 2013",
     },
     {
@@ -195,13 +195,13 @@ const getEducationData = (t: (key: string) => string): EducationData => ({
       duration: "2008 – 2012",
     },
     {
-      institution: "Udemy",
-      degree: "Advanced Next.js & Framer Motion Web Development",
+      institution: "Udemy Online Courses",
+      degree: "Advanced Next.js & Framer Motion Web Development Bootcamp",
       duration: "2023 – 2025",
     },
     {
-      institution: "Udemy",
-      degree: "Advanced React.js & Tailwind CSS Web Development",
+      institution: "Udemy Online Courses",
+      degree: "Advanced React.js & Tailwind CSS Web Development Bootcamp",
       duration: "2022 – 2024",
     },
   ],
