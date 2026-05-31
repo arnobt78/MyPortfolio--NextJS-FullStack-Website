@@ -1,0 +1,28 @@
+# Policy as Code — portfolio-arnob-new
+
+version: "1.0.0"
+cycle: C1
+updated: "2026-05-14"
+
+deployment:
+  production_host: "https://www.arnobmahmud.com"
+  require_gate_2_before_deploy: conditional  # waived for C1 maintenance with human approval
+  require_npm_audit_zero: true
+  require_lint_build_pass: true
+
+logging:
+  production_console_debug: forbidden
+  production_errors: sentry
+  development_debug: allowed_via_devLog
+
+dependencies:
+  allow_major_next_upgrade: false  # requires CR + C2
+  allow_force_audit_fix: false
+
+secrets:
+  never_commit: [".env.local", ".env"]
+  never_log: ["API_KEY", "TOKEN", "PASSWORD", "DSN"]
+
+hitl:
+  gate_1_required_for_new_features: true
+  gate_2_eval_results_required: true

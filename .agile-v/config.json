@@ -1,0 +1,46 @@
+{
+  "project": "portfolio-arnob-new",
+  "site_url": "https://www.arnobmahmud.com",
+  "cycle": "C1",
+  "standard": "Agile V 1.4",
+  "compliance_tier": "non-regulated",
+  "repository": "portfolio-arnob-new",
+  "vercel_project": "my-portfolio",
+  "authority_matrix": {
+    "project_owner": "Arnob Mahmud",
+    "gate_approver": "Arnob Mahmud"
+  },
+  "model_versions": {
+    "last_validated": "2026-05-14",
+    "validated_by": "Human smoke",
+    "note": "AI SDK multi-provider fallback chain unchanged C1"
+  },
+  "llm_provider_registry": [
+    {
+      "name": "Google Gemini",
+      "env_key": "GOOGLE_GEMINI_API_KEY",
+      "approved_for": ["chat", "embeddings"],
+      "review_date": "2026-05-14"
+    },
+    {
+      "name": "OpenRouter",
+      "env_key": "OPENROUTER_API_KEY",
+      "approved_for": ["chat_fallback", "embeddings_fallback"],
+      "review_date": "2026-05-14"
+    },
+    {
+      "name": "Groq",
+      "env_key": "GROQ_API_KEY",
+      "approved_for": ["chat_fallback"],
+      "review_date": "2026-05-14"
+    }
+  ],
+  "skills_load_order": [
+    "agile-v-core",
+    "agile-v-pipeline",
+    "agile-v-lifecycle",
+    "agile-v-compliance",
+    "agile-v-quality-gates",
+    "build-agent-js"
+  ]
+}
