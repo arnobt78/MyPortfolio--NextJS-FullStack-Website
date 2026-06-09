@@ -16,3 +16,4 @@
 | 2026-05-14 | Agent | Accept Turbopack import-in-the-middle dev warnings | Prod build clean; nested OTel 2.0.6 vs 3.0.1 | REQ-0008 |
 | 2026-05-14 | Human | Deploy to Vercel production | lint/build/audit PASS; manual smoke OK | REQ-0001–0010 |
 | 2026-05-14 | Agent | Bootstrap .agile-v C1 traceability | User-requested Agile V living state | — |
+| 2026-06-01 | Agent | lib/sentry-extension-noise + denyUrls/beforeSend | Filter content-injected & bot SyntaxError noise; keep hydration reported | REQ-0009 |
