@@ -11,8 +11,22 @@ import { cn } from "@/lib/utils";
 import { FONT_SIZES } from "@/lib/constants";
 import { CHATBOT_CSS_VARS } from "@/lib/chatbot-theme";
 import { X, Send, Bot } from "lucide-react";
-import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useSyncExternalStore,
+} from "react";
 import { ChatHistorySkeleton } from "./message-skeleton";
+
+type ChatbotWindowGlobals = Window & {
+  CHATBOT_TITLE?: string;
+  CHATBOT_GREETING?: string;
+  CHATBOT_PLACEHOLDER?: string;
+};
+
+const emptySubscribe = () => () => {};
 
 /**
  * Main chatbot widget component
@@ -38,30 +52,29 @@ export function ChatbotWidget() {
   const [menuPortalNode, setMenuPortalNode] = useState<HTMLDivElement | null>(
     null,
   );
-  const windowConfig = useSyncExternalStore(
-    () => () => {},
-    () => {
-      const win = window as Window & {
-        CHATBOT_TITLE?: string;
-        CHATBOT_GREETING?: string;
-        CHATBOT_PLACEHOLDER?: string;
-      };
-      return {
-        title: win.CHATBOT_TITLE,
-        greeting: win.CHATBOT_GREETING,
-        placeholder: win.CHATBOT_PLACEHOLDER,
-      };
-    },
-    () => ({
-      title: undefined as string | undefined,
-      greeting: undefined as string | undefined,
-      placeholder: undefined as string | undefined,
-    }),
+  const setMenuPortalNodeIfChanged = useCallback((node: HTMLDivElement | null) => {
+    setMenuPortalNode((prev) => (prev === node ? prev : node));
+  }, []);
+  // Primitives only: a new object from getSnapshot makes React 19 loop (error #185).
+  const windowTitle = useSyncExternalStore(
+    emptySubscribe,
+    () => (window as ChatbotWindowGlobals).CHATBOT_TITLE,
+    () => undefined as string | undefined,
+  );
+  const windowGreeting = useSyncExternalStore(
+    emptySubscribe,
+    () => (window as ChatbotWindowGlobals).CHATBOT_GREETING,
+    () => undefined as string | undefined,
+  );
+  const windowPlaceholder = useSyncExternalStore(
+    emptySubscribe,
+    () => (window as ChatbotWindowGlobals).CHATBOT_PLACEHOLDER,
+    () => undefined as string | undefined,
   );
   const config = {
-    title: windowConfig.title || t("chatbot.title"),
-    greeting: windowConfig.greeting || t("chatbot.greeting"),
-    placeholder: windowConfig.placeholder || t("chatbot.placeholder"),
+    title: windowTitle || t("chatbot.title"),
+    greeting: windowGreeting || t("chatbot.greeting"),
+    placeholder: windowPlaceholder || t("chatbot.placeholder"),
   };
 
   // Auto-scroll to bottom when new messages arrive
@@ -102,7 +115,7 @@ export function ChatbotWidget() {
   // const positionClasses = WIDGET_POSITIONS[position];
 
   const hideReactWidget = useSyncExternalStore(
-    () => () => {},
+    emptySubscribe,
     () => Boolean(document.getElementById("cb-btn")),
     () => false,
   );
@@ -225,7 +238,7 @@ export function ChatbotWidget() {
 
         {/* Portal target for menu dropdown — outside header layout so menu does not expand header */}
         <div
-          ref={setMenuPortalNode}
+          ref={setMenuPortalNodeIfChanged}
           className="absolute left-0 right-0 top-14 bottom-0 z-[99998] pointer-events-none sm:top-16"
           aria-hidden
         />

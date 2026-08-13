@@ -29,4 +29,4 @@
 | 2026-08-13 | Agent | Leave `next/font/google`; do not add `/public/fonts` | Next self-hosts at build; no runtime Google Fonts on the site | REQ-0016 |
 | 2026-08-13 | Agent | Skip optional env: OPENAI, BING, SITE_URL, SENTRY_RELEASE, legacy aliases | Code already falls back; Vercel names match | REQ-0015 |
 | 2026-08-13 | Agent | Do not add Vite/Python/SHA/auth/Zod APIs/densify CRUD | Public portfolio; chat invalidation already in `use-chat.ts` | — |
-| 2026-08-13 | Agent | Leave unused `resend` (and unused direct AI/email pkgs) in package.json | Drive-by uninstall not in C2 Gate 1; lockfile risk | REQ-0012 |
+| 2026-08-13 | Agent | ChatbotWidget useSyncExternalStore must return primitives | Object snapshot caused prod React #185 infinite loop on every page | REQ-0012 |

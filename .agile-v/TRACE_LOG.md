@@ -19,3 +19,5 @@
 | 2026-08-13T14:18:00Z | docs | build-agent-js | compact CLAUDE + PROJECT_WALKTHROUGH | REQ-0016 | gitignored local memory |
 | 2026-08-13T16:30:00Z | prove | build-agent-js | lint tsc audit build after SEO/README | REQ-0016 | all exit 0; Proxy listed |
 | 2026-08-13T16:32:00Z | docs | build-agent-js | SECURITY.md + README + .agile-v | REQ-0016 | unused resend left |
+| 2026-08-13T16:40:00Z | prove | build-agent-js | reproduce React #185 locally | REQ-0012 | ChatbotWidget object snapshot |
+| 2026-08-13T16:45:00Z | orchestrate | build-agent-js | primitive useSyncExternalStore + portal ref | REQ-0012 | home+services prod start OK |

@@ -39,3 +39,4 @@ C2 validated. This pass: README compact, `SECURITY.md`, route metadata/comments.
 1. Read this file + `CHECKPOINTS.md`.
 2. C2 validated locally. Do not restore `middleware.ts`. Do not deploy unless asked.
 3. Optional env keys (OpenAI, Bing, SITE_URL, SENTRY_RELEASE, legacy aliases): skip.
+4. React #185: never return a new object from `useSyncExternalStore` getSnapshot (chatbot widget).

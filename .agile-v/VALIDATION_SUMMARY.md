@@ -56,6 +56,7 @@ See prior entries in git for 2026-05-14 and C1.1a LLM work. REQ-0011 still PENDI
 3. **Edge runtime** — Next 16 deprecation warning on `/api/chat`; plan keeps Edge
 4. **Chat Edge vs proxy Node** — both remain; proxy is Node-only
 5. **Unused deps** — `resend`, unused direct `zod` / `@ai-sdk/google` / `@huggingface/inference` / `@react-email/render` (left; not C2 uninstall)
+6. **React #185** — ChatbotWidget object `getSnapshot` crashed prod; fixed with primitive snapshots (2026-08-13)
 
 ## Red Team note
 

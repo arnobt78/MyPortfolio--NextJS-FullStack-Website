@@ -8,6 +8,7 @@
 | CR-0003 | C1.1a | REQ-0017 | Replace Llama / gpt-4o-mini / Gemini Pro with current free-tier IDs | Groq Llama shutdown 2026-08-16; OpenRouter :free rule | ART-0017.1, ART-0005.2 | Human (plan attach) | Approved |
 | CR-0004 | C2 | REQ-0012, REQ-0014, REQ-0016 | Next 16.3 + React 19.2; keep `proxy.ts`; ESLint 9; docs | Official upgrade; REQ-0014 superseded | ART-0012.*, ART-0016.1 | Human (plan attach) | Approved |
 | CR-0005 | C2 | REQ-0016 | Compact README; add SECURITY.md; SEO authors/icons/OG; file comments | Docs match Next 16 code; security contact | README, SECURITY.md, app metadata | Human | Approved (this session) |
+| CR-0006 | C2 | REQ-0012 | Fix ChatbotWidget useSyncExternalStore object snapshot (React #185) | Prod client crash after Next 16 deploy | chatbot-widget.tsx | Human (prod outage) | Approved |
 
 <!-- Future CRs use format:
 CR-0001 | C2 | REQ-0012 | Next.js 16 upgrade | Platform EOL planning | Full regression | Human | Pending
