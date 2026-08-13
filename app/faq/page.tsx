@@ -1,3 +1,4 @@
+/** FAQ route — content also feeds chatbot RAG (`lib/faqs.ts`). */
 import type { Metadata } from "next";
 import FAQPage from "../../components/pages/FAQPage";
 
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/faq",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function FAQ() {

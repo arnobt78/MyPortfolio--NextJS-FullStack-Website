@@ -1,4 +1,6 @@
-// app/api/send-auto-reply/route.ts
+/**
+ * POST /api/send-auto-reply — Node SMTP thank-you mail to the visitor after contact submit.
+ */
 import nodemailer from "nodemailer";
 import { captureApiError } from "@/lib/logger";
 

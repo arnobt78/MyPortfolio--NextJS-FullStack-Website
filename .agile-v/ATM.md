@@ -10,3 +10,5 @@
 | REQ-0007 | send-email, feedback routes | SMTP nodemailer | — |
 | REQ-0009 | instrumentation-client | ignoreErrors, replay | Sentry |
 | REQ-0004 | Photo, SafeImage | Next/Image fill | public/ assets |
+| REQ-0016 | README, SECURITY.md, layout metadata | public docs + canonicals | — |
+| REQ-0005 | hooks/use-chat.ts | React Query `["chat-history"]` | Upstash Redis sessions |

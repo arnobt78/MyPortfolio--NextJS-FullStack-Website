@@ -17,3 +17,5 @@
 | 2026-08-13T15:50:00Z | orchestrate | build-agent-js | next@16.3.0 react@19.2.8 eslint@9 | REQ-0012 | Official upgrade CLI blocked by npm 12 |
 | 2026-08-13T14:10:00Z | prove | build-agent-js | npm allowScripts + install | REQ-0012 | 0 vulns; 0 install-script warns |
 | 2026-08-13T14:18:00Z | docs | build-agent-js | compact CLAUDE + PROJECT_WALKTHROUGH | REQ-0016 | gitignored local memory |
+| 2026-08-13T16:30:00Z | prove | build-agent-js | lint tsc audit build after SEO/README | REQ-0016 | all exit 0; Proxy listed |
+| 2026-08-13T16:32:00Z | docs | build-agent-js | SECURITY.md + README + .agile-v | REQ-0016 | unused resend left |

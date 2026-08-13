@@ -1,3 +1,4 @@
+/** Resume route — tabs persist via URL hash on the client (ResumePage). */
 import type { Metadata } from "next";
 import ResumePage from "../../components/pages/ResumePage";
 
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/resume",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Resume() {

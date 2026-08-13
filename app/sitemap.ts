@@ -1,3 +1,6 @@
+/**
+ * Dynamic sitemap.xml for Google. Lists public routes under https://www.arnobmahmud.com.
+ */
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {

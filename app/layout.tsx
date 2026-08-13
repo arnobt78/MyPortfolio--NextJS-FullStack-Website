@@ -1,3 +1,8 @@
+/**
+ * Root layout (Server Component).
+ * Sets site-wide SEO metadata, html lang from proxy.ts headers, and wraps
+ * every page with i18n, analytics, transitions, and the chat widget.
+ */
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
@@ -62,9 +67,20 @@ export const metadata: Metadata = {
     "Freelance Software Engineer",
   ],
 
-  authors: [{ name: "Arnob Mahmud" }],
+  authors: [
+    {
+      name: "Arnob Mahmud",
+      url: "https://www.arnobmahmud.com",
+    },
+  ],
   creator: "Arnob Mahmud",
   publisher: "Arnob Mahmud",
+  category: "technology",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/img-8-1200.png",
+  },
 
   robots: {
     index: true,
@@ -260,6 +276,7 @@ export default async function RootLayout({
               jobTitle: "Full-Stack Software Engineer",
               description: mainDescription,
               url: "https://www.arnobmahmud.com",
+              email: "contact@arnobmahmud.com",
               sameAs: [
                 "https://www.linkedin.com/in/arnob-mahmud-05839655/",
                 "https://github.com/arnobt78",

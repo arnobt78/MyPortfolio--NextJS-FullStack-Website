@@ -26,3 +26,7 @@
 | 2026-08-13 | Agent | Official `upgrade latest` failed on npm 12 `--field`; pin stack + individual transforms | Codemod CLI incompatible with npm 12 | REQ-0012 |
 | 2026-08-13 | Agent | Collapse Sentry `withSentryConfig` to 2-arg; Turbopack default build | Next 16 default bundler; Sentry 10 types are 2-arg | REQ-0012 |
 | 2026-08-13 | Agent | Nodemailer 9.0.5 for `npm audit` 0 | Remaining vuln required a related major; TLS-default only | REQ-0006, REQ-0012 |
+| 2026-08-13 | Agent | Leave `next/font/google`; do not add `/public/fonts` | Next self-hosts at build; no runtime Google Fonts on the site | REQ-0016 |
+| 2026-08-13 | Agent | Skip optional env: OPENAI, BING, SITE_URL, SENTRY_RELEASE, legacy aliases | Code already falls back; Vercel names match | REQ-0015 |
+| 2026-08-13 | Agent | Do not add Vite/Python/SHA/auth/Zod APIs/densify CRUD | Public portfolio; chat invalidation already in `use-chat.ts` | — |
+| 2026-08-13 | Agent | Leave unused `resend` (and unused direct AI/email pkgs) in package.json | Drive-by uninstall not in C2 Gate 1; lockfile risk | REQ-0012 |

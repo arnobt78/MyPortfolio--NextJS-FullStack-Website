@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Site header: logo, desktop Nav, language selector, hire-me CTA, MobileNav sheet.
+ */
 import Link from "next/link";
 import React from "react";
 import Nav from "./Nav";

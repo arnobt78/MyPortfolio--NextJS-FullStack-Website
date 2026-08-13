@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Home hero: typewriter name, photo ring, socials, stats, resume download.
+ * Translations come from LanguageContext (`t("home.*")`).
+ */
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { FiDownload } from "react-icons/fi";

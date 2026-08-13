@@ -9,4 +9,4 @@
 | RISK-C1-005 | C1 | Security | SMTP injection (nodemailer) | Low | Med | Low | Upgraded to nodemailer 8.0.7 | Agent | closed |
 | RISK-C1-006 | C1.1 | Technical | `proxy.ts` likely not loaded by Next 15.5.18; layout canonical/lang headers may never set | High | High | Critical | Restore `middleware.ts` (REQ-0014) or prove production HTML sets headers | Human | closed (C2 Next 16 loads `proxy.ts`) |
 | RISK-C1-007 | C1.1 | Process | CLAUDE.md gitignored; AGENTS.md untracked; docs/ gitignored | Med | Low | Low | REQ-0016; keep protocol in git via `.agile-v/` | Agent | mitigated (C2 docs aligned; CLAUDE still gitignored) |
-| RISK-C1-008 | C1.1 | Security | No `.env.example`; agents may probe real `.env` | Med | Med | Medium | REQ-0015 placeholders only; do not commit secrets | Human | open |
+| RISK-C1-008 | C1.1 | Security | No `.env.example`; agents may probe real `.env` | Med | Med | Medium | REQ-0015 placeholders only; do not commit secrets | Human | closed (.env.example shipped) |

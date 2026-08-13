@@ -1,3 +1,6 @@
+/**
+ * GET /api/history — returns Redis chat messages for `chatbot_session` cookie (Edge).
+ */
 import { NextRequest } from 'next/server';
 import { getSession } from '@/lib/redis';
 import { checkRateLimit } from '@/lib/rate-limit';

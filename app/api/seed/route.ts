@@ -1,4 +1,6 @@
-// NextRequest not used in this route
+/**
+ * POST /api/seed — generate FAQ embeddings and store vectors in Redis (admin/ops, Node runtime).
+ */
 import { faqs } from '@/lib/faqs';
 import { generateEmbeddings } from '@/lib/embeddings';
 import { storeVector } from '@/lib/redis';

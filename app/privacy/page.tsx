@@ -1,3 +1,4 @@
+/** Privacy policy route. */
 import type { Metadata } from "next";
 import PrivacyPage from "../../components/pages/PrivacyPage";
 
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/privacy",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Privacy() {

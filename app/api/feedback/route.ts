@@ -1,3 +1,6 @@
+/**
+ * POST /api/feedback — chatbot rating / issue report. Rate-limited. Emails FEEDBACK_EMAIL via SMTP.
+ */
 import { NextRequest } from "next/server";
 import nodemailer from "nodemailer";
 import { checkRateLimit } from "@/lib/rate-limit";

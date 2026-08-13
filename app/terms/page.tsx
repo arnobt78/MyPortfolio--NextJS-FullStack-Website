@@ -1,3 +1,4 @@
+/** Terms of use route. */
 import type { Metadata } from "next";
 import TermsPage from "../../components/pages/TermsPage";
 
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/terms",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Terms() {

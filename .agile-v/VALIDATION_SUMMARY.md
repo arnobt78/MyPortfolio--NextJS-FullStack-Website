@@ -13,7 +13,7 @@
 EvalGate: status=CONDITIONAL_PASS | eval_run_id=ER-C2-20260813-001 | policy_version_ref=1.0.0 | eval_results_path=.agile-v/EVAL_RESULTS.md
 ```
 
-**Rationale:** lint/tsc/audit/build PASS; home `/services` chat language-cookie smoke PASS. No automated suite (REQ-0013 deferred). Production deploy not requested.
+**Rationale:** lint/tsc/audit/build PASS; home `/services` chat language-cookie smoke PASS. Docs/SEO re-verify 2026-08-13 (lint/tsc/audit/build PASS). No automated suite (REQ-0013 deferred). Production deploy not requested.
 
 ---
 
@@ -23,7 +23,7 @@ EvalGate: status=CONDITIONAL_PASS | eval_run_id=ER-C2-20260813-001 | policy_vers
 |-----|--------|----------|
 | REQ-0012 | PASS | Next 16.3.0 Turbopack build; `ƒ Proxy (Middleware)`; React 19.2.8 |
 | REQ-0014 | SUPERSEDED | `proxy.ts` kept; no `middleware.ts` |
-| REQ-0016 | PASS | README/AGENTS/CLAUDE interceptor = `proxy.ts` |
+| REQ-0016 | PASS | README/AGENTS/CLAUDE interceptor = `proxy.ts`; SECURITY.md |
 | REQ-0005 | PASS | POST `/api/chat` 200 SSE + `[DONE]` |
 | REQ-0006 | PASS | `npm audit` 0 |
 
@@ -55,6 +55,7 @@ See prior entries in git for 2026-05-14 and C1.1a LLM work. REQ-0011 still PENDI
 2. **REQ-0011** — Search Console `/services` not yet indexed
 3. **Edge runtime** — Next 16 deprecation warning on `/api/chat`; plan keeps Edge
 4. **Chat Edge vs proxy Node** — both remain; proxy is Node-only
+5. **Unused deps** — `resend`, unused direct `zod` / `@ai-sdk/google` / `@huggingface/inference` / `@react-email/render` (left; not C2 uninstall)
 
 ## Red Team note
 

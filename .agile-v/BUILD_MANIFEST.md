@@ -40,4 +40,5 @@
 | ART-0014.1 | REQ-0014 | `middleware.ts` restore | **superseded** — keep `proxy.ts` |
 | ART-0015.1 | REQ-0015 | `.env.example` | implemented |
 | ART-0016.1 | REQ-0016 | `CLAUDE.md` / `AGENTS.md` / README interceptor note | implemented |
+| ART-0016.2 | REQ-0016 | Compact README + `SECURITY.md` + SEO metadata | implemented |
 | ART-0017.1 | REQ-0017 | `lib/ai.ts` free-tier model chains | implemented |

@@ -1,3 +1,6 @@
+/**
+ * Home route — thin server shell. SEO lives in `metadata`; UI is HomePage (client).
+ */
 import type { Metadata } from "next";
 import HomePage from "../components/pages/HomePage";
 
@@ -33,6 +36,14 @@ export const metadata: Metadata = {
       "Full-Stack Software Engineer with 5+ years of experience delivering scalable, secure, enterprise-grade web, API, SaaS, and cloud solutions using React, Next.js, Angular, Node.js, Python, .NET, and modern cloud platforms. Experienced in client-facing startup and ERP environments, working independently as well as collaboratively within cross-functional teams, with a strong focus on scalable architecture, code quality, testing, performance optimization, security, and reliable production delivery.",
     url: "https://www.arnobmahmud.com",
     type: "website",
+    images: [
+      {
+        url: "/img-8-1200.png",
+        width: 800,
+        height: 800,
+        alt: "Arnob Mahmud – Full-Stack Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -40,7 +51,10 @@ export const metadata: Metadata = {
       "Arnob Mahmud | Full-Stack Engineer | Web, API, SaaS, & Cloud Solutions",
     description:
       "Full-Stack Software Engineer with 5+ years of experience delivering scalable, secure, enterprise-grade web, API, SaaS, and cloud solutions using React, Next.js, Angular, Node.js, Python, .NET, and modern cloud platforms. Experienced in client-facing startup and ERP environments, working independently as well as collaboratively within cross-functional teams, with a strong focus on scalable architecture, code quality, testing, performance optimization, security, and reliable production delivery.",
+    images: ["/img-8-1200.png"],
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
+  creator: "Arnob Mahmud",
   alternates: {
     canonical: "https://www.arnobmahmud.com/",
   },

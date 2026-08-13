@@ -1,4 +1,7 @@
-// app/api/send-email/route.ts
+/**
+ * POST /api/send-email — Node SMTP contact form.
+ * Validates name/email/message, sanitizes HTML, sends via nodemailer (EMAIL_USER / EMAIL_PASS).
+ */
 import nodemailer from "nodemailer";
 import { captureApiError } from "@/lib/logger";
 

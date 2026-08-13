@@ -1,3 +1,7 @@
+/**
+ * Upstash Redis helpers: chat sessions (`sess_*`) and FAQ vector store for RAG.
+ * Requires UPSTASH_REDIS_URL + UPSTASH_REDIS_TOKEN. Optional for a UI-only clone.
+ */
 import { Redis } from '@upstash/redis';
 import { captureApiError } from '@/lib/logger';
 

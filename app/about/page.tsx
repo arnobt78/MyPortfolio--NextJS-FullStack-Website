@@ -1,3 +1,4 @@
+/** About route — server metadata + AboutPage client UI. */
 import type { Metadata } from "next";
 import AboutPage from "../../components/pages/AboutPage";
 
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/about",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function About() {

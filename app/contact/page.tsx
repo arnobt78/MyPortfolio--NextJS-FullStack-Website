@@ -1,3 +1,4 @@
+/** Contact route — form posts to /api/send-email and /api/send-auto-reply. */
 import type { Metadata } from "next";
 import ContactPage from "../../components/pages/ContactPage";
 
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/contact",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Contact() {

@@ -1,3 +1,4 @@
+/** Services route — important for GSC indexing (REQ-0011). Canonical must stay /services. */
 import type { Metadata } from "next";
 import ServicesPage from "../../components/pages/ServicesPage";
 
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/services",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Services() {

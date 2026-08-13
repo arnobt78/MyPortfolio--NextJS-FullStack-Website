@@ -1,3 +1,4 @@
+/** Work/projects showcase route. */
 import type { Metadata } from "next";
 import WorkPage from "../../components/pages/WorkPage";
 
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com/work",
   },
+  authors: [{ name: "Arnob Mahmud", url: "https://www.arnobmahmud.com" }],
 };
 
 export default function Work() {

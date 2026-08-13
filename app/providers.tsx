@@ -1,3 +1,7 @@
+/**
+ * React Query + widget theme/font/position context + toast host.
+ * Chat history uses query key ["chat-history"] and invalidates after send (hooks/use-chat.ts).
+ */
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

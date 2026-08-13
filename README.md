@@ -1,17 +1,20 @@
 # Modern Portfolio Website - Next.js, TypeScript, TailwindCSS, Framer Motion, Shadcn UI, i18next, FullStack Project (My Personal Official Portfolio)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-18.3.1-blue)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.3-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2.8-blue)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.17-blue)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.24-blue)](https://www.framer.com/motion/)
-[![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-1.2.12-blue)](https://www.shadcn.com/)
-[![i18next](https://img.shields.io/badge/i18next-25.8.0-blue)](https://www.i18next.com/)
+[![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-1.2.12-blue)](https://ui.shadcn.com/)
+[![i18next](https://img.shields.io/badge/i18next-25.10.10-blue)](https://www.i18next.com/)
+[![launch with diploi badge](https://diploi.com/launch.svg)](https://diploi.com/launch/arnobt78/Portfolio--NextJS-FullStack)
 
-A cutting-edge, production-ready portfolio website built with **Next.js 16**, **React 19**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, internationalization (i18n), and stunning animations.
+A production portfolio at **[https://www.arnobmahmud.com](https://www.arnobmahmud.com/)** built with **Next.js 16.3** (App Router), **React 19.2**, TypeScript, TailwindCSS, and Framer Motion. It is a public site (no login): server-rendered pages, a contact form, an AI FAQ chatbot, English/German i18n, and SEO metadata.
 
 - **Live Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
+- **Security:** private reports → [SECURITY.md](./SECURITY.md) · [contact@arnobmahmud.com](mailto:contact@arnobmahmud.com)
+- **Author:** [Arnob Mahmud](https://www.arnobmahmud.com) · [GitHub @arnobt78](https://github.com/arnobt78) · [LinkedIn @arnob-mahmud-05839655](https://www.linkedin.com/in/arnob-mahmud-05839655/)
 
 ![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
 ![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
@@ -19,2801 +22,325 @@ A cutting-edge, production-ready portfolio website built with **Next.js 16**, **
 ![Screenshot 2025-10-23 at 13 49 36](https://github.com/user-attachments/assets/ae0fa79a-59b3-4377-afbd-75671d8382f8)
 ![Screenshot 2025-10-23 at 13 49 49](https://github.com/user-attachments/assets/b59d6039-72ef-4da9-92a3-9de1286446bc)
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Technology Stack](#-technology-stack)
-- [Project Structure](#-project-structure)
-- [Installation & Setup](#-installation--setup)
-- [Environment Variables](#-environment-variables)
-- [How to Run](#-how-to-run)
-- [Internationalization (i18n)](#-internationalization-i18n)
-- [Components Overview](#-components-overview)
-- [API Endpoints](#-api-endpoints)
-- [Pages & Routes](#pages--routes)
-- [Custom Hooks](#-custom-hooks)
-- [Styling & Animations](#-styling--animations)
-- [Email Configuration](#-email-configuration)
-- [Analytics Integration](#-analytics-integration)
-- [SEO & Metadata](#-seo--metadata)
-- [Deployment](#-deployment)
-- [Reusable Components Guide](#-reusable-components-guide)
-- [Best Practices](#-best-practices)
-- [Keywords & SEO](#-keywords--seo)
-- [Troubleshooting](#-troubleshooting)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Conclusion](#-conclusion)
+- [Overview](#overview)
+- [Features](#features)
+- [Technology stack](#technology-stack)
+- [Keywords](#keywords)
+- [Project structure](#project-structure)
+- [How it works](#how-it-works)
+- [Installation](#installation)
+- [Environment variables](#environment-variables)
+- [Scripts](#scripts)
+- [Routes](#routes)
+- [API endpoints](#api-endpoints)
+- [Components you can reuse](#components-you-can-reuse)
+- [Hooks and context](#hooks-and-context)
+- [i18n](#i18n)
+- [Chatbot](#chatbot)
+- [SEO and metadata](#seo-and-metadata)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 🎯 Overview
+## Overview
 
-This is a **production-ready, modern portfolio website** that demonstrates best practices in Next.js development. It features a complete full-stack implementation with server-side rendering, API routes, email functionality, multi-language support, and professional animations.
+This repository is the source for Arnob Mahmud’s personal site. **Next.js App Router** keeps each URL as a small **server** `page.tsx` that only exports `metadata` and renders a **client** page component. That split matters: Google sees titles and canonicals from the server; buttons, forms, and the chatbot stay in the browser.
 
-### Key Highlights
-
-- **Next.js 16** with App Router and Server Components
-- **TypeScript** for type safety throughout the codebase
-- **Internationalization (i18n)** - English and German support
-- **Email Integration** - Contact form with auto-reply functionality
-- **Analytics** - Google Analytics 4 and Vercel Analytics
-- **SEO Optimized** - Meta tags, Open Graph, structured data, sitemap
-- **Responsive Design** - Mobile-first approach with TailwindCSS
-- **Smooth Animations** - Framer Motion for page transitions and interactions
-- **Modern UI Components** - Radix UI and Shadcn UI components
-- **Performance Optimized** - Image optimization, lazy loading, code splitting
+You can clone it to learn App Router, i18n cookies, Edge SSE, or SMTP mail — or fork it as a starting point for your own portfolio. Optional APIs (chat, email, Redis, Sentry) are off unless you add keys. The UI still runs without them.
 
 ---
 
-## ✨ Features
+## Features
 
-### Core Features
-
-- ⚡ **Next.js 16** with App Router and Server Components
-- 🎨 **Modern UI/UX** with TailwindCSS and Shadcn UI components
-- 🎭 **Smooth Animations** powered by Framer Motion
-- 📱 **Fully Responsive** design for all devices
-- 🌍 **Internationalization** - English and German language support
-- 🔒 **Type-Safe** with TypeScript
-- 📧 **Contact Form** with email notifications and auto-reply
-- 📊 **Analytics** with Google Analytics & Vercel Analytics
-- 🎯 **SEO Optimized** with meta tags, Open Graph, and structured data
-- ♿ **Accessible** components following WCAG guidelines
-- 🚀 **Fast Performance** with optimized images and lazy loading
-- 🤖 **AI Chatbot Widget** integration for interactive FAQ
-
-### Advanced Features
-
-- 🎪 **Typewriter Effect** on homepage hero section
-- 🎠 **Project Carousel** with Swiper.js
-- 📋 **Grid/List View Toggle** for projects showcase
-- 📈 **Animated Counter** for statistics
-- 🎬 **Page Transitions** with smooth animations
-- 🪜 **Stair Transition Effect** between pages
-- 📜 **Scroll-to-Top** button functionality
-- 🎯 **Custom Tooltips** for enhanced UX
-- 📱 **Mobile Navigation** with hamburger menu
-- 🔄 **Loading States** for async operations
-- 🌐 **Language Switcher** with cookie persistence
-- 📄 **Dynamic Sitemap** generation
+- **App Router pages:** Home, About, Resume, Work, Services, FAQ, Contact, Privacy, Terms
+- **i18n:** English and German via `i18next` + cookie `selectedLanguage`
+- **Request interceptor:** [`proxy.ts`](proxy.ts) sets `x-initial-language` and `x-pathname` (Next.js 16 name; do not restore `middleware.ts`)
+- **Contact form:** SMTP through Nodemailer (`/api/send-email`, `/api/send-auto-reply`)
+- **AI chatbot:** Edge stream `/api/chat`, Redis sessions, FAQ RAG
+- **Analytics:** GA4 + Vercel Analytics
+- **Observability:** Sentry (`tunnelRoute: /monitoring`)
+- **SEO:** `metadata` on every route, Open Graph image `/img-8-1200.png`, JSON-LD Person + LocalBusiness, `app/sitemap.ts`
+- **Motion:** Framer Motion page + stair transitions
+- **UI:** Tailwind + Radix/shadcn primitives
 
 ---
 
-## 🛠 Technology Stack
+## Technology stack
 
-### Frontend
+| Layer          | What                                           | Why it is here                                |
+| -------------- | ---------------------------------------------- | --------------------------------------------- |
+| Next.js 16.3   | App Router, `proxy.ts`, Turbopack `next build` | File-based routes, metadata, Route Handlers   |
+| React 19.2     | UI                                             | Client islands only where needed              |
+| TypeScript 5.9 | Types                                          | `npx tsc --noEmit`                            |
+| Tailwind 3.4   | Utility CSS                                    | Fast layout without a second CSS framework    |
+| Framer Motion  | Animation                                      | Page enter/exit without full SPA router       |
+| Radix / shadcn | Dialog, tabs, sheet                            | Accessible primitives                         |
+| Nodemailer 9   | SMTP                                           | Contact + auto-reply (Node runtime, not Edge) |
+| Upstash Redis  | Sessions + FAQ vectors                         | Chat history cookie `chatbot_session`         |
+| Vercel AI SDK  | `streamText`                                   | Model fallback in `lib/ai.ts`                 |
+| ESLint 9       | `eslint .`                                     | Flat config `eslint.config.mjs`               |
 
-- **Framework:** Next.js 16.3 (React 19.2)
-- **Language:** TypeScript 5.7.2
-- **Styling:** TailwindCSS 3.4.17
-- **Animations:** Framer Motion 12.23.24
-- **UI Components:** Radix UI, Shadcn UI
-- **Icons:** React Icons 5.5.0, Lucide React 0.546.0
-- **Carousel:** Swiper 12.0.2
-- **Internationalization:** i18next 25.8.0, react-i18next 16.5.3
-
-### Backend & APIs
-
-- **Runtime:** Node.js
-- **Email Service:** Nodemailer 7.0.9
-- **HTTP Client:** Axios 1.12.2
-- **Email Templates:** @react-email/render 1.4.0
-- **Alternative Email:** Resend 6.2.0
-
-### Analytics & Monitoring
-
-- **Web Analytics:** Google Analytics 4
-- **Performance:** Vercel Analytics 1.5.0
-
-### Development Tools
-
-- **Package Manager:** npm/yarn/pnpm
-- **Linting:** ESLint 8.57.0
-- **Build Tool:** Turbopack (Next.js 16 default)
-- **Deployment:** Vercel
+**Beginner note:** a **Server Component** (default in `app/`) can `await` data and set `metadata`. A **Client Component** (`"use client"`) can use `useState` and click handlers. This project never turns a whole route into a client file just because one section is interactive.
 
 ---
 
-## 📁 Project Structure
+## Keywords
 
-```bash
-portfolio-arnob-new/
-├── app/                          # Next.js App Router
-│   ├── api/                      # API Routes
-│   │   ├── send-email/          # Main contact form handler
-│   │   │   └── route.ts
-│   │   └── send-auto-reply/     # Auto-reply email handler
-│   │       └── route.ts
-│   ├── about/                    # About page
-│   │   └── page.tsx
-│   ├── contact/                  # Contact page
-│   │   └── page.tsx
-│   ├── faq/                      # FAQ page
-│   │   └── page.tsx
-│   ├── privacy/                  # Privacy policy page
-│   │   └── page.tsx
-│   ├── resume/                   # Resume/CV page
-│   │   └── page.tsx
-│   ├── services/                 # Services offered page
-│   │   └── page.tsx
-│   ├── terms/                    # Terms of service page
-│   │   └── page.tsx
-│   ├── work/                     # Portfolio/Projects page
-│   │   └── page.tsx
-│   ├── globals.css              # Global styles & animations
-│   ├── layout.tsx               # Root layout with metadata
-│   ├── page.tsx                 # Homepage
-│   └── sitemap.ts               # Dynamic sitemap generation
-│
-├── components/                   # React Components
-│   ├── pages/                   # Page-specific components
-│   │   ├── AboutPage.tsx       # About page content
-│   │   ├── ContactPage.tsx     # Contact form with validation
-│   │   ├── FAQPage.tsx         # FAQ accordion
-│   │   ├── HomePage.tsx        # Hero section with typewriter
-│   │   ├── PrivacyPage.tsx     # Privacy policy content
-│   │   ├── ResumePage.tsx      # Tabbed resume/skills section
-│   │   ├── ServicesPage.tsx    # Service cards grid
-│   │   ├── TermsPage.tsx       # Terms of service content
-│   │   └── WorkPage.tsx        # Projects showcase with carousel
-│   │
-│   ├── ui/                      # Reusable UI components (Shadcn)
-│   │   ├── accordion.tsx       # FAQ accordion component
-│   │   ├── alert.tsx          # Alert/notification component
-│   │   ├── button.tsx          # Custom button variants
-│   │   ├── card.tsx            # Card component
-│   │   ├── dropdown-menu.tsx  # Dropdown menu
-│   │   ├── input.tsx          # Form input field
-│   │   ├── scroll-area.tsx    # Custom scrollbar
-│   │   ├── select.tsx          # Dropdown select
-│   │   ├── sheet.tsx          # Mobile navigation sheet
-│   │   ├── tabs.tsx            # Tab navigation
-│   │   ├── textarea.tsx        # Multi-line input
-│   │   └── tooltip.tsx         # Tooltip component
-│   │
-│   ├── LanguageSelector/        # Language switcher component
-│   │   └── LanguageSelector.tsx
-│   │
-│   ├── Footer.tsx               # Footer with links
-│   ├── GoogleAnalytics.tsx      # GA4 integration
-│   ├── Header.tsx                # Main navigation header
-│   ├── I18nProvider.tsx         # i18n provider wrapper
-│   ├── MobileNav.tsx             # Mobile hamburger menu
-│   ├── Nav.tsx                   # Desktop navigation links
-│   ├── PageTransition.tsx        # Page animation wrapper
-│   ├── Photo.tsx                 # Profile photo with effects
-│   ├── ScrollToTop.tsx           # Scroll-to-top button
-│   ├── Social.tsx                # Social media links
-│   ├── Stairs.tsx                # Stair animation component
-│   ├── StairTranstion.tsx       # Stair transition wrapper
-│   └── Stats.tsx                 # Animated statistics counter
-│
-├── context/                      # React Context Providers
-│   └── LanguageContext.tsx      # Language state management
-│
-├── hooks/                        # Custom React Hooks
-│   └── useTypewriter.ts         # Typewriter text effect hook
-│
-├── lib/                          # Utility functions & configurations
-│   ├── i18n.ts                  # i18next configuration
-│   ├── language-cookie.ts       # Cookie-based language persistence
-│   ├── language-detection.ts    # Browser language detection
-│   ├── translations.ts          # Translation strings (en/de)
-│   └── utils.ts                 # Helper functions (cn, etc.)
-│
-├── public/                       # Static assets
-│   ├── assets/                  # Images, icons, etc.
-│   │   ├── resume/             # Resume-related assets
-│   │   ├── skills/             # Skill icons
-│   │   └── work/               # Project screenshots
-│   ├── favicon.ico             # Site favicon
-│   ├── photo.png               # Profile photo
-│   └── robots.txt              # SEO robots file
-│
-├── .env.local                    # Environment variables (not in repo)
-├── eslint.config.mjs            # ESLint 9 flat config (Next 16)
-├── .gitignore                   # Git ignore rules
-├── global.d.ts                  # Global TypeScript declarations
-├── LICENSE                      # MIT License
-├── proxy.ts                     # Next.js 16 request interceptor (language + pathname headers)
-├── next.config.mjs              # Next.js configuration
-├── package.json                 # Project dependencies
-├── postcss.config.mjs           # PostCSS configuration
-├── tailwind.config.js           # TailwindCSS configuration
-├── tsconfig.json                # TypeScript configuration
-└── README.md                    # This file
+Full-Stack Software Engineer, Software Engineer Germany, Frankfurt, React, Next.js, Angular, Node.js, Python, .NET, REST APIs, PostgreSQL, MongoDB, AWS, Docker, Kubernetes, CI/CD, portfolio, i18n, RAG chatbot.
+
+Used in `app/layout.tsx` and per-page `metadata.keywords` so search engines see both the person and the tech.
+
+---
+
+## Project structure
+
+```text
+app/                    # Routes + API (App Router)
+  layout.tsx            # Root metadata, lang, providers
+  page.tsx              # Home
+  about|resume|work|services|faq|contact|privacy|terms/page.tsx
+  api/chat|history|send-email|send-auto-reply|feedback|seed/route.ts
+  sitemap.ts
+components/             # Header, Footer, pages/*, chatbot/*, ui/*
+context/                # LanguageContext, widget-settings-context
+hooks/                  # use-chat, useTypewriter, use-is-client, use-synced-storage
+lib/                    # ai, rag, redis, translations, logger, faqs
+proxy.ts                # Next 16 interceptor (language + pathname headers)
+eslint.config.mjs       # ESLint 9 + eslint-config-next 16
+.env.example            # Placeholder names only — copy to .env.local
+SECURITY.md             # Private vulnerability reporting
 ```
 
 ---
 
-## 🚀 Installation & Setup
+## How it works
 
-### Prerequisites
+1. A request hits **`proxy.ts`** (Node). Cookie `selectedLanguage` or `Accept-Language` becomes header `x-initial-language`. Pathname becomes `x-pathname`.
+2. **`app/layout.tsx`** `await headers()` and sets `<html lang>` plus the canonical `<link>`.
+3. The matching **`app/.../page.tsx`** supplies SEO `metadata` and renders a page component from `components/pages/`.
+4. Client trees (nav, forms, chat) hydrate. Language is also stored in `localStorage` / cookie so the toggle survives refresh.
 
-Before you begin, ensure you have the following installed:
+Chat (optional keys): widget → `POST /api/chat` `{ message }` → rate limit → Redis session → `searchFAQ` → `getAIResponse` (Gemini → OpenRouter `:free` → Groq → Hugging Face → optional OpenAI) → SSE `data: { response }` then `data: [DONE]`.
 
-- **Node.js** 20.9 or higher ([Download](https://nodejs.org/))
-- **npm** (comes with Node.js) or **yarn** or **pnpm**
-- **Git** for version control
-- A **Gmail account** (for email functionality)
-- A **Google Analytics 4** account (optional, for analytics)
+Contact: `ContactPage` → axios `POST /api/send-email` then `/api/send-auto-reply`. Needs `EMAIL_USER` / `EMAIL_PASS`.
 
-### Step 1: Clone the Repository
+---
 
-```bash
-# Clone using HTTPS
-git clone https://github.com/arnobt78/MyPortfolio--NextJS-FullStack-Website.git
+## Installation
 
-# Or clone using SSH
-git clone git@github.com:arnobt78/MyPortfolio--NextJS-FullStack-Website.git
-
-# Navigate to project directory
-cd MyPortfolio--NextJS-FullStack-Website
-```
-
-### Step 2: Install Dependencies
+**Need:** Node.js **20.9+** (Next 16 floor). npm is enough.
 
 ```bash
-# Using npm
+git clone https://github.com/arnobt78/Portfolio--NextJS-FullStack.git
+cd Portfolio--NextJS-FullStack
 npm install
-
-# Or using yarn
-yarn install
-
-# Or using pnpm
-pnpm install
-```
-
-This will install all the required dependencies listed in `package.json`.
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env.local` file in the root directory of your project. This file contains sensitive information and should **never** be committed to version control.
-
-### Required Environment Variables
-
-```env
-# =================================
-# EMAIL CONFIGURATION (Required)
-# =================================
-
-# Your Gmail address (used for sending/receiving contact form emails)
-EMAIL_USER=your-email@gmail.com
-
-# Gmail App Password (NOT your regular Gmail password)
-# Generate this from: https://myaccount.google.com/apppasswords
-EMAIL_PASS=your-16-character-app-password
-
-
-# =================================
-# GOOGLE ANALYTICS (Optional)
-# =================================
-
-# Google Analytics 4 Measurement ID
-# Find this in GA4: Admin > Data Streams > Your Stream
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-
-
-# =================================
-# CHATBOT WIDGET (Optional)
-# =================================
-
-# Chatbot widget URL (for embedded chatbot functionality)
-# In production: Your chatbot deployment URL
-# In development: http://localhost:3000 (if running locally)
-NEXT_PUBLIC_CHATBOT_URL=https://your-chatbot-url.vercel.app
-
-
-# =================================
-# SEO & VERIFICATION (Optional)
-# =================================
-
-# Google Search Console verification code
-# Get from: https://search.google.com/search-console
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
-
-# Bing Webmaster Tools verification code
-# Get from: https://www.bing.com/webmasters
-NEXT_PUBLIC_BING_SITE_VERIFICATION=your-verification-code
-```
-
-### How to Obtain Environment Variables
-
-#### 1. **EMAIL_USER** (Your Gmail Address)
-
-- Simply use your existing Gmail address
-- Example: `your-email@gmail.com`
-
-#### 2. **EMAIL_PASS** (Gmail App Password)
-
-**Important:** This is NOT your regular Gmail password. It's a special 16-character password generated by Google.
-
-**Steps to generate:**
-
-1. Go to [Google Account Settings](https://myaccount.google.com/)
-2. Click on **Security** in the left sidebar
-3. Enable **2-Step Verification** (required for App Passwords)
-4. Once 2FA is enabled, return to Security settings
-5. Scroll down to **App passwords** (may appear after 2FA setup)
-6. Click **App passwords**
-7. Select **Mail** as the app
-8. Select **Other (Custom name)** as the device
-9. Enter a name like "Portfolio Website"
-10. Click **Generate**
-11. Copy the 16-character password (format: `xxxx xxxx xxxx xxxx`)
-12. Remove spaces and use it as `EMAIL_PASS`
-
-**Example:** `abcdwxyzpqrsjklm`
-
-**Security Note:** Never share your app password or commit it to version control!
-
-#### 3. **NEXT_PUBLIC_GA_MEASUREMENT_ID** (Google Analytics - Optional)
-
-**Steps to get your Measurement ID:**
-
-1. Go to [Google Analytics](https://analytics.google.com/)
-2. Create an account if you don't have one
-3. Create a new **GA4 Property** (not Universal Analytics)
-4. Navigate to **Admin** (gear icon at bottom left)
-5. Under **Property**, click **Data Streams**
-6. Click on your Web stream
-7. Find **Measurement ID** (format: `G-XXXXXXXXXX`)
-8. Copy and paste into `.env.local`
-
-**Example:** `G-7CTQNDTW0G`
-
-#### 4. **NEXT_PUBLIC_CHATBOT_URL** (Chatbot Widget - Optional)
-
-If you're using the embedded chatbot widget:
-
-- **Production:** Your chatbot deployment URL (e.g., `https://portfolio-chatbot-widget.vercel.app`)
-- **Development:** `http://localhost:3000` (if running chatbot locally)
-
-#### 5. **NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION** (Google Search Console - Optional)
-
-**Steps:**
-
-1. Go to [Google Search Console](https://search.google.com/search-console)
-2. Add your property (website URL)
-3. Choose **HTML tag** verification method
-4. Copy the `content` value from the meta tag
-5. Add to `.env.local`
-
-**Example:** `abc123def456ghi789`
-
-#### 6. **NEXT_PUBLIC_BING_SITE_VERIFICATION** (Bing Webmaster - Optional)
-
-**Steps:**
-
-1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters)
-2. Add your site
-3. Choose **Meta tag** verification
-4. Copy the `content` value
-5. Add to `.env.local`
-
-### Security Best Practices
-
-⚠️ **Never commit `.env.local` to Git!**
-
-The `.gitignore` file is already configured to exclude:
-
-- `.env.local`
-- `.env.development.local`
-- `.env.test.local`
-- `.env.production.local`
-
-**If you accidentally commit sensitive data:**
-
-1. Remove it from Git history immediately
-2. Regenerate all compromised credentials
-3. Update `.env.local` with new credentials
-4. Rotate any exposed API keys or passwords
-
----
-
-## 🏃 How to Run
-
-### Development Mode
-
-Start the development server with hot-reload:
-
-```bash
-# Using npm
+cp .env.example .env.local   # optional — see below
 npm run dev
-
-# Or using yarn
-yarn dev
-
-# Or using pnpm
-pnpm dev
 ```
 
-The application will be available at:
+Open [http://localhost:3000](http://localhost:3000).
 
-- **Local:** [http://localhost:3000](http://localhost:3000)
-- **Network:** Check terminal for network URL
-
-**Note:** The project uses Turbopack for faster development builds.
-
-### Clean Development Mode
-
-If you encounter cache issues, run:
-
-```bash
-npm run dev:clean
-```
-
-This removes the `.next` folder and starts a fresh development build.
-
-### Production Build
-
-Build the application for production:
-
-```bash
-# Build the project
-npm run build
-
-# Start production server
-npm run start
-```
-
-### Linting
-
-Check code quality and fix issues:
-
-```bash
-npm run lint
-```
+The site **runs without any env vars**. Chat, email, Redis, Sentry, and Search Console tags stay inactive until you fill `.env.local`.
 
 ---
 
-## 🌍 Internationalization (i18n)
+## Environment variables
 
-This project includes full internationalization support with English and German languages.
+Template: [`.env.example`](.env.example). Copy to **`.env.local`** (gitignored). Never commit real keys. `.env` at the repo root is also gitignored.
 
-### How It Works
+| Name                                        | Required to run UI? | How to get it                                                                       |
+| ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------- |
+| `GOOGLE_GEMINI_API_KEY`                     | No                  | [Google AI Studio](https://aistudio.google.com/)                                    |
+| `OPENROUTER_API_KEY`                        | No                  | [OpenRouter](https://openrouter.ai/) — this app uses `:free` model IDs only         |
+| `GROQ_API_KEY`                              | No                  | [Groq console](https://console.groq.com/)                                           |
+| `HUGGING_FACE_API_KEY`                      | No                  | [Hugging Face](https://huggingface.co/settings/tokens)                              |
+| `OPENAI_API_KEY`                            | No                  | Optional paid last resort                                                           |
+| `UPSTASH_REDIS_URL` / `UPSTASH_REDIS_TOKEN` | No                  | [Upstash](https://upstash.com/) Redis                                               |
+| `SESSION_TTL`                               | No                  | Seconds (default `2592000`)                                                         |
+| `EMAIL_USER` / `EMAIL_PASS`                 | No                  | Gmail (or SMTP) + [App Password](https://support.google.com/accounts/answer/185833) |
+| `FEEDBACK_EMAIL`                            | No                  | Inbox for chatbot feedback                                                          |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID`             | No                  | GA4 `G-...`                                                                         |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`      | No                  | Search Console meta content                                                         |
+| `NEXT_PUBLIC_BING_SITE_VERIFICATION`        | No                  | Bing Webmaster meta content                                                         |
+| `NEXT_PUBLIC_SENTRY_DSN`                    | No                  | Sentry project DSN                                                                  |
+| `SENTRY_ORG` / `SENTRY_PROJECT`             | No                  | Source maps on `next build`                                                         |
 
-1. **Language Detection:**
-   - Checks browser language preference
-   - Falls back to cookie-stored preference
-   - Defaults to English if no preference found
+Legacy aliases still read by `lib/ai.ts`: `OpenRouter_API_KEY`, `Groq_Llama_API_KEY`, `Hugging_Face_Inference_API_KEY`.
 
-2. **Language Persistence:**
-   - Stores selected language in cookies
-   - Persists across page reloads
-   - Uses `selectedLanguage` cookie key
+On Vercel, add the same names in Project → Settings → Environment Variables (Production + Preview).
 
-3. **Translation System:**
-   - Uses `i18next` and `react-i18next`
-   - Translation strings stored in `lib/translations.ts`
-   - Supports nested keys (e.g., `home.hello`)
+---
 
-### Adding a New Language
+## Scripts
 
-1. **Add translations to `lib/translations.ts`:**
+Already in `package.json`:
 
-```typescript
-export const translations = {
-  en: {
-    "nav.home": "Home",
-    // ... existing translations
-  },
-  de: {
-    "nav.home": "Startseite",
-    // ... existing translations
-  },
-  // Add new language
-  fr: {
-    "nav.home": "Accueil",
-    // ... add all translation keys
-  },
-};
-```
-
-1. **Update language types:**
-
-```typescript
-// In context/LanguageContext.tsx
-export type Language = "en" | "de" | "fr"; // Add new language
-
-// In proxy.ts
-const supportedLanguages = ["en", "de", "fr"]; // Add new language
-```
-
-1. **Update i18n configuration:**
-
-```typescript
-// In lib/i18n.ts
-resources: {
-  en: { translation: translations.en },
-  de: { translation: translations.de },
-  fr: { translation: translations.fr }, // Add new language
-},
-```
-
-### Using Translations in Components
-
-```tsx
-import { useLanguage } from "@/context/LanguageContext";
-
-function MyComponent() {
-  const { t } = useLanguage();
-
-  return (
-    <div>
-      <h1>{t("home.hello")}</h1>
-      <p>{t("home.bio")}</p>
-    </div>
-  );
+```json
+{
+  "dev": "next dev",
+  "dev:clean": "rm -rf .next && next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "eslint ."
 }
 ```
 
-### Language Switcher Component
-
-The `LanguageSelector` component provides a dropdown to switch languages:
-
-```tsx
-import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
-
-<LanguageSelector />;
+```bash
+npm run lint          # ESLint 9 flat config
+npx tsc --noEmit      # types
+npm run build         # Turbopack production build
+npm run start         # serve `.next`
 ```
 
 ---
 
-## 🧩 Components Overview
+## Routes
 
-### Page Components (`components/pages/`)
+| Path                | File                    | Role                                        |
+| ------------------- | ----------------------- | ------------------------------------------- |
+| `/`                 | `app/page.tsx`          | Hero, stats, photo                          |
+| `/about`            | `app/about/page.tsx`    | Bio                                         |
+| `/resume`           | `app/resume/page.tsx`   | Experience / education / skills (hash tabs) |
+| `/work`             | `app/work/page.tsx`     | Project grid + Swiper                       |
+| `/services`         | `app/services/page.tsx` | Offerings                                   |
+| `/faq`              | `app/faq/page.tsx`      | FAQ accordion                               |
+| `/contact`          | `app/contact/page.tsx`  | Form                                        |
+| `/privacy` `/terms` | matching `page.tsx`     | Legal                                       |
 
-#### 1. **HomePage.tsx**
+Each `page.tsx` is a **server** file: export `metadata`, return `<SomePage />`. Put interactive UI in `components/pages/`.
 
-**Purpose:** Landing page hero section with introduction and call-to-action.
-
-**Key Features:**
-
-- Typewriter effect for name animation
-- Profile photo with circular border effect
-- Download resume button
-- Social media links
-- Animated statistics counter
-
-**Code Example:**
+Example (home):
 
 ```tsx
-import HomePage from "@/components/pages/HomePage";
+import type { Metadata } from "next";
+import HomePage from "../components/pages/HomePage";
+
+export const metadata: Metadata = {
+  title:
+    "Arnob Mahmud | Full-Stack Engineer | Web, API, SaaS, & Cloud Solutions",
+  alternates: { canonical: "https://www.arnobmahmud.com/" },
+};
 
 export default function Home() {
   return <HomePage />;
 }
 ```
 
-**Reusability:**
+---
 
-```tsx
-// Extract typewriter effect
-import { useTypewriter } from "@/hooks/useTypewriter";
+## API endpoints
 
-const { displayText, isComplete } = useTypewriter({
-  text: "Your Name",
-  speed: 200,
-  delay: 2000,
-});
+| Method | Path                   | Runtime | Body                   | Purpose               |
+| ------ | ---------------------- | ------- | ---------------------- | --------------------- |
+| POST   | `/api/chat`            | Edge    | `{ "message": "..." }` | SSE chatbot           |
+| GET    | `/api/history`         | Edge    | cookie                 | Chat history          |
+| POST   | `/api/send-email`      | Node    | contact fields         | Mail to you           |
+| POST   | `/api/send-auto-reply` | Node    | contact fields         | Visitor thank-you     |
+| POST   | `/api/feedback`        | Node    | rating / comment       | Chatbot feedback      |
+| POST   | `/api/seed`            | Node    | —                      | Embed FAQs into Redis |
+
+Chat smoke test (after `npm run build && npm run start` and a Gemini/OpenRouter key):
+
+```bash
+curl -X POST http://localhost:3000/api/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"message":"Say hi in one short sentence."}'
 ```
 
-**Customization:**
-
-- Edit personal information in the component
-- Update resume link in the Button href
-- Modify typewriter text in `useTypewriter` hook
-- Change animation delays in style props
+You should see `text/event-stream` and `data: [DONE]`.
 
 ---
 
-#### 2. **ServicesPage.tsx**
-
-**Purpose:** Display services offered in a grid layout with hover effects.
-
-**Key Features:**
-
-- Responsive grid (1 column mobile, 2 columns desktop)
-- Hover effects with color transitions
-- Arrow icon that rotates on hover
-- Service cards with numbering
-- Technology stack display
-
-**Data Structure:**
-
-```typescript
-interface Service {
-  num: string; // Service number (e.g., "01")
-  titleKey: string; // Translation key for title
-  descriptionKey: string; // Translation key for description
-  stack: ServiceStack[]; // Technologies used
-  href: string; // Link to contact page
-}
-```
-
-**How to Add/Edit Services:**
-
-```tsx
-const services: Service[] = [
-  {
-    num: "01",
-    titleKey: "services.01.title",
-    descriptionKey: "services.01.description",
-    stack: [{ name: "React" }, { name: "Next.js" }],
-    href: "/contact",
-  },
-  // Add more services here
-];
-```
-
-**Reusability in Other Projects:**
-
-- Extract the service card into a separate component
-- Pass services array as props
-- Style using Tailwind utility classes
-- Perfect for service pages, product showcases, or feature lists
-
----
-
-#### 3. **ResumePage.tsx**
-
-**Purpose:** Tabbed interface displaying resume, experience, education, and skills.
-
-**Key Features:**
-
-- Tab navigation (About, Experience, Education, Skills)
-- Scrollable content areas
-- Icon-based skill display with tooltips
-- Timeline cards for experience/education
-- Multi-language support
-
-**Data Structures:**
-
-```typescript
-// About section
-interface InfoItem {
-  fieldName: string;
-  fieldValue: string;
-}
-
-// Experience section
-interface ExperienceItem {
-  company: string;
-  position: string;
-  duration: string;
-}
-
-// Skills section
-interface SkillItem {
-  icon: JSX.Element;
-  name: string;
-}
-```
-
-**How to Update Content:**
-
-1. **Add Experience:**
-
-```tsx
-const experience: ExperienceData = {
-  items: [
-    {
-      company: "Your Company",
-      position: "Your Position",
-      duration: "Jan 2024 - Present",
-    },
-  ],
-};
-```
-
-1. **Add Skills:**
-
-```tsx
-import { FaReact } from "react-icons/fa";
-
-const skills: SkillsData = {
-  skillList: [
-    { icon: <FaReact />, name: "React.js" },
-    // Add more skills
-  ],
-};
-```
-
-**Reusability:**
-
-- Convert to a generic tabbed component
-- Pass data as props
-- Use in team pages, product showcases, or documentation sites
-
----
-
-#### 4. **WorkPage.tsx**
-
-**Purpose:** Showcase portfolio projects with grid/list view toggle.
-
-**Key Features:**
-
-- Swiper carousel for image slideshow
-- Grid view (original) and list view modes
-- Project filtering by category
-- Live demo and GitHub repository links
-- Technology stack display
-- Multi-language project descriptions
-
-**Project Data Structure:**
-
-```typescript
-interface Project {
-  num: string; // Project number
-  category: string; // Frontend/Fullstack/Backend
-  title: string; // Translation key for title
-  description: string; // Translation key for description
-  stack: ProjectStack[]; // Technologies used
-  image: string; // Screenshot path
-  live: string; // Live demo URL
-  github: string; // GitHub repository URL
-}
-```
-
-**How to Add New Projects:**
-
-```tsx
-const projects: Project[] = [
-  {
-    num: "01",
-    category: "Fullstack",
-    title: "work.project.01.title", // Translation key
-    description: "work.project.01.description", // Translation key
-    stack: [{ name: "Next.js" }, { name: "TypeScript" }],
-    image: "/assets/work/project-image.png",
-    live: "https://your-live-demo.com",
-    github: "https://github.com/yourusername/repo",
-  },
-];
-```
-
-**View Mode Toggle:**
-
-- **Grid View:** Carousel with single project focus
-- **List View:** All projects in scrollable list
-
-**Reusability:**
-
-- Perfect for freelancer portfolios
-- Agency project showcases
-- Product galleries
-- Case study presentations
-- E-commerce product listings
-
----
-
-#### 5. **ContactPage.tsx**
-
-**Purpose:** Contact form with email functionality and validation.
-
-**Key Features:**
-
-- Form validation (required fields, email format)
-- Loading states during submission
-- Success/error alerts with icons
-- Auto-reply email to user
-- Smooth scroll to alert message
-- Contact information display
-- Copy-to-clipboard functionality
-- Multi-language support
-
-**Form Data Structure:**
-
-```typescript
-interface FormData {
-  fullname: string;
-  email: string;
-  message: string;
-}
-```
-
-**API Integration:**
-
-```tsx
-// Send main email
-const response = await axios.post("/api/send-email", formData);
-
-// Send auto-reply
-const autoReply = await axios.post("/api/send-auto-reply", formData);
-```
-
-**Error Handling:**
-
-- Network errors
-- Authentication errors
-- Validation errors
-- Timeout errors
-
-**Reusability:**
-
-- Extract form into separate component
-- Add file upload capability
-- Integrate with other backend services (Firebase, Supabase)
-- Add CAPTCHA for spam protection
-- Use in newsletter signups, feedback forms, or support tickets
-
----
-
-#### 6. **FAQPage.tsx**
-
-**Purpose:** Frequently Asked Questions page with accordion interface.
-
-**Key Features:**
-
-- Accordion component for expandable Q&A
-- Multi-language support
-- Smooth expand/collapse animations
-- Accessible keyboard navigation
-
-**Data Structure:**
-
-```typescript
-interface FAQItem {
-  question: string; // Translation key
-  answer: string; // Translation key
-}
-```
-
-**How to Add FAQs:**
-
-```tsx
-const faqData: FAQItem[] = [
-  {
-    question: t("faq.01.question"),
-    answer: t("faq.01.answer"),
-  },
-  // Add more FAQs
-];
-```
-
-**Reusability:**
-
-- Use in help centers
-- Documentation sites
-- Product pages
-- Support pages
-
----
-
-### UI Components (`components/ui/`)
-
-These are **Shadcn UI** components - fully customizable, accessible, and ready to use.
-
-#### **button.tsx**
-
-Versatile button component with multiple variants.
-
-**Variants:**
-
-- `default` - Primary accent button
-- `destructive` - Red danger button
-- `outline` - Bordered button
-- `secondary` - Muted secondary button
-- `ghost` - Transparent button
-- `link` - Link-styled button
-
-**Sizes:**
-
-- `default` - Standard size
-- `sm` - Small button
-- `lg` - Large button
-- `icon` - Square icon button
-
-**Usage:**
+## Components you can reuse
+
+Copy the folder, keep the `"use client"` line, and pass props or wrap with the same context.
+
+| Component          | Path                           | Reuse idea                                         |
+| ------------------ | ------------------------------ | -------------------------------------------------- |
+| `Photo`            | `components/Photo.tsx`         | Circular crop + dashed ring                        |
+| `Stats`            | `components/Stats.tsx`         | Count-up after hydration (`useIsClient`)           |
+| `LanguageSelector` | `components/LanguageSelector/` | Cookie + `setLanguage`                             |
+| `ChatbotWidget`    | `components/chatbot/`          | Needs `Providers` + Redis/AI keys for live answers |
+| `SafeImage`        | `components/ui/SafeImage.tsx`  | Next/Image with fallback                           |
+| UI kit             | `components/ui/*`              | shadcn Button, Dialog, Tabs, Sheet                 |
+
+**Example:** use the button elsewhere:
 
 ```tsx
 import { Button } from "@/components/ui/button";
 
-<Button variant="default" size="lg">
-  Click Me
-</Button>
-
-<Button variant="outline" size="sm">
-  Secondary Action
-</Button>
+<Button variant="outline">Hire me</Button>;
 ```
+
+`@/` maps to the repo root (`tsconfig.json` `paths`). In another Next app, copy `components/ui` + `lib/utils.ts` (`cn` = clsx + tailwind-merge).
 
 ---
 
-#### **input.tsx**
+## Hooks and context
 
-Styled text input field with focus states.
+- **`LanguageContext`** — `language`, `setLanguage`, `t(key)`. Server initial lang from `proxy` headers; client may prefer cookie.
+- **`use-chat.ts`** — React Query `["chat-history"]`; `sendMessage` streams then **invalidates** history so the widget updates without a full page reload.
+- **`useTypewriter`** — hero name animation.
+- **`use-is-client` / `use-synced-storage`** — hydration-safe client flag and localStorage enums (theme, font size, widget position).
 
-**Usage:**
-
-```tsx
-import { Input } from "@/components/ui/input";
-
-<Input
-  type="email"
-  placeholder="Enter your email"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>;
-```
+This is **not** a CRUD admin app. Static pages do not need global cache densify. Chat is the only live mutation path.
 
 ---
 
-#### **textarea.tsx**
+## i18n
 
-Multi-line text input for longer content.
+Strings live in `lib/translations.ts` (`en` / `de`). `LanguageSelector` writes cookie `selectedLanguage`. `proxy.ts` reads it on the **next** request so `html lang` is correct on first paint.
 
-**Usage:**
-
-```tsx
-import { Textarea } from "@/components/ui/textarea";
-
-<Textarea placeholder="Your message" className="h-[200px]" />;
-```
+Add a key in both language objects, then `t("nav.home")` in a client component.
 
 ---
 
-#### **alert.tsx**
+## Chatbot
 
-Notification component for success/error messages.
+Widget: `components/chatbot/chatbot-widget.tsx`. FAQ text: `lib/faqs.ts`. After editing FAQs, call `POST /api/seed` so Redis vectors update.
 
-**Variants:**
-
-- `default` - Blue informational
-- `destructive` - Red error
-- `success` - Green success (custom)
-
-**Usage:**
-
-```tsx
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-
-<Alert variant="success">
-  <AlertTitle>Success!</AlertTitle>
-  <AlertDescription>Your message has been sent.</AlertDescription>
-</Alert>;
-```
+Fallback order (see `lib/ai.ts`): Gemini Flash → OpenRouter free IDs → Groq OSS → Hugging Face gpt-oss → optional OpenAI.
 
 ---
 
-#### **tabs.tsx**
+## SEO and metadata
 
-Tabbed interface for organizing content.
+Root: `app/layout.tsx` — `metadataBase`, title, description, keywords, **authors** (Arnob Mahmud + <https://www.arnobmahmud.com>), creator, publisher, icons (`/favicon.ico`, `/img-8-1200.png`), Open Graph, Twitter card, JSON-LD (Person email `contact@arnobmahmud.com`).
 
-**Usage:**
-
-```tsx
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-
-<Tabs defaultValue="tab1">
-  <TabsList>
-    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-  </TabsList>
-
-  <TabsContent value="tab1">Content for Tab 1</TabsContent>
-  <TabsContent value="tab2">Content for Tab 2</TabsContent>
-</Tabs>;
-```
+Each route adds its own `title` / `canonical`. Do not drop per-page canonicals; `/services` indexing depends on them.
 
 ---
 
-#### **accordion.tsx**
+## Deployment
 
-Expandable accordion component for FAQs or collapsible content.
-
-**Usage:**
-
-```tsx
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Question?</AccordionTrigger>
-    <AccordionContent>Answer here.</AccordionContent>
-  </AccordionItem>
-</Accordion>;
-```
-
----
-
-#### **tooltip.tsx**
-
-Hover tooltip for additional information.
-
-**Usage:**
-
-```tsx
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-<TooltipProvider>
-  <Tooltip>
-    <TooltipTrigger>Hover me</TooltipTrigger>
-    <TooltipContent>
-      <p>Tooltip content here</p>
-    </TooltipContent>
-  </Tooltip>
-</TooltipProvider>;
-```
-
----
-
-### Layout Components
-
-#### **Header.tsx**
-
-Main navigation header with logo and links.
-
-**Features:**
-
-- Logo with accent dot
-- Desktop navigation menu
-- Mobile hamburger menu
-- Language selector
-- "Hire me" CTA button
-
-**Customization:**
-
-```tsx
-// Change logo text
-<h1 className="text-4xl font-semibold">
-  YourBrand<span className="text-accent">.</span>
-</h1>
-```
-
----
-
-#### **Nav.tsx**
-
-Desktop navigation links with active state highlighting.
-
-**Navigation Links:**
-
-```tsx
-const links = [
-  { name: "home", path: "/" },
-  { name: "services", path: "/services" },
-  { name: "resume", path: "/resume" },
-  { name: "work", path: "/work" },
-  { name: "contact", path: "/contact" },
-];
-```
-
-**How to Add Links:**
-
-Simply add to the `links` array with name and path. The component uses translation keys for display.
-
----
-
-#### **MobileNav.tsx**
-
-Mobile-friendly sheet navigation.
-
-**Features:**
-
-- Hamburger icon trigger
-- Slide-in navigation sheet
-- Logo display
-- Close button
-- Mobile-optimized link styles
-
----
-
-#### **Footer.tsx**
-
-Footer component with copyright and links.
-
-**Features:**
-
-- Dynamic year display
-- Links to About, Privacy, Terms pages
-- Multi-language support
-- Responsive layout
-
----
-
-#### **Social.tsx**
-
-Social media icon links.
-
-**Social Platforms:**
-
-```tsx
-const socials = [
-  { icon: <FaGithub />, path: "https://github.com/username" },
-  { icon: <FaLinkedinIn />, path: "https://linkedin.com/in/username" },
-  { icon: <FaYoutube />, path: "https://youtube.com/@username" },
-  { icon: <FaInstagram />, path: "https://instagram.com/username" },
-];
-```
-
-**Usage:**
-
-```tsx
-<Social
-  containerStyles="flex gap-6"
-  iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent hover:bg-accent hover:text-primary transition-all duration-500"
-/>
-```
-
----
-
-#### **Stats.tsx**
-
-Animated statistics counter.
-
-**Features:**
-
-- Counts from start value to target value
-- Smooth easing animation
-- Responsive grid layout
-- Customizable duration
-- Multi-language support
-
-**Data Structure:**
-
-```tsx
-const stats = [
-  {
-    num: 5, // Target number
-    textKey: "home.stats.years", // Translation key
-    startFrom: 0, // Starting number
-  },
-];
-```
-
-**How It Works:**
-
-Uses `requestAnimationFrame` for smooth 60fps animation with ease-out curve.
-
-**Reusability:**
-
-- E-commerce dashboards
-- Analytics displays
-- Achievement counters
-- Progress indicators
-
----
-
-#### **Photo.tsx**
-
-Profile photo with circular border animation.
-
-**Features:**
-
-- Circular shape with rotating border effect
-- Responsive sizing
-- Image optimization with Next.js Image
-- Fade-in animation
-
-**Customization:**
-
-```tsx
-// Change image source
-<Image
-  src="/your-photo.png"
-  alt="Your Name"
-  width={498}
-  height={498}
-  priority
-/>
-```
-
----
-
-#### **PageTransition.tsx**
-
-Wrapper component for page transition animations.
-
-**Usage:**
-
-```tsx
-import PageTransition from "@/components/PageTransition";
-
-export default function RootLayout({ children }) {
-  return <PageTransition>{children}</PageTransition>;
-}
-```
-
-**Animation:**
-
-Uses Framer Motion's `AnimatePresence` with fade and slide effects.
-
----
-
-#### **StairTransition.tsx**
-
-Creative stair-step page transition effect.
-
-**How It Works:**
-
-- Creates multiple div elements
-- Animates them in sequence
-- Creates a "stair" effect during page transitions
-
----
-
-#### **ScrollToTop.tsx**
-
-Button that appears when scrolling down, returns to top when clicked.
-
-**Features:**
-
-- Only visible after scrolling 300px
-- Smooth scroll to top
-- Fixed position in bottom-right corner
-- Fade in/out animation
-
----
-
-#### **GoogleAnalytics.tsx**
-
-Google Analytics 4 integration component.
-
-**Features:**
-
-- Loads GA4 script
-- Initializes `gtag` function
-- Logs status in development mode
-- Silent fail for ad blockers
-
-**Usage:**
-
-Already included in `layout.tsx` root layout.
-
----
-
-#### **LanguageSelector.tsx**
-
-Language switcher dropdown component.
-
-**Features:**
-
-- Dropdown menu for language selection
-- Visual flag/icons for languages
-- Persists selection in cookies
-- Updates UI immediately
-
-**Usage:**
-
-```tsx
-import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
-
-<LanguageSelector />;
-```
-
----
-
-## 🔌 API Endpoints
-
-### 1. `/api/send-email` (POST)
-
-**Purpose:** Sends contact form submission to your email address.
-
-**Request Body:**
-
-```typescript
-{
-  fullname: string; // User's name (1-100 characters)
-  email: string; // User's email (valid format)
-  message: string; // User's message (1-5000 characters)
-}
-```
-
-**Response (Success):**
-
-```typescript
-{
-  message: "Email sent successfully";
-}
-```
-
-**Response (Error):**
-
-```typescript
-{
-  error: "Validation failed" | "Authentication failed" | "Connection failed",
-  details: string  // Specific error message
-}
-```
-
-**Validation Rules:**
-
-- All fields required
-- Email must be valid format
-- Name: 1-100 characters
-- Message: 1-5000 characters
-- Input sanitization to prevent XSS
-
-**Email Configuration:**
-
-```typescript
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-```
-
-**Error Handling:**
-
-- `EAUTH` - Authentication failed
-- `ECONNECTION` - Connection failed
-- Invalid email format
-- Missing fields
-
-**Usage Example:**
-
-```tsx
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    const response = await axios.post("/api/send-email", formData);
-    if (response.status === 200) {
-      // Show success message
-    }
-  } catch (error) {
-    // Handle error
-  }
-};
-```
-
----
-
-### 2. `/api/send-auto-reply` (POST)
-
-**Purpose:** Sends automatic confirmation email to user after form submission.
-
-**Request Body:**
-
-```typescript
-{
-  fullname: string;
-  email: string;
-  message: string;
-}
-```
-
-**Response (Success):**
-
-```typescript
-{
-  message: "Auto-reply sent successfully",
-  referenceNumber: string  // Format: ARN-{timestamp}-{random}
-}
-```
-
-**Email Template Features:**
-
-- Professional HTML email design
-- Reference number for tracking
-- Message preview (truncated at 200 chars)
-- Submission date
-- Contact information
-- Brand colors and fonts
-- Responsive design
-
-**Sample Reference Number:**
-
-```bash
-ARN-1729699200000-742
-```
-
-**HTML Email Template:**
-
-- Header with gradient background
-- Message preview box
-- Reference number display
-- Next steps section
-- Contact information footer
-- Disclaimer section
-
-**Usage Example:**
-
-```tsx
-// Send auto-reply after main email
-const autoReply = await axios.post("/api/send-auto-reply", formData);
-console.log("Reference:", autoReply.data.referenceNumber);
-```
-
----
-
-## Pages & Routes
-
-### App Router Structure
-
-Next.js 16 uses the **App Router** with file-based routing.
-
-| Route       | File                    | Component      | Description                |
-| ----------- | ----------------------- | -------------- | -------------------------- |
-| `/`         | `app/page.tsx`          | `HomePage`     | Landing page with hero     |
-| `/about`    | `app/about/page.tsx`    | `AboutPage`    | About information          |
-| `/services` | `app/services/page.tsx` | `ServicesPage` | Services offered           |
-| `/resume`   | `app/resume/page.tsx`   | `ResumePage`   | Resume/Skills              |
-| `/work`     | `app/work/page.tsx`     | `WorkPage`     | Portfolio projects         |
-| `/faq`      | `app/faq/page.tsx`      | `FAQPage`      | Frequently asked questions |
-| `/contact`  | `app/contact/page.tsx`  | `ContactPage`  | Contact form               |
-| `/privacy`  | `app/privacy/page.tsx`  | `PrivacyPage`  | Privacy policy             |
-| `/terms`    | `app/terms/page.tsx`    | `TermsPage`    | Terms of service           |
-
-### Creating New Pages
-
-**Example: Add `/blog` page**
-
-1. Create folder and file:
-
-```bash
-mkdir app/blog
-touch app/blog/page.tsx
-```
-
-1. Create page component:
-
-```tsx
-// app/blog/page.tsx
-export default function BlogPage() {
-  return (
-    <div>
-      <h1>Blog</h1>
-      {/* Your blog content */}
-    </div>
-  );
-}
-```
-
-1. Add to navigation:
-
-```tsx
-// components/Nav.tsx
-const links = [
-  // ... existing links
-  { name: "blog", path: "/blog" },
-];
-```
-
-### Dynamic Routes
-
-**Example: Blog post with dynamic slug**
-
-```bash
-mkdir -p app/blog/[slug]
-touch app/blog/[slug]/page.tsx
-```
-
-```tsx
-// app/blog/[slug]/page.tsx
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  return (
-    <div>
-      <h1>Blog Post: {params.slug}</h1>
-    </div>
-  );
-}
-```
-
-Access at: `/blog/my-first-post`
-
-### Sitemap Generation
-
-The project includes automatic sitemap generation via `app/sitemap.ts`:
-
-```typescript
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://www.arnobmahmud.com",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    // ... more routes
-  ];
-}
-```
-
-Access at: `/sitemap.xml`
-
----
-
-## 🪝 Custom Hooks
-
-### useTypewriter Hook
-
-**File:** `hooks/useTypewriter.ts`
-
-**Purpose:** Creates a typewriter text effect with customizable speed and delay.
-
-**Interface:**
-
-```typescript
-interface UseTypewriterOptions {
-  text: string; // Text to animate
-  speed?: number; // Typing speed in ms (default: 100)
-  delay?: number; // Initial delay before typing starts (default: 0)
-}
-
-interface UseTypewriterReturn {
-  displayText: string; // Currently displayed text
-  isComplete: boolean; // Whether animation is complete
-}
-```
-
-**Usage:**
-
-```tsx
-import { useTypewriter } from "@/hooks/useTypewriter";
-
-function MyComponent() {
-  const { displayText, isComplete } = useTypewriter({
-    text: "Hello, World!",
-    speed: 150,
-    delay: 1000,
-  });
-
-  return (
-    <h1>
-      {displayText}
-      {!isComplete && <span className="typewriter-cursor">|</span>}
-    </h1>
-  );
-}
-```
-
-**How It Works:**
-
-1. Delays initial render by `delay` milliseconds
-2. Types one character every `speed` milliseconds
-3. Updates `displayText` state progressively
-4. Sets `isComplete` to `true` when finished
-
-**Reusability:**
-
-- Hero headlines
-- Product descriptions
-- Loading messages
-- Interactive tutorials
-- Chat interfaces
-
-**Customization Ideas:**
-
-- Add backspace/delete effect
-- Loop animation
-- Type multiple strings in sequence
-- Add realistic typing pauses
-
----
-
-## 🎨 Styling & Animations
-
-### TailwindCSS Configuration
-
-**File:** `tailwind.config.js`
-
-**Custom Theme:**
-
-```javascript
-theme: {
-  extend: {
-    colors: {
-      primary: "#1c1c22",
-      accent: {
-        DEFAULT: "#00ff99",
-        hover: "#00e187",
-      },
-    },
-    fontFamily: {
-      primary: "var(--font-jetbrainsMono)",
-    },
-  }
-}
-```
-
-**Custom Animations:**
-
-```javascript
-keyframes: {
-  "fade-in": {
-    from: { opacity: "0" },
-    to: { opacity: "1" },
-  },
-  "ease-in-out": {
-    "0%": { opacity: "0", transform: "translateY(10px)" },
-    "100%": { opacity: "1", transform: "translateY(0)" },
-  },
-}
-```
-
-### Global Styles
-
-**File:** `app/globals.css`
-
-**Key Features:**
-
-- Custom animations with delays
-- Scrollbar styling
-- Text outline effects
-- Typewriter cursor animation
-- Horizontal scroll prevention
-
-**Typewriter Cursor:**
-
-```css
-.typewriter-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background-color: #00ff99;
-  margin-left: 2px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-```
-
-**Custom Scrollbar:**
-
-```css
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #1c1c22;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #00ff99;
-  border-radius: 4px;
-}
-```
-
-### Framer Motion Animations
-
-**Page Transitions:**
-
-```tsx
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  exit={{ opacity: 0, y: 20 }}
-  transition={{ duration: 0.5 }}
->
-  {children}
-</motion.div>
-```
-
-**Hover Effects:**
-
-```tsx
-<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-  Click me
-</motion.div>
-```
-
-**Staggered Children:**
-
-```tsx
-<motion.div
-  variants={{
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }}
->
-  {items.map((item) => (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0 },
-      }}
-    >
-      {item}
-    </motion.div>
-  ))}
-</motion.div>
-```
-
----
-
-## 📧 Email Configuration
-
-### Gmail SMTP Setup
-
-**Step 1: Enable 2-Step Verification**
-
-1. Go to [Google Account Security](https://myaccount.google.com/security)
-2. Click "2-Step Verification"
-3. Follow the setup wizard
-
-**Step 2: Generate App Password**
-
-1. Return to Security settings
-2. Click "App passwords"
-3. Select "Mail" and "Other (Custom name)"
-4. Enter "Portfolio Website"
-5. Click "Generate"
-6. Copy the 16-character password
-7. Add to `.env.local` as `EMAIL_PASS`
-
-**Step 3: Verify Configuration**
-
-```typescript
-// Test email configuration
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
-// Verify connection
-await transporter.verify();
-```
-
-### Alternative Email Providers
-
-#### Yahoo Mail
-
-```typescript
-const transporter = nodemailer.createTransport({
-  host: "smtp.mail.yahoo.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: "youremail@yahoo.com",
-    pass: "your-app-password",
-  },
-});
-```
-
-#### Outlook/Hotmail
-
-```typescript
-const transporter = nodemailer.createTransport({
-  host: "smtp-mail.outlook.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: "youremail@outlook.com",
-    pass: "your-password",
-  },
-});
-```
-
-#### Custom SMTP
-
-```typescript
-const transporter = nodemailer.createTransport({
-  host: "smtp.yourdomain.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "youremail@yourdomain.com",
-    pass: "your-password",
-  },
-});
-```
-
-### Troubleshooting Email Issues
-
-**Error: "Invalid login"**
-
-- Ensure 2FA is enabled
-- Regenerate app password
-- Check for typos in `.env.local`
-
-**Error: "Connection timeout"**
-
-- Check firewall settings
-- Verify port 587 is open
-- Try port 465 with `secure: true`
-
-**Emails going to spam**
-
-- Add SPF record to your domain
-- Set up DKIM authentication
-- Use authenticated sender in "from" field
-
----
-
-## 📊 Analytics Integration
-
-### Google Analytics 4
-
-**Setup in Project:**
-
-1. Component already created: `components/GoogleAnalytics.tsx`
-2. Imported in `app/layout.tsx`
-3. Uses `NEXT_PUBLIC_GA_MEASUREMENT_ID` from `.env.local`
-
-**Tracking Events:**
-
-```tsx
-// Custom event tracking
-window.gtag("event", "button_click", {
-  event_category: "engagement",
-  event_label: "hire_me_button",
-  value: 1,
-});
-```
-
-**Page Views:**
-
-Automatically tracked on route changes.
-
-**View Reports:**
-
-1. Go to [Google Analytics](https://analytics.google.com/)
-2. Select your property
-3. Navigate to "Reports" > "Realtime" for live data
-4. Navigate to "Reports" > "Engagement" for detailed analytics
-
----
-
-### Vercel Analytics
-
-**Setup:**
-
-Already integrated in `app/layout.tsx`:
-
-```tsx
-import { Analytics } from "@vercel/analytics/react";
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        <Analytics />
-        {children}
-      </body>
-    </html>
-  );
-}
-```
-
-**Features:**
-
-- Automatic page view tracking
-- Web Vitals monitoring (CLS, FID, LCP, FCP, TTFB)
-- No configuration needed
-- Works automatically on Vercel deployments
-
-**View Analytics:**
-
-1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Select your project
-3. Click "Analytics" tab
-4. View traffic, performance, and Web Vitals
-
----
-
-## 🔍 SEO & Metadata
-
-### Metadata Configuration
-
-**File:** `app/layout.tsx`
-
-The project includes comprehensive SEO metadata:
-
-```typescript
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.arnobmahmud.com"),
-  title:
-    "Arnob Mahmud | Full-Stack Engineer | Web, API, SaaS, & Cloud Solutions",
-  description: "Full-Stack Software Engineer (5+ years)...",
-  keywords: [
-    "Full-Stack Software Engineer",
-    "React",
-    "Next.js",
-    // ... more keywords
-  ],
-  openGraph: {
-    title: "...",
-    description: "...",
-    url: "https://www.arnobmahmud.com",
-    images: [{ url: "/assets/photo.png" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    // ... Twitter metadata
-  },
-};
-```
-
-### Structured Data (JSON-LD)
-
-The project includes two structured data schemas:
-
-1. **Person Schema** - For personal information
-2. **LocalBusiness Schema** - For business information
-
-These help search engines understand your content better.
-
-### Sitemap
-
-Automatic sitemap generation at `/sitemap.xml` via `app/sitemap.ts`.
-
-### Robots.txt
-
-Located at `public/robots.txt` for search engine crawling instructions.
-
----
-
-## 🚀 Deployment
-
-### Deploy to Vercel (Recommended)
-
-**Option 1: Deploy via GitHub (Automatic)**
-
-1. **Push to GitHub:**
-
-```bash
-git add .
-git commit -m "Initial commit"
-git push origin main
-```
-
-1. **Connect to Vercel:**
-   - Go to [Vercel](https://vercel.com)
-   - Click "Add New" > "Project"
-   - Import your GitHub repository
-   - Vercel auto-detects Next.js
-
-2. **Configure Environment Variables:**
-   - Click "Environment Variables"
-   - Add all variables from `.env.local`:
-     - `EMAIL_USER`
-     - `EMAIL_PASS`
-     - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-     - `NEXT_PUBLIC_CHATBOT_URL` (if using)
-     - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (optional)
-     - `NEXT_PUBLIC_BING_SITE_VERIFICATION` (optional)
-   - Click "Deploy"
-
-3. **Auto-Deployment:**
-   - Every push to `main` branch triggers new deployment
-   - Pull requests create preview deployments
-
-**Option 2: Deploy via Vercel CLI**
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login to Vercel
-vercel login
-
-# Deploy
-vercel
-
-# Deploy to production
-vercel --prod
-```
-
----
-
-### Deploy to Netlify
-
-1. **Build Settings:**
-   - Build command: `npm run build`
-   - Publish directory: `.next`
-
-2. **Environment Variables:**
-
-   Add all variables from `.env.local` in Netlify dashboard
-
-3. **Netlify Configuration:**
-
-   Create `netlify.toml`:
-
-```toml
-[build]
-  command = "npm run build"
-  publish = ".next"
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-```
-
----
-
-### Deploy to AWS Amplify
-
-1. Connect GitHub repository
-2. Configure build settings:
-   - Build command: `npm run build`
-   - Output directory: `.next`
-3. Add environment variables
-4. Deploy
-
----
-
-### Self-Hosting (VPS/Cloud)
-
-**Requirements:**
-
-- Node.js 18+ installed
-- PM2 for process management
-- Nginx for reverse proxy
-
-**Steps:**
-
-1. **Build the application:**
+Vercel project **`my-portfolio`**. `next.config.mjs` 308-redirects `arnobmahmud.com` and `*.vercel.app` → `https://www.arnobmahmud.com`.
 
 ```bash
 npm run build
-```
-
-1. **Start with PM2:**
-
-```bash
-# Install PM2
-npm install -g pm2
-
-# Start application
-pm2 start npm --name "portfolio" -- start
-
-# Save PM2 configuration
-pm2 save
-
-# Set up auto-start
-pm2 startup
-```
-
-1. **Configure Nginx:**
-
-```nginx
-server {
-  listen 80;
-  server_name yourdomain.com;
-
-  location / {
-    proxy_pass http://localhost:3000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
-  }
-}
-```
-
-1. **Enable SSL with Certbot:**
-
-```bash
-sudo certbot --nginx -d yourdomain.com
+# or: vercel --prod  (only with owner approval)
 ```
 
 ---
 
-## 🔄 Reusable Components Guide
+## Troubleshooting
 
-### How to Extract and Reuse Components
-
-#### Example 1: Reusable Card Component
-
-**Extract from ServicesPage:**
-
-```tsx
-// components/ServiceCard.tsx
-import Link from "next/link";
-import { BsArrowDownRight } from "react-icons/bs";
-
-interface ServiceCardProps {
-  num: string;
-  title: string;
-  description: string;
-  href: string;
-}
-
-export default function ServiceCard({
-  num,
-  title,
-  description,
-  href,
-}: ServiceCardProps) {
-  return (
-    <div className="flex-1 flex flex-col justify-between gap-4 group">
-      <div className="w-full flex justify-between items-center">
-        <div className="text-5xl font-extrabold text-outline text-transparent group-hover:text-outline-hover transition-all duration-500">
-          {num}
-        </div>
-        <Link
-          href={href}
-          className="w-[50px] h-[50px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45"
-        >
-          <BsArrowDownRight className="text-primary text-3xl" />
-        </Link>
-      </div>
-
-      <h2 className="text-[32px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
-        {title}
-      </h2>
-
-      <p className="text-white/60 text-justify">{description}</p>
-
-      <div className="border-b border-white/20 w-full"></div>
-    </div>
-  );
-}
-```
-
-**Usage:**
-
-```tsx
-import ServiceCard from '@/components/ServiceCard';
-
-const services = [...];
-
-return (
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-    {services.map((service, index) => (
-      <ServiceCard key={index} {...service} />
-    ))}
-  </div>
-);
-```
+- **Language stuck on English:** check cookie `selectedLanguage=de` and that `proxy.ts` exists (Next 16). There is no `middleware.ts`.
+- **Chat 400 `Message required`:** body must be `{ "message": "..." }`, not an OpenAI-style `messages` array.
+- **Email fails:** Node runtime routes need `EMAIL_USER` / `EMAIL_PASS`; Edge cannot run Nodemailer.
+- **Lint:** `npm run lint` (ESLint 9). Config: `eslint.config.mjs`.
 
 ---
 
-#### Example 2: Reusable Form Component
+## Contributing
 
-**Extract from ContactPage:**
+Fork, branch, PR. Keep App Router pages as Server Components. Do not restore `middleware.ts` on Next 16.
 
-```tsx
-// components/ContactForm.tsx
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-
-interface ContactFormProps {
-  onSubmit: (data: FormData) => Promise<void>;
-  loading?: boolean;
-}
-
-interface FormData {
-  fullname: string;
-  email: string;
-  message: string;
-}
-
-export default function ContactForm({
-  onSubmit,
-  loading = false,
-}: ContactFormProps) {
-  const [formData, setFormData] = useState<FormData>({
-    fullname: "",
-    email: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await onSubmit(formData);
-    setFormData({ fullname: "", email: "", message: "" });
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <Input
-        type="text"
-        name="fullname"
-        placeholder="Enter your name"
-        value={formData.fullname}
-        onChange={(e) =>
-          setFormData((prev) => ({ ...prev, fullname: e.target.value }))
-        }
-        required
-      />
-
-      <Input
-        type="email"
-        name="email"
-        placeholder="Enter your email"
-        value={formData.email}
-        onChange={(e) =>
-          setFormData((prev) => ({ ...prev, email: e.target.value }))
-        }
-        required
-      />
-
-      <Textarea
-        name="message"
-        placeholder="Type your message here"
-        value={formData.message}
-        onChange={(e) =>
-          setFormData((prev) => ({ ...prev, message: e.target.value }))
-        }
-        className="h-[200px]"
-        required
-      />
-
-      <Button type="submit" disabled={loading}>
-        {loading ? "Sending..." : "Send Message"}
-      </Button>
-    </form>
-  );
-}
-```
-
----
-
-#### Example 3: Reusable Stats Component
-
-**Make Stats.tsx more flexible:**
-
-```tsx
-// components/StatsCounter.tsx
-interface Stat {
-  num: number;
-  text: string;
-  startFrom?: number;
-}
-
-interface StatsCounterProps {
-  stats: Stat[];
-  columns?: number;
-}
-
-export default function StatsCounter({
-  stats,
-  columns = 4,
-}: StatsCounterProps) {
-  const gridClass = `grid-cols-${columns}`;
-
-  return (
-    <div className={`grid ${gridClass} gap-6`}>
-      {stats.map((stat, index) => (
-        <StatItem key={index} {...stat} />
-      ))}
-    </div>
-  );
-}
-```
-
-**Usage in different projects:**
-
-```tsx
-// E-commerce dashboard
-const ecommerceStats = [
-  { num: 1250, text: "Total Orders" },
-  { num: 45678, text: "Revenue ($)" },
-  { num: 98, text: "Customer Satisfaction (%)" },
-];
-
-<StatsCounter stats={ecommerceStats} columns={3} />;
-
-// Blog analytics
-const blogStats = [
-  { num: 50000, text: "Monthly Visitors" },
-  { num: 234, text: "Published Articles" },
-];
-
-<StatsCounter stats={blogStats} columns={2} />;
-```
-
----
-
-### Component Reusability Checklist
-
-✅ **Make components prop-driven**
-
-- Accept data via props instead of hardcoding
-- Use TypeScript interfaces for type safety
-
-✅ **Keep components focused**
-
-- Single responsibility principle
-- Separate logic from presentation
-
-✅ **Use composition over inheritance**
-
-- Build complex UIs from simple components
-- Use children prop for flexibility
-
-✅ **Document component APIs**
-
-- Add JSDoc comments
-- Provide usage examples
-- List all props and their types
-
-✅ **Style with flexibility**
-
-- Accept className prop for custom styling
-- Use Tailwind utility classes
-- Support theme variants
-
-✅ **Handle edge cases**
-
-- Empty states
-- Loading states
-- Error states
-
----
-
-## ✅ Best Practices
-
-### Code Organization
-
-**1. Component Structure:**
-
-```bash
-Component/
-├── Component.tsx         # Main component
-├── Component.test.tsx    # Unit tests
-├── Component.stories.tsx # Storybook stories (optional)
-└── index.ts             # Export file
-```
-
-**2. Import Order:**
-
-```tsx
-// 1. React and Next.js imports
-import { useState } from "react";
-import Link from "next/link";
-
-// 2. Third-party libraries
-import axios from "axios";
-import { motion } from "framer-motion";
-
-// 3. Internal components
-import { Button } from "@/components/ui/button";
-
-// 4. Utilities and helpers
-import { cn } from "@/lib/utils";
-
-// 5. Types and interfaces
-import type { FormData } from "@/types";
-
-// 6. Styles and assets
-import "./styles.css";
-```
-
-**3. TypeScript Best Practices:**
-
-- Always define interfaces for props
-- Use `type` for unions and intersections
-- Avoid `any` type
-- Enable strict mode
-
-**4. Performance Optimization:**
-
-- Use `React.memo` for expensive components
-- Implement code splitting with `dynamic` imports
-- Optimize images with Next.js `Image` component
-- Lazy load components below the fold
-
-**5. Accessibility:**
-
-- Use semantic HTML elements
-- Add ARIA labels where needed
-- Ensure keyboard navigation
-- Maintain color contrast ratios
-- Test with screen readers
-
-**6. SEO Best Practices:**
-
-- Use Next.js metadata API
-- Include Open Graph tags
-- Add structured data (JSON-LD)
-- Create sitemap.xml
-- Implement canonical URLs
-
----
-
-## 🔍 Keywords & SEO
-
-### Meta Tags Configuration
-
-**File:** `app/layout.tsx`
-
-```typescript
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.arnobmahmud.com"),
-  title: "Arnob Mahmud | Full-Stack Developer | Portfolio",
-  description: "Professional portfolio showcasing web development projects...",
-  keywords: [
-    "Arnob Mahmud",
-    "Full-Stack Developer",
-    "Web Developer",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Portfolio",
-  ],
-  authors: [{ name: "Arnob Mahmud" }],
-  openGraph: {
-    title: "Arnob Mahmud | Full-Stack Developer",
-    description: "Portfolio of Arnob Mahmud...",
-    url: "https://www.arnobmahmud.com",
-    siteName: "Arnob Mahmud Portfolio",
-    images: [{ url: "/assets/photo.png" }],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Arnob Mahmud | Full-Stack Developer",
-    description: "Portfolio of Arnob Mahmud...",
-    images: ["/assets/photo.png"],
-  },
-};
-```
-
-### Keywords for Portfolio Websites
-
-**General:**
-
-- Full-Stack Developer
-- Web Developer
-- Software Engineer
-- Frontend Developer
-- Backend Developer
-- Portfolio Website
-
-**Technologies:**
-
-- React.js
-- Next.js
-- TypeScript
-- JavaScript
-- Node.js
-- TailwindCSS
-- Framer Motion
-
-**Services:**
-
-- Web Development
-- UI/UX Design
-- API Development
-- Database Design
-- Cloud Deployment
-- SEO Optimization
-
-**Location-based:**
-
-- Frankfurt Developer
-- Germany Web Developer
-- Remote Developer
-
----
-
-## 🐛 Troubleshooting
-
-### Common Issues and Solutions
-
-#### 1. Email Not Sending
-
-**Symptoms:**
-
-- "Authentication failed" error
-- "Connection timeout" error
-- Emails not arriving
-
-**Solutions:**
-
-```bash
-# Check environment variables
-echo $EMAIL_USER
-echo $EMAIL_PASS
-
-# Verify .env.local exists
-ls -la .env.local
-
-# Restart development server
-npm run dev:clean
-```
-
-**Checklist:**
-
-- ✅ 2FA enabled on Gmail
-- ✅ App password generated (not regular password)
-- ✅ No spaces in app password
-- ✅ Correct email in `EMAIL_USER`
-- ✅ Port 587 not blocked by firewall
-
----
-
-#### 2. Google Analytics Not Tracking
-
-**Symptoms:**
-
-- No data in GA4 dashboard
-- Real-time reports empty
-
-**Solutions:**
-
-1. **Check Measurement ID:**
-
-```bash
-# .env.local
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-```
-
-1. **Verify in Browser Console:**
-
-```javascript
-// Check if gtag is loaded
-console.log(window.gtag);
-console.log(window.dataLayer);
-```
-
-1. **Disable Ad Blocker:**
-
-- Ad blockers prevent GA from loading
-- Test in incognito mode without extensions
-
-1. **Wait 24-48 hours:**
-
-- GA4 data processing takes time
-- Real-time reports update faster
-
----
-
-#### 3. Build Errors
-
-**Error: "Module not found"**
-
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules
-rm package-lock.json
-npm install
-```
-
-**Error: "Type error in component"**
-
-```bash
-# Check TypeScript errors
-npm run build
-
-# Fix type errors in the reported files
-```
-
-**Error: "Cannot find module './public/...'"**
-
-```bash
-# Ensure asset files exist
-ls -la public/assets/
-
-# Check file paths are correct (case-sensitive)
-```
-
----
-
-#### 4. Styling Issues
-
-**Tailwind classes not working:**
-
-```bash
-# Restart development server
-npm run dev:clean
-
-# Check tailwind.config.js includes your files
-content: [
-  "./app/**/*.{js,ts,jsx,tsx}",
-  "./components/**/*.{js,ts,jsx,tsx}",
-]
-```
-
-**Custom fonts not loading:**
-
-```typescript
-// Verify font is imported in layout.tsx
-import { JetBrains_Mono } from "next/font/google";
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrainsMono",
-});
-```
-
----
-
-#### 5. Deployment Issues on Vercel
-
-**Environment variables not working:**
-
-1. Go to Vercel Dashboard
-2. Project Settings → Environment Variables
-3. Add all variables
-4. Redeploy the project
-
-**Build fails on Vercel:**
-
-```bash
-# Check build works locally
-npm run build
-
-# Review build logs in Vercel dashboard
-# Fix reported errors
-```
-
----
-
-#### 6. Internationalization Issues
-
-**Language not persisting:**
-
-- Check cookie settings in browser
-- Verify `proxy.ts` is properly configured
-- Check `LanguageContext.tsx` for cookie setting logic
-
-**Translations not loading:**
-
-- Verify `lib/translations.ts` has all required keys
-- Check `lib/i18n.ts` configuration
-- Ensure `I18nProvider` wraps the app in `layout.tsx`
-
----
-
-## 🤝 Contributing
-
-This is an **open-source project** and contributions are welcome! Whether you want to:
-
-- 🐛 Fix bugs
-- ✨ Add new features
-- 📚 Improve documentation
-- 🎨 Enhance UI/UX
-- ⚡ Optimize performance
-- 🔧 Refactor code
-- 🌍 Add translations
-- 💡 Suggest improvements
-
-**Feel free to:**
-
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Make your changes** with proper TypeScript types and linting
-4. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
-5. **Push to the branch** (`git push origin feature/amazing-feature`)
-6. **Open a Pull Request**
-
-### Development Guidelines
-
-- Use **TypeScript** with proper type definitions
-- Follow **ESLint** rules (run `npm run lint`)
-- Write **clear commit messages**
-- Add **comments** for complex logic
-- Test your changes before submitting
-- Update **documentation** if needed
-
-### Reporting Bugs
-
-1. Check if the bug is already reported in [Issues](https://github.com/arnobt78/MyPortfolio--NextJS-FullStack-Website/issues)
-2. Create a new issue with:
-   - Clear title
-   - Steps to reproduce
-   - Expected vs actual behavior
-   - Screenshots (if applicable)
-   - Environment details (OS, browser, Node version)
-
-### Suggesting Features
-
-1. Open a new issue with the label "enhancement"
-2. Describe the feature and its benefits
-3. Provide examples or mockups
-
-### Commit Message Format
-
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `style:` - Code style changes (formatting)
-- `refactor:` - Code refactoring
-- `test:` - Adding tests
-- `chore:` - Maintenance tasks
-
-**Together, we can take this project to the next level!** 🚀
-
----
-
-## 📄 License
-
-This project is open-source and available under the **[MIT License](./LICENSE)**.
-
-**What this means:**
-
-- ✅ Free to use for personal and commercial projects
-- ✅ Modify and distribute as you wish
-- ✅ Include in private and public repositories
-- ⚠️ Must include the license notice
-- ⚠️ No warranty provided
-
-For full license details, see the [LICENSE](./LICENSE) file in the repository.
-
----
-
-## 📝 Conclusion
-
-This project demonstrates a production-ready implementation of a modern portfolio website with:
-
-- **Modern Architecture**: Next.js App Router, Server Components, API Routes
-- **Best Practices**: TypeScript, proper error handling, input validation
-- **Performance**: Image optimization, lazy loading, code splitting
-- **User Experience**: Smooth animations, responsive design, accessibility
-- **Developer Experience**: Well-documented, type-safe, reusable components
-- **SEO**: Comprehensive metadata, structured data, sitemap generation
-- **Internationalization**: Multi-language support with persistence
-- **Analytics**: Google Analytics and Vercel Analytics integration
-
-The codebase is well-documented and structured for easy understanding and extension. Each component can be reused independently in other projects, making this an excellent learning resource and starting point for portfolio websites.
-
-### Key Takeaways
-
-- **Next.js 16** provides excellent developer experience with App Router
-- **TypeScript** ensures type safety and better code quality
-- **TailwindCSS** enables rapid UI development
-- **Framer Motion** creates smooth, professional animations
-- **i18next** makes internationalization straightforward
-- **Nodemailer** enables reliable email functionality
-- **Component reusability** saves time in future projects
-
-### Learning Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [TailwindCSS Docs](https://tailwindcss.com/docs)
-- [Framer Motion Docs](https://www.framer.com/motion/)
-- [i18next Documentation](https://www.i18next.com/)
+Report security issues privately — see [SECURITY.md](./SECURITY.md) (`contact@arnobmahmud.com`).
 
 ---
 
@@ -2821,12 +348,10 @@ The codebase is well-documented and structured for easy understanding and extens
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as per the terms of the license.
 
+---
+
 ## Happy Coding! 🎉
 
 This is an **open-source project** - feel free to use, enhance, and extend this project further!
 
 If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com](https://www.arnobmahmud.com).
-
-**Enjoy building and learning!** 🚀
-
-Thank you! 😊

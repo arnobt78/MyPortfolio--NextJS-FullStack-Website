@@ -1,3 +1,8 @@
+/**
+ * POST /api/chat — Edge SSE chatbot.
+ * Body: `{ message }`. Rate-limited. Loads Redis session, RAG FAQs, then streams
+ * tokens from lib/ai.ts free-tier fallback. Cookie `chatbot_session` persists history.
+ */
 import { NextRequest } from 'next/server';
 import { getSession, saveSession, type ChatMessage } from '@/lib/redis';
 import { searchFAQ } from '@/lib/rag';

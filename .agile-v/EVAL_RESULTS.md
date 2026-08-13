@@ -28,6 +28,10 @@ thresholds:
 | c2_chat | REQ-0005 | PASS | POST /api/chat 200 SSE [DONE] |
 | c2_services | REQ-0012 | PASS | GET /services 200 + canonical /services |
 | c2_lang_cookie | REQ-0012 | PASS | selectedLanguage=de → html lang=de |
+| c2_docs_lint | REQ-0016 | PASS | 2026-08-13 SEO/README lint exit 0 |
+| c2_docs_tsc | REQ-0016 | PASS | 2026-08-13 tsc --noEmit exit 0 |
+| c2_docs_audit | REQ-0006 | PASS | 2026-08-13 npm audit 0 |
+| c2_docs_build | REQ-0016 | PASS | 2026-08-13 Next 16.3.0 Turbopack; Proxy listed |
 
 ## Gate 2 recommendation
 
