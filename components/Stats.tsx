@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { useLanguage } from "@/context/LanguageContext";
+import { useIsClient } from "@/hooks/use-is-client";
 
 // Card is intentionally kept imported (project style consistency)
 void Card;
@@ -71,11 +72,7 @@ const AnimatedCounter = ({
 
 const Stats = () => {
   const { t } = useLanguage();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const isClient = useIsClient();
 
   return (
     <section className="pt-8 pb-8 xl:pt-0 xl:pb-4">

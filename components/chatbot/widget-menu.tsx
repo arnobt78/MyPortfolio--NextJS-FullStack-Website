@@ -39,18 +39,18 @@ import {
 } from "@/lib/export-utils";
 import type { FontSize, WidgetPosition } from "@/lib/types";
 // FONT_SIZES and WIDGET_POSITIONS not used in this file
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 
 type WidgetMenuProps = {
   /** When provided, the dropdown is rendered into this container (outside header) so it does not expand the header. */
-  menuPortalRef?: React.RefObject<HTMLDivElement | null>;
+  menuPortalNode?: HTMLDivElement | null;
 };
 
 /**
  * Widget menu component with all Phase 2 features
  * Provides dropdown menu with all widget options
  */
-export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
+export function WidgetMenu({ menuPortalNode }: WidgetMenuProps) {
   const { messages, clearChat } = useChat();
   const { theme, fontSize, position, setTheme, setFontSize, setPosition } =
     useWidgetSettings();
@@ -68,23 +68,16 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
   const [isSubmittingRating, setIsSubmittingRating] = useState(false);
   const [menuMaxHeight, setMenuMaxHeight] = useState("540px");
 
-  const [chatbotTitle, setChatbotTitle] = useState(t("chatbot.title"));
+  const windowTitle = useSyncExternalStore(
+    () => () => {},
+    () => (window as Window & { CHATBOT_TITLE?: string }).CHATBOT_TITLE,
+    () => undefined as string | undefined,
+  );
+  const chatbotTitle = windowTitle || t("chatbot.title");
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Load chatbot title after mount to avoid hydration mismatch
-  // Also update when language changes
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      interface WindowWithChatbotConfig extends Window {
-        CHATBOT_TITLE?: string;
-      }
-      const win = window as WindowWithChatbotConfig;
-      setChatbotTitle(win.CHATBOT_TITLE || t("chatbot.title"));
-
-      // Clear any existing localStorage flag for rating submission
-      // This ensures the menu item always shows (we removed the conditional check)
-      localStorage.removeItem("chatbot-rating-submitted");
-    }
+    localStorage.removeItem("chatbot-rating-submitted");
   }, [t, language]);
 
   useEffect(() => {
@@ -257,7 +250,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
     }
   };
 
-  const usePortal = Boolean(menuOpen && menuPortalRef?.current);
+  const usePortal = Boolean(menuOpen && menuPortalNode);
   const dropdownClasses = usePortal
     ? "absolute right-2 top-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto"
     : "absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto";
@@ -610,7 +603,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
         {menuOpen && !usePortal && dropdownContent}
       </div>
       {usePortal &&
-        menuPortalRef?.current &&
+        menuPortalNode &&
         createPortal(
           <>
             {/* Overlay inside portal so it sits BELOW dropdown (z-99998) — lets dropdown receive touch/scroll on phone */}
@@ -658,7 +651,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
               {dropdownContent}
             </div>
           </>,
-          menuPortalRef.current,
+          menuPortalNode,
         )}
       {/* Close menu when clicking outside — only when NOT using portal (inline dropdown) */}
       {menuOpen && !usePortal && (

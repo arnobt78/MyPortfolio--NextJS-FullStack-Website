@@ -4,20 +4,51 @@ import { createOpenAI } from '@ai-sdk/openai';
 import { createGroq } from '@ai-sdk/groq';
 import { captureApiError, devWarn } from '@/lib/logger';
 
-// Message type for AI SDK
+/**
+ * Free-tier chat fallback (REQ-0017 / C1.1a).
+ *
+ * Order: Gemini → OpenRouter `:free` → Groq → Hugging Face router → OpenAI (paid, last resort).
+ * Source: docs/LLM_MODEL_SELECTION.md + Groq deprecations (llama-3.3-70b-versatile shutdown 2026-08-16).
+ * On HTTP 429 / quota for a provider, skip remaining models of that provider (account-wide cap).
+ */
+const GEMINI_FREE_MODELS = [
+  'gemini-2.5-flash',
+  'gemini-2.5-flash-lite', // Pro is paid-only since Apr 2026; do not use gemini-2.5-pro on free keys
+] as const;
+
+/** OpenRouter no-card IDs must end in `:free` (never gpt-4o-mini). First success wins. */
+const OPENROUTER_FREE_MODELS = [
+  'openai/gpt-oss-20b:free',
+  'qwen/qwen3-coder:free', // live slug for Qwen3 Coder 480B A35B (doc listed qwen3-coder-480b:free)
+  'deepseek/deepseek-chat-v3-0324:free',
+] as const;
+
+/** Groq replacements for Llama 3.3 70B / Llama 3.1 8B (shutdown 2026-08-16). */
+const GROQ_FREE_MODELS = [
+  'openai/gpt-oss-20b',
+  'qwen/qwen3.6-27b',
+  'openai/gpt-oss-120b',
+] as const;
+
+/** Hugging Face Inference Providers router — short chain; long lists 404 and stall Edge. */
+const HUGGINGFACE_FREE_MODELS = [
+  'openai/gpt-oss-20b',
+  'openai/gpt-oss-120b',
+] as const;
+
 interface Message {
   role: 'system' | 'user' | 'assistant';
   content: string;
 }
 
-// AI Model fallback chain: Gemini (primary) → OpenRouter → Groq → Hugging Face → OpenAI (backup)
 interface MessageContent {
   text?: string;
   content?: string;
   message?: string;
 }
 
-// When true, AI path logs to the Node console for local debugging only (never in production).
+type ChatRoleMessage = { role: 'system' | 'user' | 'assistant'; content: string };
+
 const AI_DEBUG = process.env.NODE_ENV !== 'production';
 
 /**
@@ -35,6 +66,42 @@ const debugWarn = (...args: unknown[]) => {
   if (AI_DEBUG) console.warn(...args);
 };
 
+/**
+ * streamText() returns before the HTTP call finishes. Await the first token so a 404/429
+ * can advance the fallback chain instead of handing a dead stream to /api/chat.
+ */
+async function withFirstStreamChunk(textStream: AsyncIterable<string>): Promise<{
+  textStream: AsyncIterable<string>;
+}> {
+  const iterator = textStream[Symbol.asyncIterator]();
+  const first = await iterator.next();
+  if (first.done && (first.value === undefined || first.value === '')) {
+    throw new Error('Empty model stream');
+  }
+  return {
+    textStream: (async function* () {
+      if (first.value) yield first.value;
+      while (true) {
+        const next = await iterator.next();
+        if (next.done) break;
+        if (next.value) yield next.value;
+      }
+    })(),
+  };
+}
+
+/** True when the provider is throttled — skip remaining models of that provider. */
+function isRateLimitedError(error: unknown): boolean {
+  const msg = (error instanceof Error ? error.message : String(error)).toLowerCase();
+  return (
+    msg.includes('429') ||
+    msg.includes('quota') ||
+    msg.includes('too many requests') ||
+    msg.includes('rate limit') ||
+    msg.includes('rate_limit')
+  );
+}
+
 export async function getAIResponse(
   messages: Array<{ role: string; content: string | unknown[] | MessageContent }>,
   context?: string,
@@ -42,25 +109,22 @@ export async function getAIResponse(
 ) {
   const systemPrompt = `You are a helpful assistant for Arnob Mahmud's portfolio website. Be friendly, professional, and concise. Use the FAQ context to give accurate answers. If you don't know something, say so.`;
 
-  // Helper function to normalize a single message content to string (defined early for reuse)
   const normalizeContentToString = (content: unknown): string => {
     if (typeof content === 'string') {
       return content;
     }
-    
+
     if (Array.isArray(content)) {
-      // Handle array format: [{ type: 'output_text', text: '...' }] or [{ type: 'input_text', text: '...' }]
       return (content as unknown[])
         .map((item: unknown) => {
           if (typeof item === 'string') return item;
           if (item && typeof item === 'object') {
-            const itemObj = item as { 
-              text?: string; 
-              content?: string; 
+            const itemObj = item as {
+              text?: string;
+              content?: string;
               message?: string;
               type?: string;
             };
-            // Extract text from various object formats
             return itemObj.text || itemObj.content || itemObj.message || '';
           }
           return String(item || '');
@@ -68,47 +132,37 @@ export async function getAIResponse(
         .filter((text: string) => text.length > 0)
         .join(' ');
     }
-    
+
     if (content && typeof content === 'object') {
-      // Handle object format: { text: '...' } or { content: '...' }
       const contentObj = content as { text?: string; content?: string; message?: string };
       return contentObj.text || contentObj.content || contentObj.message || '';
     }
-    
+
     return String(content || '');
   };
 
-  // Normalize messages: ensure content is always a string
-  // This handles various formats: string, array of objects, etc.
-  // CRITICAL: Normalize ALL messages before processing
   const normalizedMessages: Message[] = messages
-    .slice(-6) // Last 6 messages for context
+    .slice(-6)
     .map((msg) => {
-      // Force normalization - handle any format (string, array, object)
       const content = normalizeContentToString(msg.content);
-      
-      // Filter out empty messages
+
       if (!content || content.trim().length === 0) {
         return null;
       }
-      
-      // Ensure role is valid
+
       const role = msg.role === 'assistant' ? 'assistant' : msg.role === 'system' ? 'system' : 'user';
       return {
         role: role as 'system' | 'user' | 'assistant',
         content: content.trim(),
       };
     })
-    .filter((msg): msg is Message => msg !== null); // Remove null messages
+    .filter((msg): msg is Message => msg !== null);
 
-  // Build full messages array - ensure system message is also normalized
   const fullMessages: Message[] = [
     { role: 'system', content: systemPrompt + (context ? `\n\nFAQ Context:\n${context}` : '') },
     ...normalizedMessages,
   ];
-  
-  // CRITICAL: Double-check that all messages in fullMessages have string content
-  // This is a safety net in case normalization failed above
+
   for (let i = 0; i < fullMessages.length; i++) {
     const msg = fullMessages[i];
     if (typeof msg.content !== 'string') {
@@ -119,8 +173,7 @@ export async function getAIResponse(
       };
     }
   }
-  
-  // Final verification: ensure all messages are strings
+
   const invalidMessages = fullMessages.filter(msg => typeof msg.content !== 'string');
   if (invalidMessages.length > 0) {
     captureApiError(
@@ -128,7 +181,6 @@ export async function getAIResponse(
       new Error('Message content normalization'),
       { count: invalidMessages.length },
     );
-    // Force normalize all invalid messages
     for (let i = 0; i < fullMessages.length; i++) {
       if (typeof fullMessages[i].content !== 'string') {
         fullMessages[i] = {
@@ -138,58 +190,92 @@ export async function getAIResponse(
       }
     }
   }
-  
-  // Debug: Log fullMessages to see what we're working with
+
   debugLog('fullMessages count:', fullMessages.length);
   debugLog('fullMessages content types:', fullMessages.map((msg, i) => ({ index: i, role: msg.role, contentType: typeof msg.content, isArray: Array.isArray(msg.content) })));
 
-  // Helper function to prepare AI SDK messages (for OpenAI-compatible APIs)
-  // This ensures all content is normalized to strings, handling array formats from chat history
-  const prepareAIMessages = () => {
-    const aiMessages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [];
-    
-    // Process all messages, ensuring content is always a string
-    // Even though fullMessages should already be normalized, we double-check here for safety
+  const prepareAIMessages = (): ChatRoleMessage[] => {
+    const aiMessages: ChatRoleMessage[] = [];
+
     for (const msg of fullMessages) {
-      // Normalize content to string (handles edge cases where normalization might have failed)
       const contentStr = normalizeContentToString(msg.content);
-      
-      // Only add non-empty messages
+
       if (contentStr && contentStr.trim().length > 0) {
-        // Ensure role is valid
-        const role = msg.role === 'system' ? 'system' : 
-                     msg.role === 'assistant' ? 'assistant' : 
+        const role = msg.role === 'system' ? 'system' :
+                     msg.role === 'assistant' ? 'assistant' :
                      'user';
-        
+
         aiMessages.push({
           role: role as 'system' | 'user' | 'assistant',
           content: contentStr.trim(),
         });
       }
     }
-    
+
     return aiMessages;
   };
 
-  // Primary: Gemini (reliable and free)
-  // Use stable model names from deprecation table (gemini-2.5-flash, gemini-2.5-pro)
-  const geminiModels = ['gemini-2.5-flash', 'gemini-2.5-pro'];
+  /** String-only copies for OpenAI-compatible SDKs (chat history may still be arrays). */
+  const getValidatedMessages = (): ChatRoleMessage[] => {
+    const aiMessages = prepareAIMessages();
+    const validatedMessages = aiMessages.map((msg, index) => {
+      const clonedMsg = JSON.parse(JSON.stringify(msg)) as ChatRoleMessage;
+
+      if (typeof clonedMsg.content !== 'string') {
+        captureApiError(
+          `Message ${index} has non-string content`,
+          new Error('prepareAIMessages validation'),
+          { index, contentType: typeof clonedMsg.content, isArray: Array.isArray(clonedMsg.content) },
+        );
+        clonedMsg.content = normalizeContentToString(clonedMsg.content);
+      }
+
+      if (typeof clonedMsg.content !== 'string') {
+        captureApiError(
+          `Message ${index} still non-string after normalization`,
+          new Error('prepareAIMessages critical'),
+          { index },
+        );
+        clonedMsg.content = String(clonedMsg.content || '');
+      }
+
+      return {
+        role: clonedMsg.role as 'system' | 'user' | 'assistant',
+        content: String(clonedMsg.content),
+      };
+    });
+
+    const hasArrayContent = validatedMessages.some(msg => Array.isArray(msg.content) || typeof msg.content !== 'string');
+    if (hasArrayContent) {
+      const bad = validatedMessages.filter(
+        (msg) => Array.isArray(msg.content) || typeof msg.content !== 'string',
+      );
+      captureApiError(
+        'Messages still have non-string content after validation',
+        new Error('Message normalization failed'),
+        { badCount: bad.length },
+      );
+      throw new Error('Message normalization failed: some messages still have array content');
+    }
+
+    return validatedMessages;
+  };
+
+  // Primary: Gemini Flash / Flash-Lite (free AI Studio keys; skip remaining Gemini on 429)
   let geminiRateLimited = false;
-  
-  for (const modelName of geminiModels) {
+
+  for (const modelName of GEMINI_FREE_MODELS) {
     try {
       const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY!);
       const model = genAI.getGenerativeModel({ model: modelName });
-      
-      // Build prompt with system message and context
+
       let prompt = systemPrompt + (context ? `\n\nFAQ Context:\n${context}` : '') + '\n\n';
       prompt += normalizedMessages
         .map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
         .join('\n\n');
-      
+
       const result = await model.generateContentStream(prompt);
-    
-      // Convert Gemini stream to AI SDK format
+
       if (stream) {
         return {
           textStream: (async function* () {
@@ -204,30 +290,25 @@ export async function getAIResponse(
         return { text: response.text() };
       }
     } catch (error: unknown) {
-      // Check if it's a rate limit error (429) - skip remaining Gemini models
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('Too Many Requests')) {
+      if (isRateLimitedError(error)) {
         debugLog(`Gemini model ${modelName} rate limited, skipping remaining Gemini models...`);
         geminiRateLimited = true;
-        break; // Exit Gemini loop immediately
+        break;
       }
       debugLog(`Gemini model ${modelName} failed, trying next...`, error);
     }
   }
-  
-  // If all Gemini models failed (or rate limited), try fallbacks
+
   if (geminiRateLimited) {
     debugLog('Gemini rate limited, trying OpenRouter...');
   } else {
     debugLog('All Gemini models failed, trying OpenRouter...');
   }
 
-  // Fallback 1: OpenRouter GPT
-  // Support both OPENROUTER_API_KEY and OpenRouter_API_KEY env var names
+  // Fallback 1: OpenRouter `:free` chain (account-wide free cap — skip rest of provider on 429)
   const openRouterApiKey = process.env.OPENROUTER_API_KEY || process.env.OpenRouter_API_KEY;
   if (openRouterApiKey) {
     try {
-      debugLog('Trying OpenRouter GPT...');
       const openaiClient = createOpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
         apiKey: openRouterApiKey,
@@ -236,151 +317,96 @@ export async function getAIResponse(
           'X-Title': 'Portfolio Chatbot',
         },
       });
-      
-      // Force use of Chat Completions API (not Responses API) by using .chat() method
-      const model = openaiClient.chat('openai/gpt-4o-mini');
 
-    const aiMessages = prepareAIMessages();
-    
-    // CRITICAL: Final runtime validation - ensure ALL content is strings
-    // Create deep copies to prevent mutation and ensure string content
-    const validatedMessages = aiMessages.map((msg, index) => {
-      // Deep clone to prevent mutation
-      const clonedMsg = JSON.parse(JSON.stringify(msg));
-      
-      // Ensure content is a string
-      if (typeof clonedMsg.content !== 'string') {
-        captureApiError(
-          `Message ${index} has non-string content`,
-          new Error('prepareAIMessages validation'),
-          { index, contentType: typeof clonedMsg.content, isArray: Array.isArray(clonedMsg.content) },
-        );
-        // Force normalize
-        clonedMsg.content = normalizeContentToString(clonedMsg.content);
-      }
-      
-      // Final check - ensure it's a string
-      if (typeof clonedMsg.content !== 'string') {
-        captureApiError(
-          `Message ${index} still non-string after normalization`,
-          new Error('prepareAIMessages critical'),
-          { index },
-        );
-        clonedMsg.content = String(clonedMsg.content || '');
-      }
-      
-      return {
-        role: clonedMsg.role as 'system' | 'user' | 'assistant',
-        content: String(clonedMsg.content), // Force string conversion
-      };
-    });
-    
-    // Verify all messages have string content after validation
-    const hasArrayContent = validatedMessages.some(msg => Array.isArray(msg.content) || typeof msg.content !== 'string');
-    if (hasArrayContent) {
-      const bad = validatedMessages.filter(
-        (msg) => Array.isArray(msg.content) || typeof msg.content !== 'string',
-      );
-      captureApiError(
-        'Messages still have non-string content after validation',
-        new Error('Message normalization failed'),
-        { badCount: bad.length },
-      );
-      throw new Error('Message normalization failed: some messages still have array content');
-    }
+      const validatedMessages = getValidatedMessages();
 
-    if (stream) {
-      const result = streamText({
-        model: model,
-        messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
-        temperature: 0.7,
-      });
-      debugLog('✅ OpenRouter GPT responding successfully');
-      return result;
-    } else {
-      const result = await generateText({
-        model: model,
-        messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
-        temperature: 0.7,
-      });
-      debugLog('✅ OpenRouter GPT responding successfully');
-      return result;
-    }
+      for (const modelId of OPENROUTER_FREE_MODELS) {
+        try {
+          debugLog(`Trying OpenRouter ${modelId}...`);
+          const model = openaiClient.chat(modelId);
+
+          if (stream) {
+            const result = streamText({
+              model: model,
+              messages: validatedMessages,
+              temperature: 0.7,
+            });
+            const primed = await withFirstStreamChunk(result.textStream);
+            debugLog(`OpenRouter ${modelId} responding successfully`);
+            return primed;
+          } else {
+            const result = await generateText({
+              model: model,
+              messages: validatedMessages,
+              temperature: 0.7,
+            });
+            debugLog(`OpenRouter ${modelId} responding successfully`);
+            return result;
+          }
+        } catch (error) {
+          if (isRateLimitedError(error)) {
+            debugLog(`OpenRouter ${modelId} rate limited, skipping remaining OpenRouter models...`);
+            break;
+          }
+          debugLog(`OpenRouter ${modelId} failed, trying next...`, error);
+        }
+      }
     } catch (error) {
       devWarn('OpenRouter failed, trying Groq...', error);
     }
   }
 
-  // Fallback 2: Groq (fast and free tier available)
-  // Support both GROQ_API_KEY and Groq_Llama_API_KEY env var names
+  // Fallback 2: Groq (no Llama — gpt-oss / qwen3.6 only)
   const groqApiKey = process.env.GROQ_API_KEY || process.env.Groq_Llama_API_KEY;
   if (groqApiKey) {
-    try {
-      debugLog('Trying Groq...');
-      const groq = createGroq({
-        apiKey: groqApiKey,
-      });
+    const groq = createGroq({
+      apiKey: groqApiKey,
+    });
+    const aiMessages = prepareAIMessages();
 
-      const aiMessages = prepareAIMessages();
+    for (const modelId of GROQ_FREE_MODELS) {
+      try {
+        debugLog(`Trying Groq ${modelId}...`);
 
-      if (stream) {
-        return streamText({
-          model: groq('llama-3.3-70b-versatile'), // Updated from llama-3.1-70b-versatile (deprecated Jan 24, 2025)
-          messages: aiMessages,
-          temperature: 0.7,
-        });
-      } else {
-        return await generateText({
-          model: groq('llama-3.3-70b-versatile'), // Updated from llama-3.1-70b-versatile (deprecated Jan 24, 2025)
-          messages: aiMessages,
-          temperature: 0.7,
-        });
+        if (stream) {
+          const result = streamText({
+            model: groq(modelId),
+            messages: aiMessages,
+            temperature: 0.7,
+          });
+          const primed = await withFirstStreamChunk(result.textStream);
+          debugLog(`Groq ${modelId} responding successfully`);
+          return primed;
+        } else {
+          const result = await generateText({
+            model: groq(modelId),
+            messages: aiMessages,
+            temperature: 0.7,
+          });
+          debugLog(`Groq ${modelId} responding successfully`);
+          return result;
+        }
+      } catch (error) {
+        if (isRateLimitedError(error)) {
+          debugLog(`Groq ${modelId} rate limited, skipping remaining Groq models...`);
+          break;
+        }
+        debugLog(`Groq ${modelId} failed, trying next...`, error);
       }
-    } catch (error) {
-      devWarn('Groq failed, trying Hugging Face...', error);
     }
+    devWarn('Groq failed, trying Hugging Face...');
   }
 
-  // Fallback 3: Hugging Face Inference API (trying multiple models)
-  // Support both HUGGING_FACE_API_KEY and Hugging_Face_Inference_API_KEY env var names
+  // Fallback 3: Hugging Face Inference Providers router (OpenAI-compatible)
   const huggingFaceApiKey = process.env.HUGGING_FACE_API_KEY || process.env.Hugging_Face_Inference_API_KEY;
   if (huggingFaceApiKey) {
-    // List of models to try in order (prioritize smaller/faster models first)
-    const models = [
-      // Small/fast models first (for speed)
-      'Qwen/Qwen3-0.6B', // 0.8B - very fast
-      'google/gemma-2b-it', // 2B - fast
-      'google/gemma-2b', // 2B - fast
-      'microsoft/phi-1_5', // Small and fast
-      'LiquidAI/LFM2.5-1.2B-Thinking', // 1B - fast
-      'LiquidAI/LFM2.5-1.2B-Instruct', // 1B - fast
-      // Medium models (good balance)
-      'meta-llama/Llama-3.1-8B-Instruct', // 8B - reliable
-      'tiiuae/falcon-7b-instruct', // 7B
-      'mistralai/Mistral-7B-Instruct-v0.3', // 7B
-      'HuggingFaceH4/zephyr-7b-beta', // 7B
-      'google/gemma-7b', // 7B
-      'NousResearch/Hermes-2-Pro-Mistral-7B', // 7B
-      'NousResearch/NousCoder-14B', // 14B
-      // Larger models (slower but better quality) - try last
-      'zai-org/GLM-4.7-Flash', // 31B - works but slower
-      'Qwen/Qwen3-Coder-30B-A3B-Instruct', // 31B
-      'openai/gpt-oss-20b', // 22B
-      'openai/gpt-oss-120b', // 120B - very slow
-      // Legacy fallbacks
-      'mistralai/Mistral-7B-Instruct-v0.2',
-      'tiiuae/falcon-7b',
-      'HuggingFaceH4/zephyr-7b-alpha',
-    ];
-
     const failedModels: string[] = [];
     const aiMessages = prepareAIMessages();
 
-    for (const model of models) {
+    for (const model of HUGGINGFACE_FREE_MODELS) {
       try {
         debugLog(`Trying Hugging Face model: ${model}...`);
-        
-        // Use OpenAI-compatible router endpoint (like multi-ai-chatbot)
+
         const response = await fetch(
           'https://router.huggingface.co/v1/chat/completions',
           {
@@ -398,32 +424,32 @@ export async function getAIResponse(
           }
         );
 
+        if (response.status === 429) {
+          debugLog(`Hugging Face ${model} rate limited, skipping remaining HF models...`);
+          break;
+        }
+
         if (response.ok) {
           const data = await response.json();
-          
-          // Extract generated text from OpenAI-compatible format
+
           let generatedText = '';
           if (data?.choices?.[0]?.message?.content) {
             generatedText = data.choices[0].message.content.trim();
           } else if (data?.choices?.[0]?.text) {
             generatedText = data.choices[0].text.trim();
           } else if (data?.output?.[0]?.content?.[0]?.text) {
-            // Alternative format
             generatedText = data.output[0].content[0].text.trim();
           }
 
           if (generatedText) {
-            debugLog(`✅ Success with Hugging Face model: ${model}`);
-            
+            debugLog(`Success with Hugging Face model: ${model}`);
+
             if (stream) {
               return {
                 textStream: (async function* () {
-                  // Simulate streaming by yielding chunks
                   const words = generatedText.split(' ');
                   for (const word of words) {
                     yield word + ' ';
-                    // Small delay to simulate streaming
-                    await new Promise(resolve => setTimeout(resolve, 10));
                   }
                 })(),
               };
@@ -433,10 +459,8 @@ export async function getAIResponse(
           }
         }
 
-        // If this model failed, try next one
         failedModels.push(`${model} (${response.status})`);
         debugWarn(`${model} failed (${response.status}), trying next model...`);
-        
       } catch (error: unknown) {
         failedModels.push(model);
         debugWarn(`${model} error:`, error);
@@ -444,12 +468,10 @@ export async function getAIResponse(
       }
     }
 
-    // If all models failed (expected fallback path — dev-only noise)
     devWarn(`All Hugging Face models failed: ${failedModels.join(', ')}`);
-    // Don't throw error here, continue to next fallback (OpenAI)
   }
 
-  // Fallback 4: OpenAI Direct (if API key is available)
+  // Fallback 4: OpenAI Direct (paid; only if OPENAI_API_KEY is set)
   if (process.env.OPENAI_API_KEY) {
     try {
       debugLog('Trying OpenAI direct...');

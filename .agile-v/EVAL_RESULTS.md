@@ -20,8 +20,19 @@ thresholds:
 | chat_api_manual | REQ-0005 | PASS | POST 200 |
 | email_api_manual | REQ-0007 | PASS | POST 200 |
 | gsc_services | REQ-0011 | SKIP | external pending |
-| playwright_smoke | REQ-0013 | NOT_RUN | deferred C2 |
+| playwright_smoke | REQ-0013 | NOT_RUN | deferred |
+| c2_lint | REQ-0012 | PASS | 2026-08-13 eslint 9 exit 0 |
+| c2_tsc | REQ-0012 | PASS | npx tsc --noEmit exit 0 |
+| c2_audit | REQ-0006 | PASS | npm audit 0 |
+| c2_build | REQ-0012 | PASS | Next 16.3.0 Turbopack; Proxy listed |
+| c2_chat | REQ-0005 | PASS | POST /api/chat 200 SSE [DONE] |
+| c2_services | REQ-0012 | PASS | GET /services 200 + canonical /services |
+| c2_lang_cookie | REQ-0012 | PASS | selectedLanguage=de → html lang=de |
 
 ## Gate 2 recommendation
 
-**CONDITIONAL_PASS** — Accept production deploy; schedule REQ-0013 before next major change.
+**CONDITIONAL_PASS** — Local C2 upgrade validated. Do not deploy until human requests it. REQ-0013 still deferred.
+
+## C2 note
+
+`eval_run_id` ER-C2-20260813-001 — lint/tsc/audit/build/chat/services/lang PASS. Not a Gate 2 promotion.

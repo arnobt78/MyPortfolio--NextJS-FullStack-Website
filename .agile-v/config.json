@@ -1,7 +1,7 @@
 {
   "project": "portfolio-arnob-new",
   "site_url": "https://www.arnobmahmud.com",
-  "cycle": "C1",
+  "cycle": "C2",
   "standard": "Agile V 1.4",
   "compliance_tier": "non-regulated",
   "repository": "portfolio-arnob-new",
@@ -11,28 +11,38 @@
     "gate_approver": "Arnob Mahmud"
   },
   "model_versions": {
-    "last_validated": "2026-05-14",
-    "validated_by": "Human smoke",
-    "note": "AI SDK multi-provider fallback chain unchanged C1"
+    "last_validated": "2026-08-13",
+    "validated_by": "C2 lint/tsc/audit/build (Next 16.3 Turbopack)",
+    "note": "Next 16.3 + React 19.2; keep proxy.ts"
   },
   "llm_provider_registry": [
     {
       "name": "Google Gemini",
       "env_key": "GOOGLE_GEMINI_API_KEY",
       "approved_for": ["chat", "embeddings"],
-      "review_date": "2026-05-14"
+      "models": ["gemini-2.5-flash", "gemini-2.5-flash-lite"],
+      "review_date": "2026-08-13"
     },
     {
       "name": "OpenRouter",
       "env_key": "OPENROUTER_API_KEY",
       "approved_for": ["chat_fallback", "embeddings_fallback"],
-      "review_date": "2026-05-14"
+      "models": ["openai/gpt-oss-20b:free", "qwen/qwen3-coder:free", "deepseek/deepseek-chat-v3-0324:free"],
+      "review_date": "2026-08-13"
     },
     {
       "name": "Groq",
       "env_key": "GROQ_API_KEY",
       "approved_for": ["chat_fallback"],
-      "review_date": "2026-05-14"
+      "models": ["openai/gpt-oss-20b", "qwen/qwen3.6-27b", "openai/gpt-oss-120b"],
+      "review_date": "2026-08-13"
+    },
+    {
+      "name": "Hugging Face Inference Providers",
+      "env_key": "HUGGING_FACE_API_KEY",
+      "approved_for": ["chat_fallback", "embeddings_fallback"],
+      "models": ["openai/gpt-oss-20b", "openai/gpt-oss-120b"],
+      "review_date": "2026-08-13"
     }
   ],
   "skills_load_order": [

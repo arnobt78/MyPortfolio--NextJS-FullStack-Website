@@ -1,13 +1,13 @@
 # Agile V — portfolio-arnob-new
 
-**Cycle:** C1 (active)  
+**Cycle:** C2 (Next.js 16.3 + React 19.2), living C1 production  
 **Standard:** Agile V 1.4  
 **Site:** https://www.arnobmahmud.com
 
 ## Quick start
 
 1. Read `STATE.md` — current stage and gates  
-2. Read `REQUIREMENTS.md` — REQ-0001 … REQ-0013  
+2. Read `REQUIREMENTS.md` — REQ-0001 … REQ-0017  
 3. Before deploy → `VALIDATION_SUMMARY.md` + `EVAL_RESULTS.md`  
 4. Agent roster → `SKILLS_INDEX.md` (24 skills)
 
@@ -28,17 +28,17 @@
 | config.json | Project metadata |
 | SKILLS_INDEX.md | 24 Agile V skills |
 
-## REQ trace map (C1 shipped)
+## REQ trace map
 
 ```
-REQ-0001 SEO/canonical ──► next.config, middleware, layout
-REQ-0005 Chat dev fix    ──► lib/ai.ts
+REQ-0001 SEO/canonical ──► next.config, layout, proxy.ts
+REQ-0012 Next 16       ──► package.json, eslint.config.mjs, next.config.mjs
+REQ-0017 Chat free-tier ──► lib/ai.ts
 REQ-0007 Logger          ──► lib/logger.ts + API routes
-REQ-0010 Deps            ──► package.json
 ```
 
 ## Open items
 
-- REQ-0011 — GSC `/services` indexing (pending)
-- REQ-0012 — Next.js 16 (deferred C2)
-- REQ-0013 — Automated smoke tests (deferred C2)
+- REQ-0011 — GSC `/services` indexing (pending; re-check after C2 deploy)
+- REQ-0013 — Automated smoke tests (deferred)
+- Production deploy only if human requests it

@@ -1,8 +1,9 @@
 # Policy as Code — portfolio-arnob-new
 
 version: "1.0.0"
-cycle: C1
-updated: "2026-05-14"
+cycle: C2
+updated: "2026-08-13"
+c2_status: validated_local
 
 deployment:
   production_host: "https://www.arnobmahmud.com"
@@ -16,7 +17,7 @@ logging:
   development_debug: allowed_via_devLog
 
 dependencies:
-  allow_major_next_upgrade: false  # requires CR + C2
+  allow_major_next_upgrade: false  # Next 16 C2 approved and implemented; further majors still need CR
   allow_force_audit_fix: false
 
 secrets:

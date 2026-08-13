@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import type { FontSize, WidgetPosition, Theme } from "@/lib/types";
 import { STORAGE_KEYS } from "@/lib/constants";
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 
 interface WidgetSettingsContextValue {
   theme: Theme;
@@ -28,56 +29,21 @@ export function WidgetSettingsProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // Initialize with "dark" as default to avoid hydration mismatch
-  // Update from localStorage after mount
-  const [theme, setThemeState] = useState<Theme>("dark");
-
-  // Load theme from localStorage after mount, default to "dark" if not set
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEYS.THEME) as Theme;
-      if (stored && (stored === "light" || stored === "dark")) {
-        setThemeState(stored);
-      } else {
-        // Default to dark mode if no stored preference
-        setThemeState("dark");
-        localStorage.setItem(STORAGE_KEYS.THEME, "dark");
-      }
-    }
-  }, []);
-
-  // Initialize with "medium" to avoid hydration mismatch
-  // Update from localStorage after mount
-  const [fontSize, setFontSizeState] = useState<FontSize>("medium");
-
-  // Load fontSize from localStorage after mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(STORAGE_KEYS.FONT_SIZE) as FontSize;
-      if (
-        stored &&
-        (stored === "small" || stored === "medium" || stored === "large")
-      ) {
-        setFontSizeState(stored);
-      }
-    }
-  }, []);
-
-  // Initialize with "bottom-right" to avoid hydration mismatch
-  // Update from localStorage after mount
-  const [position, setPositionState] = useState<WidgetPosition>("bottom-right");
-
-  // Load position from localStorage after mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem(
-        STORAGE_KEYS.WIDGET_POSITION,
-      ) as WidgetPosition;
-      if (stored && (stored === "bottom-right" || stored === "bottom-left")) {
-        setPositionState(stored);
-      }
-    }
-  }, []);
+  const [theme, setTheme] = useSyncedStorage<Theme>(
+    STORAGE_KEYS.THEME,
+    "dark",
+    ["light", "dark"],
+  );
+  const [fontSize, setFontSize] = useSyncedStorage<FontSize>(
+    STORAGE_KEYS.FONT_SIZE,
+    "medium",
+    ["small", "medium", "large"],
+  );
+  const [position, setPosition] = useSyncedStorage<WidgetPosition>(
+    STORAGE_KEYS.WIDGET_POSITION,
+    "bottom-right",
+    ["bottom-right", "bottom-left"],
+  );
 
   // Apply theme to widget elements
   // Apply dark class to BOTH html (for Tailwind dark: classes) AND widget container (for our CSS)
@@ -117,21 +83,6 @@ export function WidgetSettingsProvider({
       }
     }
   }, [theme]);
-
-  const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme);
-    localStorage.setItem(STORAGE_KEYS.THEME, newTheme);
-  }, []);
-
-  const setFontSize = useCallback((newSize: FontSize) => {
-    setFontSizeState(newSize);
-    localStorage.setItem(STORAGE_KEYS.FONT_SIZE, newSize);
-  }, []);
-
-  const setPosition = useCallback((newPosition: WidgetPosition) => {
-    setPositionState(newPosition);
-    localStorage.setItem(STORAGE_KEYS.WIDGET_POSITION, newPosition);
-  }, []);
 
   const value: WidgetSettingsContextValue = {
     theme,

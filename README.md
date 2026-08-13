@@ -9,7 +9,7 @@
 [![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-1.2.12-blue)](https://www.shadcn.com/)
 [![i18next](https://img.shields.io/badge/i18next-25.8.0-blue)](https://www.i18next.com/)
 
-A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, internationalization (i18n), and stunning animations.
+A cutting-edge, production-ready portfolio website built with **Next.js 16**, **React 19**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, internationalization (i18n), and stunning animations.
 
 - **Live Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
 
@@ -54,7 +54,7 @@ This is a **production-ready, modern portfolio website** that demonstrates best 
 
 ### Key Highlights
 
-- **Next.js 15** with App Router and Server Components
+- **Next.js 16** with App Router and Server Components
 - **TypeScript** for type safety throughout the codebase
 - **Internationalization (i18n)** - English and German support
 - **Email Integration** - Contact form with auto-reply functionality
@@ -71,7 +71,7 @@ This is a **production-ready, modern portfolio website** that demonstrates best 
 
 ### Core Features
 
-- ⚡ **Next.js 15** with App Router and Server Components
+- ⚡ **Next.js 16** with App Router and Server Components
 - 🎨 **Modern UI/UX** with TailwindCSS and Shadcn UI components
 - 🎭 **Smooth Animations** powered by Framer Motion
 - 📱 **Fully Responsive** design for all devices
@@ -105,7 +105,7 @@ This is a **production-ready, modern portfolio website** that demonstrates best 
 
 ### Frontend
 
-- **Framework:** Next.js 15.5.9 (React 18.3.1)
+- **Framework:** Next.js 16.3 (React 19.2)
 - **Language:** TypeScript 5.7.2
 - **Styling:** TailwindCSS 3.4.17
 - **Animations:** Framer Motion 12.23.24
@@ -131,7 +131,7 @@ This is a **production-ready, modern portfolio website** that demonstrates best 
 
 - **Package Manager:** npm/yarn/pnpm
 - **Linting:** ESLint 8.57.0
-- **Build Tool:** Turbopack (Next.js 15)
+- **Build Tool:** Turbopack (Next.js 16 default)
 - **Deployment:** Vercel
 
 ---
@@ -233,13 +233,12 @@ portfolio-arnob-new/
 │   └── robots.txt              # SEO robots file
 │
 ├── .env.local                    # Environment variables (not in repo)
-├── .eslintignore                # ESLint ignore rules
-├── .eslintrc.json               # ESLint configuration
+├── eslint.config.mjs            # ESLint 9 flat config (Next 16)
 ├── .gitignore                   # Git ignore rules
 ├── global.d.ts                  # Global TypeScript declarations
 ├── LICENSE                      # MIT License
-├── middleware.ts                # Next.js middleware (language detection)
-├── next.config.js               # Next.js configuration
+├── proxy.ts                     # Next.js 16 request interceptor (language + pathname headers)
+├── next.config.mjs              # Next.js configuration
 ├── package.json                 # Project dependencies
 ├── postcss.config.mjs           # PostCSS configuration
 ├── tailwind.config.js           # TailwindCSS configuration
@@ -255,7 +254,7 @@ portfolio-arnob-new/
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** 18.17 or higher ([Download](https://nodejs.org/))
+- **Node.js** 20.9 or higher ([Download](https://nodejs.org/))
 - **npm** (comes with Node.js) or **yarn** or **pnpm**
 - **Git** for version control
 - A **Gmail account** (for email functionality)
@@ -541,7 +540,7 @@ export const translations = {
 // In context/LanguageContext.tsx
 export type Language = "en" | "de" | "fr"; // Add new language
 
-// In middleware.ts
+// In proxy.ts
 const supportedLanguages = ["en", "de", "fr"]; // Add new language
 ```
 
@@ -1463,7 +1462,7 @@ console.log("Reference:", autoReply.data.referenceNumber);
 
 ### App Router Structure
 
-Next.js 15 uses the **App Router** with file-based routing.
+Next.js 16 uses the **App Router** with file-based routing.
 
 | Route       | File                    | Component      | Description                |
 | ----------- | ----------------------- | -------------- | -------------------------- |
@@ -2694,7 +2693,7 @@ npm run build
 **Language not persisting:**
 
 - Check cookie settings in browser
-- Verify `middleware.ts` is properly configured
+- Verify `proxy.ts` is properly configured
 - Check `LanguageContext.tsx` for cookie setting logic
 
 **Translations not loading:**
@@ -2799,7 +2798,7 @@ The codebase is well-documented and structured for easy understanding and extens
 
 ### Key Takeaways
 
-- **Next.js 15** provides excellent developer experience with App Router
+- **Next.js 16** provides excellent developer experience with App Router
 - **TypeScript** ensures type safety and better code quality
 - **TailwindCSS** enables rapid UI development
 - **Framer Motion** creates smooth, professional animations

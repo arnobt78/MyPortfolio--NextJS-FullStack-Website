@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "skipLibCheck": true,
     "strict": true,
@@ -14,15 +20,23 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-    "types": ["node", "react", "react-dom", "nodemailer"],
-    "typeRoots": ["./node_modules/@types", "./"],
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "nodemailer"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./"
+    ],
     "forceConsistentCasingInFileNames": true,
     "target": "ES2017"
   },
@@ -31,7 +45,10 @@
     "global.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

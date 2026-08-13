@@ -2,8 +2,9 @@
 
 | REQ | Component | Interface | Data store |
 |-----|-----------|-----------|------------|
-| REQ-0001 | middleware, layout | HTTP 308, canonical link | — |
-| REQ-0005 | `/api/chat`, `lib/ai`, `lib/rag` | SSE stream, Edge runtime | Upstash Redis sessions |
+| REQ-0001 | next.config redirects, layout canonical | HTTP 308, `<link rel="canonical">` | — |
+| REQ-0001 / 0012 | `proxy.ts` | `x-initial-language`, `x-pathname` | Next 16 Node proxy |
+| REQ-0017 | `lib/ai.ts` getAIResponse | Gemini / OpenRouter :free / Groq OSS / HF router / optional OpenAI | — |
 | REQ-0006 | package.json | npm overrides | — |
 | REQ-0007 | lib/logger, Sentry | captureApiError | Sentry project portfolio-arnob |
 | REQ-0007 | send-email, feedback routes | SMTP nodemailer | — |

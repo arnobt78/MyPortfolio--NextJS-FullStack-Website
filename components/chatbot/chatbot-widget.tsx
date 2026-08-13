@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { FONT_SIZES } from "@/lib/constants";
 import { CHATBOT_CSS_VARS } from "@/lib/chatbot-theme";
 import { X, Send, Bot } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { ChatHistorySkeleton } from "./message-skeleton";
 
 /**
@@ -29,37 +29,40 @@ export function ChatbotWidget() {
   } = useChat();
   const { fontSize, position } = useWidgetSettings();
   const tokens = useChatbotTheme();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [hideReactWidget, setHideReactWidget] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [inputFocused, setInputFocused] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const menuPortalRef = useRef<HTMLDivElement>(null);
-  const [config, setConfig] = useState({
-    title: t("chatbot.title"),
-    greeting: t("chatbot.greeting"),
-    placeholder: t("chatbot.placeholder"),
-  });
-
-  // Load config from window after mount to avoid hydration mismatch
-  // Also update when language changes
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      interface WindowWithChatbotConfig extends Window {
+  const [menuPortalNode, setMenuPortalNode] = useState<HTMLDivElement | null>(
+    null,
+  );
+  const windowConfig = useSyncExternalStore(
+    () => () => {},
+    () => {
+      const win = window as Window & {
         CHATBOT_TITLE?: string;
         CHATBOT_GREETING?: string;
         CHATBOT_PLACEHOLDER?: string;
-      }
-      const win = window as WindowWithChatbotConfig;
-      setConfig({
-        title: win.CHATBOT_TITLE || t("chatbot.title"),
-        greeting: win.CHATBOT_GREETING || t("chatbot.greeting"),
-        placeholder: win.CHATBOT_PLACEHOLDER || t("chatbot.placeholder"),
-      });
-    }
-  }, [t, language]);
+      };
+      return {
+        title: win.CHATBOT_TITLE,
+        greeting: win.CHATBOT_GREETING,
+        placeholder: win.CHATBOT_PLACEHOLDER,
+      };
+    },
+    () => ({
+      title: undefined as string | undefined,
+      greeting: undefined as string | undefined,
+      placeholder: undefined as string | undefined,
+    }),
+  );
+  const config = {
+    title: windowConfig.title || t("chatbot.title"),
+    greeting: windowConfig.greeting || t("chatbot.greeting"),
+    placeholder: windowConfig.placeholder || t("chatbot.placeholder"),
+  };
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -98,11 +101,11 @@ export function ChatbotWidget() {
   // Position classes are handled via inline styles in widget.js
   // const positionClasses = WIDGET_POSITIONS[position];
 
-  // Keep first client render identical to server render, then toggle if vanilla widget exists.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    setHideReactWidget(Boolean(document.getElementById("cb-btn")));
-  }, []);
+  const hideReactWidget = useSyncExternalStore(
+    () => () => {},
+    () => Boolean(document.getElementById("cb-btn")),
+    () => false,
+  );
 
   if (hideReactWidget) return null;
 
@@ -216,13 +219,13 @@ export function ChatbotWidget() {
             </h3>
           </div>
           <div className="relative shrink-0 z-[100001]">
-            <WidgetMenu menuPortalRef={menuPortalRef} />
+            <WidgetMenu menuPortalNode={menuPortalNode} />
           </div>
         </div>
 
         {/* Portal target for menu dropdown — outside header layout so menu does not expand header */}
         <div
-          ref={menuPortalRef}
+          ref={setMenuPortalNode}
           className="absolute left-0 right-0 top-14 bottom-0 z-[99998] pointer-events-none sm:top-16"
           aria-hidden
         />

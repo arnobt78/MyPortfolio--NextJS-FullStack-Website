@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 const supportedLanguages = ["en", "de"];
 
+// Next 16 request interceptor: keep `proxy` (Node runtime). Do not restore middleware.ts.
 export function proxy(request: NextRequest) {
   const cookieLang = request.cookies.get("selectedLanguage")?.value;
   let lang = "en";

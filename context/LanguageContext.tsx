@@ -5,13 +5,14 @@ import React, {
   useContext,
   ReactNode,
   useEffect,
-  useRef,
   useState,
   useMemo,
+  useSyncExternalStore,
 } from "react";
 import { useTranslation } from "react-i18next";
 import { getInitialLanguage } from "@/lib/language-detection";
 import { getClientPreferredLanguage } from "@/lib/language-cookie";
+import { useIsClient } from "@/hooks/use-is-client";
 
 export type Language = "en" | "de";
 
@@ -34,48 +35,32 @@ export function LanguageProvider({
   initialLanguage?: string;
 }) {
   const { i18n: i18nInstance } = useTranslation();
-  const [isHydrated, setIsHydrated] = useState(false);
-  const hasAppliedStorageOnce = useRef(false);
+  const isHydrated = useIsClient();
   const serverInitialLanguage =
     initialLanguage && (initialLanguage === "en" || initialLanguage === "de")
       ? initialLanguage
       : getInitialLanguage();
 
-  const [language, setLanguageState] = useState<Language>(() => {
-    return serverInitialLanguage as Language;
-  });
+  const storedLanguage = useSyncExternalStore(
+    () => () => {},
+    () => getClientPreferredLanguage(serverInitialLanguage) as Language,
+    () => serverInitialLanguage as Language,
+  );
+  const [languageOverride, setLanguageOverride] = useState<Language | null>(
+    null,
+  );
+  const language = languageOverride ?? storedLanguage;
 
   const currentLanguage = useMemo(() => language, [language]);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    setIsHydrated(true);
-    if (hasAppliedStorageOnce.current) return;
-    hasAppliedStorageOnce.current = true;
-    const preferred = getClientPreferredLanguage(serverInitialLanguage) as Language;
-    if (preferred === "en" || preferred === "de") {
-      setLanguageState(preferred);
-      i18nInstance.changeLanguage(preferred);
-      return;
-    }
-    const savedLanguage = localStorage.getItem(
-      "selectedLanguage",
-    ) as Language | null;
-    if (savedLanguage && (savedLanguage === "en" || savedLanguage === "de")) {
-      setLanguageState(savedLanguage);
-      i18nInstance.changeLanguage(savedLanguage);
-    }
-  }, [i18nInstance, serverInitialLanguage]);
-
-  useEffect(() => {
-    if (isHydrated && typeof window !== "undefined") {
-      localStorage.setItem("selectedLanguage", language);
-      i18nInstance.changeLanguage(language);
-    }
+    if (!isHydrated) return;
+    localStorage.setItem("selectedLanguage", language);
+    i18nInstance.changeLanguage(language);
   }, [language, isHydrated, i18nInstance]);
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
+    setLanguageOverride(lang);
     i18nInstance.changeLanguage(lang);
     if (typeof document !== "undefined") {
       try {

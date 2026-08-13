@@ -1,6 +1,6 @@
 /**
  * Sentry Edge Configuration
- * Runs in Edge Runtime (middleware, edge API routes)
+ * Runs in Edge Runtime (edge API routes; Next 16 proxy is Node-only)
  */
 
 import * as Sentry from "@sentry/nextjs";

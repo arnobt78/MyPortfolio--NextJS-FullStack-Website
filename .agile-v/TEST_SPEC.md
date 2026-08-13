@@ -15,6 +15,11 @@
 | TC-0009 | C1 | REQ-0004 | manual | Hero photo clipped inside ring (visual) | PASS |
 | TC-0010 | C1 | REQ-0011 | external | GSC `/services` indexed | PENDING |
 | TC-0011 | C1 | REQ-0013 | auto | Playwright/API smoke suite | NOT_IMPLEMENTED |
+| TC-0012 | C2 | REQ-0012 / 0014 | cli | `proxy.ts` present; Next 16 build lists Proxy; no `middleware.ts` | PASS |
+| TC-0013 | C2 | REQ-0012 | manual | GET `/services` canonical is `/services`, not only `/` | PASS |
+| TC-0014 | C2 | REQ-0012 | manual | `selectedLanguage=de` → `html lang="de"` first paint | PASS |
+| TC-0015 | C1.1a | REQ-0015 | cli | `.env.example` exists; no real secrets | PASS |
+| TC-0016 | C1.1a | REQ-0017 | manual | POST `/api/chat` 200 + stream on new free-tier chain | PASS |
 
 ## Regression baseline (C2+)
 

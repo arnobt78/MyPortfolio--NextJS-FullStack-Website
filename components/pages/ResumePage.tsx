@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore, type JSX } from "react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useIsClient } from "@/hooks/use-is-client";
 
 import {
   FaHtml5,
@@ -231,11 +232,21 @@ const getSkillsData = (t: (key: string) => string): SkillsData => ({
   ],
 });
 
+const VALID_RESUME_TABS = ["about", "experience", "education", "skills"];
+
 const ResumePage = () => {
   const { t } = useLanguage();
-  const [mounted, setMounted] = useState(false);
-  // Default to "about" for server-side rendering (prevents hydration mismatch)
-  const [activeTab, setActiveTab] = useState("about");
+  const mounted = useIsClient();
+  const hashTab = useSyncExternalStore(
+    () => () => {},
+    () => {
+      const hash = window.location.hash.slice(1);
+      return VALID_RESUME_TABS.includes(hash) ? hash : "about";
+    },
+    () => "about",
+  );
+  const [tabOverride, setTabOverride] = useState<string | null>(null);
+  const activeTab = tabOverride ?? hashTab;
 
   // Get translated data
   const about = getAboutData(t);
@@ -243,22 +254,9 @@ const ResumePage = () => {
   const education = getEducationData(t);
   const skills = getSkillsData(t);
 
-  // Read URL hash on client-side mount to restore tab state
-  useEffect(() => {
-    setMounted(true);
-    // Check if there's a hash in the URL (e.g., #experience, #education, #skills)
-    const hash = window.location.hash.slice(1); // Remove the # symbol
-    const validTabs = ["about", "experience", "education", "skills"];
-
-    if (hash && validTabs.includes(hash)) {
-      setActiveTab(hash);
-    }
-  }, []);
-
   // Update URL hash when tab changes (for refresh persistence)
   const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    // Update URL hash without causing page scroll
+    setTabOverride(value);
     window.history.replaceState(null, "", `#${value}`);
   };
 

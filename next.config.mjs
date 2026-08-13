@@ -28,18 +28,14 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(
-  nextConfig,
-  {
-    silent: true,
-    org: process.env.SENTRY_ORG,
-    project: process.env.SENTRY_PROJECT,
-    // Tunnel Sentry through our domain so ad blockers don't block it
-    tunnelRoute: "/monitoring",
+// Next 16 defaults to Turbopack for `next build`. Sentry 10+ is 2-arg; keep tunnelRoute so ad blockers cannot drop events.
+export default withSentryConfig(nextConfig, {
+  silent: true,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  tunnelRoute: "/monitoring",
+  widenClientFileUpload: true,
+  bundleSizeOptimizations: {
+    excludeDebugStatements: true,
   },
-  {
-    widenClientFileUpload: true,
-    hideSourceMaps: true,
-    disableLogger: true,
-  }
-);
+});

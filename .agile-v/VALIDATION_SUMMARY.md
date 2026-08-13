@@ -1,74 +1,61 @@
-# Validation Summary — Cycle C1
+# Validation Summary — Cycle C2
 
 <!-- One living summary per active cycle. Prior cycles archive to cycles/CN/ -->
 
-**Cycle:** C1  
+**Cycle:** C2  
 **Project:** portfolio-arnob-new  
-**Date:** 2026-05-14  
-**Verifier role:** Build Agent + Human smoke (Red Team formal pass deferred)
+**Date:** 2026-08-13  
+**Verifier role:** Build Agent (Red Team formal pass deferred)
 
-## EvalGate
+## EvalGate (C2)
 
 ```
-EvalGate: status=CONDITIONAL_PASS | eval_run_id=ER-C1-20260514-001 | policy_version_ref=1.0.0 | eval_results_path=.agile-v/EVAL_RESULTS.md
+EvalGate: status=CONDITIONAL_PASS | eval_run_id=ER-C2-20260813-001 | policy_version_ref=1.0.0 | eval_results_path=.agile-v/EVAL_RESULTS.md
 ```
 
-**Rationale:** Manual + CLI evidence PASS; no automated test suite executed (REQ-0013 deferred).
+**Rationale:** lint/tsc/audit/build PASS; home `/services` chat language-cookie smoke PASS. No automated suite (REQ-0013 deferred). Production deploy not requested.
 
 ---
 
-## Summary
-
-| Metric | Count |
-|--------|-------|
-| REQs in scope | 11 (10 approved, 1 pending external) |
-| PASS | 10 |
-| FLAG | 3 |
-| FAIL | 0 |
-| CAPA open | 0 |
-
----
-
-## Evidence by REQ
+## C2 evidence
 
 | REQ | Result | Evidence |
 |-----|--------|----------|
-| REQ-0001 | PASS | GSC validation passed; redirects in repo |
-| REQ-0002 | PASS | Sentry ignoreErrors; extension-origin errors filtered |
-| REQ-0003 | PASS | Privacy/Terms suppressHydrationWarning |
-| REQ-0004 | PASS | Photo.tsx layout; visual review |
-| REQ-0005 | PASS | POST /api/chat 200 (~4s local); no stack overflow |
-| REQ-0006 | PASS | `npm audit` → 0 vulnerabilities |
-| REQ-0007 | PASS | logger wired; grep shows no raw console in app code |
-| REQ-0008 | FLAG | Dev Turbopack warnings remain; prod build OK |
-| REQ-0009 | PASS | Production deploy; Sentry for API errors |
-| REQ-0010 | PASS | `npm run lint`, `npm run build` exit 0 |
-| REQ-0011 | PENDING | GSC indexing wait |
-| REQ-0012 | DEFERRED | — |
-| REQ-0013 | DEFERRED | No automated tests |
+| REQ-0012 | PASS | Next 16.3.0 Turbopack build; `ƒ Proxy (Middleware)`; React 19.2.8 |
+| REQ-0014 | SUPERSEDED | `proxy.ts` kept; no `middleware.ts` |
+| REQ-0016 | PASS | README/AGENTS/CLAUDE interceptor = `proxy.ts` |
+| REQ-0005 | PASS | POST `/api/chat` 200 SSE + `[DONE]` |
+| REQ-0006 | PASS | `npm audit` 0 |
+
+### CLI (2026-08-13)
+
+```
+node -v          → v22.22.3
+npm run lint     → exit 0
+npx tsc --noEmit → exit 0
+npm audit        → 0 vulnerabilities
+npm run build    → exit 0, Next.js 16.3.0 (Turbopack), Proxy listed
+GET /            → 200 html lang=en
+GET /services    → 200 canonical https://www.arnobmahmud.com/services
+Cookie selectedLanguage=de → html lang="de"
+POST /api/chat   → 200 text/event-stream + [DONE] (~1.9s)
+```
+
+Official `npx @next/codemod@canary upgrade latest` failed on npm 12 (`--field` unsupported). Stack pinned manually; `proxy.ts` kept.
 
 ---
 
-## CLI verification (2026-05-14)
+## C1 / C1.1a (unchanged history)
 
-```
-npm install     → 0 vulnerabilities
-npm run lint    → exit 0
-npm run build   → exit 0, 18 routes
-npm run dev     → pages 200, chat 200, email 200
-Vercel deploy   → Ready ~4m, commit 5192e3e
-```
-
----
+See prior entries in git for 2026-05-14 and C1.1a LLM work. REQ-0011 still PENDING (GSC). REQ-0013 still deferred.
 
 ## FLAGS (non-blocking)
 
-1. **REQ-0008** — `import-in-the-middle` 3.0.1 vs 2.0.6 under `next dev --turbo`
-2. **Browser** — QuillBot extension console noise (not application)
-3. **REQ-0011** — Search Console `/services` not yet indexed
-
----
+1. **REQ-0008** — `import-in-the-middle` 3.0.1 pin retained
+2. **REQ-0011** — Search Console `/services` not yet indexed
+3. **Edge runtime** — Next 16 deprecation warning on `/api/chat`; plan keeps Edge
+4. **Chat Edge vs proxy Node** — both remain; proxy is Node-only
 
 ## Red Team note
 
-Independent Red Team Verifier pass not recorded. Gate 2 marked **CONDITIONAL** until REQ-0013 smoke automation or formal RT sign-off.
+Independent Red Team Verifier pass not recorded. Gate 2 remains **CONDITIONAL**. C2 is not a production deploy.

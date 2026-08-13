@@ -11,19 +11,17 @@ export const useTypewriter = ({
   speed = 100,
   delay = 0,
 }: UseTypewriterOptions) => {
+  const [typedFor, setTypedFor] = useState(text);
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
 
-  useEffect(() => {
-    // Reset state when text changes
+  if (typedFor !== text) {
+    setTypedFor(text);
     setDisplayText("");
     setCurrentIndex(0);
-    setIsComplete(false);
-  }, [text]);
+  }
 
   useEffect(() => {
-    // Initial delay before starting to type
     if (currentIndex === 0 && delay > 0) {
       const delayTimeout = setTimeout(() => {
         setCurrentIndex(1);
@@ -31,7 +29,6 @@ export const useTypewriter = ({
       return () => clearTimeout(delayTimeout);
     }
 
-    // Type characters one by one
     if (currentIndex > 0 && currentIndex <= text.length) {
       const timeout = setTimeout(() => {
         setDisplayText(text.slice(0, currentIndex));
@@ -40,12 +37,9 @@ export const useTypewriter = ({
 
       return () => clearTimeout(timeout);
     }
+  }, [currentIndex, text, speed, delay]);
 
-    // Mark as complete when done
-    if (currentIndex > text.length && !isComplete) {
-      setIsComplete(true);
-    }
-  }, [currentIndex, text, speed, delay, isComplete]);
+  const isComplete = text.length === 0 || currentIndex > text.length;
 
   return { displayText, isComplete };
 };
